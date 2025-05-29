@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            sans-serif;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        font-variation-settings: normal;
+    }
+
+    html,
+    body {
+        @apply bg-gray-50 text-gray-900;
+        scroll-behavior: smooth;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+        font-variant-ligatures: common-ligatures;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+#__next {
+    height: 100dvh;
+    width: 100dvw;
+    display: flex;
+    flex-direction: column;
+}
+
+@layer base {
+    ::-webkit-scrollbar {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: #f3f4f6;
+        border-radius: 0.5rem;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 0.5rem;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+    }
+}
+
+@layer components {
+    .input-field-container {
+        @apply flex flex-col gap-2 w-full;
+    }
+
+    .input-field-label {
+        @apply block text-sm font-medium text-gray-700;
+        font-weight: 500;
+    }
+
+    .input-field-required {
+        @apply text-red-500;
+    }
+
+    .input-field-base {
+        @apply w-full max-h-12 px-3 py-2 border rounded-lg transition-all duration-200 
+               text-sm placeholder-gray-500 focus:outline-none focus:ring-2;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .input-field-normal {
+        @apply border-gray-300 bg-white hover:border-gray-400 
+               focus:border-blue-500 focus:ring-blue-200;
+    }
+
+    .input-field-error {
+        @apply border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-200;
+    }
+
+    .input-field-disabled {
+        @apply bg-gray-50 text-gray-500 cursor-not-allowed;
+    }
+
+    .input-field-error-text {
+        @apply text-red-500 text-xs mt-1 block font-medium;
+        font-weight: 500;
+    }
+}
+
+@layer components {
+    .button-base {
+        @apply w-full px-4 py-2 border rounded-lg transition-all duration-200 
+               text-sm font-medium focus:outline-none focus:ring-2 cursor-pointer;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        min-height: 3rem;
+    }
+
+    .button-primary {
+        @apply bg-blue-500 border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
+               focus:ring-blue-200 focus:border-blue-500;
+    }
+
+    .button-secondary {
+        @apply bg-red-500 border-red-500 text-white hover:bg-red-600 hover:border-red-600
+               focus:ring-red-200 focus:border-red-500;
+    }
+
+    .button-disabled {
+        @apply bg-gray-50 border-gray-300 text-gray-500 cursor-not-allowed
+               hover:bg-gray-50 hover:border-gray-300;
+    }
+
+    .button-loading {
+        @apply bg-gray-400 border-gray-400 text-white cursor-not-allowed opacity-75
+               hover:bg-gray-400 hover:border-gray-400;
+    }
+}
+
+@layer components {
+    .login-form-container {
+        @apply flex flex-col gap-4 w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-200;
+    }
+
+    .login-form-header {
+        @apply flex flex-col items-center;
+    }
+
+    .login-form-title {
+        @apply text-2xl font-semibold text-gray-900 text-center;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .login-form-subtitle {
+        @apply text-sm text-gray-600 text-center;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .login-form {
+        @apply flex flex-col gap-4;
+    }
+
+    .login-form-fields {
+        @apply space-y-4 my-4;
+    }
+
+    .login-form-container:focus-within {
+        @apply ring-2 ring-blue-200 ring-opacity-50;
+    }
+
+    .login-form-container .button-base {
+        @apply font-medium;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+}
+
+@layer components {
+    .main {
+        @apply p-8 bg-gray-50;
+        height: 100dvh;
+        width: 100dvw;
+        font-family:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            sans-serif;
+    }
+
+    .middle-content {
+        @apply flex items-center justify-center;
+    }
+
+    .main-div-container {
+        @apply w-full h-full;
+        position: relative;
+        z-index: 10;
+    }
+
+    .main-head-container {
+        @apply border-b border-gray-400 pb-6;
+    }
+
+    .main-title-container {
+        @apply flex items-center justify-between px-8;
+        height: 2.5rem;
+    }
+
+    .main-title {
+        @apply flex items-center;
+    }
+
+    .main-title-extra {
+        @apply flex items-center;
+    }
+
+    .main-title h1 {
+        @apply text-2xl font-semibold text-gray-900;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+    }
+
+    .main-inner-container {
+        @apply flex flex-col gap-4 px-8;
+    }
+
+    .main-middle-content {
+        @apply flex items-center justify-center h-full w-full;
+    }
+
+    .spinner-container {
+        @apply flex items-center justify-center w-full;
+        height: 86vh;
+    }
+
+    .Toastify__toast-container {
+        @apply font-sans;
+        font-family:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            sans-serif;
+    }
+
+    .Toastify__toast {
+        @apply rounded-lg shadow-lg border;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .Toastify__toast--success {
+        @apply bg-green-50 border-green-200 text-green-800;
+    }
+
+    .Toastify__toast--error {
+        @apply bg-red-50 border-red-200 text-red-800;
+    }
+
+    .Toastify__toast--info {
+        @apply bg-blue-50 border-blue-200 text-blue-800;
+    }
+
+    .Toastify__toast--warning {
+        @apply bg-yellow-50 border-yellow-200 text-yellow-800;
+    }
+
+    .Toastify__progress-bar {
+        @apply bg-current opacity-30;
+    }
+}
+
+@layer components {
+    .navigation-container {
+        @apply bg-white border-b border-gray-200 shadow-sm;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .navigation-wrapper {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .navigation-content {
+        @apply flex items-center justify-between h-16;
+    }
+
+    .navigation-brand {
+        @apply flex items-center;
+    }
+
+    .navigation-title {
+        @apply text-xl font-semibold text-gray-900;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .navigation-menu {
+        @apply hidden md:flex items-center space-x-8;
+    }
+
+    .nav-link {
+        @apply px-3 py-2 rounded-md text-sm font-medium transition-all duration-200;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        color: #6b7280;
+        text-decoration: none;
+    }
+
+    .nav-link:hover {
+        @apply text-gray-900 bg-gray-50;
+    }
+
+    .nav-link-active {
+        @apply text-blue-600 bg-blue-50;
+    }
+
+    .nav-link-active:hover {
+        @apply text-blue-700 bg-blue-100;
+    }
+
+    .navigation-actions {
+        @apply flex items-center space-x-4;
+    }
+
+    .nav-button {
+        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 
+               focus:outline-none focus:ring-2 cursor-pointer;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        min-height: 2.5rem;
+    }
+
+    .nav-button-primary {
+        @apply bg-blue-500 text-white hover:bg-blue-600 
+               focus:ring-blue-200 border border-blue-500;
+    }
+
+    .nav-button-secondary {
+        @apply bg-white text-gray-700 hover:bg-gray-50 
+               focus:ring-gray-200 border border-gray-300;
+    }
+
+    .nav-button-logout {
+        @apply bg-red-500 text-white hover:bg-red-600 
+               focus:ring-red-200 border border-red-500;
+    }
+
+    .mobile-menu-button {
+        @apply md:hidden inline-flex items-center justify-center p-2 rounded-md 
+               text-gray-400 hover:text-gray-500 hover:bg-gray-100 
+               focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500;
+    }
+
+    .mobile-menu {
+        @apply md:hidden border-t border-gray-200 bg-white;
+    }
+
+    .mobile-menu-content {
+        @apply px-2 pt-2 pb-3 space-y-1;
+    }
+
+    .mobile-nav-link {
+        @apply block px-3 py-2 rounded-md text-base font-medium transition-all duration-200;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        color: #6b7280;
+        text-decoration: none;
+    }
+
+    .mobile-nav-link:hover {
+        @apply text-gray-900 bg-gray-50;
+    }
+
+    .mobile-nav-link-active {
+        @apply text-blue-600 bg-blue-50;
+    }
+
+    .mobile-nav-actions {
+        @apply px-3 py-2 border-t border-gray-200 space-y-2;
+    }
+}
