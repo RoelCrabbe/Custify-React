@@ -385,3 +385,58 @@
         @apply px-3 py-2 border-t border-gray-200 space-y-2;
     }
 }
+
+@layer components {
+    .error-page-content {
+        @apply flex flex-col items-center max-w-md mx-auto text-center;
+    }
+
+    .error-page-icon {
+        @apply mx-auto w-24 h-24 text-gray-400;
+    }
+
+    .error-page-info {
+        @apply flex flex-col items-center gap-4 mb-4;
+    }
+
+    .error-page-code {
+        @apply text-6xl font-bold text-gray-900;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1;
+    }
+
+    .error-page-title {
+        @apply text-2xl font-semibold text-gray-900;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .error-page-description {
+        @apply text-gray-600 leading-relaxed;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .error-page-actions {
+        @apply flex flex-col sm:flex-row gap-4 justify-center;
+    }
+
+    .error-page-button {
+        @apply px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 
+               focus:outline-none focus:ring-2 cursor-pointer;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        min-height: 3rem;
+    }
+
+    .error-page-button-primary {
+        @apply bg-blue-500 border border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
+               focus:ring-blue-200 focus:border-blue-500;
+    }
+
+    .error-page-button-secondary {
+        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
+               focus:ring-gray-200 focus:border-gray-300;
+    }
+}
