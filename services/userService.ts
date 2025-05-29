@@ -11,8 +11,8 @@ const loginUser = (user: User) => {
     });
 };
 
-const signUpUser = (user: User) => {
-    return fetch(processEnv.getApiUrl() + '/users/signup', {
+const registerUser = (user: User) => {
+    return fetch(processEnv.getApiUrl() + '/users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -23,5 +23,5 @@ const signUpUser = (user: User) => {
 
 export const userService = {
     loginUser,
-    signUpUser,
+    registerUser,
 };

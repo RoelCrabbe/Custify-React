@@ -1,25 +1,25 @@
 import ErrorMessage from '@components/layout/ErrorMessage';
 import MainLayout from '@components/layout/MainLayout';
-import UserRegisterForm from '@components/users/UserRegisterForm';
+import UserLoginForm from '@components/users/UserLoginForm';
 import { usePageLoadTime } from '@hooks/usePageLoadTime';
 import { userService } from '@services/userService';
 import { ErrorLabelMessage } from '@types';
 import { t } from 'i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import router from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
-const SignUp: React.FC = () => {
+const Home: React.FC = () => {
     const [errorLabelMessage, setErrorLabelMessage] = useState<ErrorLabelMessage>();
     usePageLoadTime();
 
-    const handleRegister = async (data: any) => {
+    const handleLogin = async (data: any) => {
         setErrorLabelMessage(undefined);
 
         try {
-            const userResponse = await userService.signUpUser(data);
+            const userResponse = await userService.loginUser(data);
             const userJson = await userResponse.json();
 
             if (!userResponse.ok) {
@@ -49,12 +49,12 @@ const SignUp: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName={'Register'} isMiddleContent>
-                <UserRegisterForm
-                    onSubmit={handleRegister}
+            <MainLayout pageName={'Login'} isMiddleContent>
+                <UserLoginForm
+                    onSubmit={handleLogin}
                     onClearError={() => setErrorLabelMessage(undefined)}>
                     {errorLabelMessage && <ErrorMessage errorLabelMessage={errorLabelMessage} />}
-                </UserRegisterForm>
+                </UserLoginForm>
             </MainLayout>
         </>
     );
@@ -70,4 +70,4 @@ export const getServerSideProps = async (context: any) => {
     };
 };
 
-export default SignUp;
+export default Home;
