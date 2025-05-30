@@ -132,14 +132,14 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
 
     return (
         <>
-            <div className="login-form-container">
+            <div className="register-form-container">
                 <section className="login-form-header">
                     <h1 className="login-form-title">Create Account</h1>
                     <span className="login-form-subtitle">Please fill out the form below</span>
                 </section>
 
                 <form onSubmit={handleSubmit} className="login-form">
-                    <div className="login-form-fields">
+                    <div className="register-form-fields">
                         <InputField
                             type="text"
                             label="First Name"

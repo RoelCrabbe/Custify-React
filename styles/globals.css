@@ -137,9 +137,19 @@
 }
 
 @layer components {
-    .login-form-container {
-        @apply flex flex-col gap-6 w-full max-w-md mx-auto p-8 bg-white rounded-2xl shadow-xl border border-gray-100;
+    .form-container-base {
+        @apply flex flex-col w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-gray-100;
         background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+
+    .login-form-container {
+        @apply form-container-base gap-6 p-8;
+    }
+
+    .register-form-container {
+        @apply form-container-base gap-4 p-6;
     }
 
     .login-form-header {
@@ -166,7 +176,12 @@
         @apply space-y-5 my-2;
     }
 
-    .login-form-container:focus-within {
+    .register-form-fields {
+        @apply space-y-4 my-2;
+    }
+
+    .login-form-container:focus-within,
+    .register-form-container:focus-within {
         @apply ring-2 ring-blue-500 ring-opacity-20;
         box-shadow:
             0 0 0 3px rgba(59, 130, 246, 0.1),
