@@ -4,6 +4,7 @@ type BaseProps = {
     children: React.ReactNode;
     className?: string;
     hasBorder?: boolean;
+    isAside?: boolean;
 };
 
 type WithEaseIn = {
@@ -32,13 +33,14 @@ const FormContainer: React.FC<Props> = ({
     children,
     className,
     hasBorder,
+    isAside,
     easeIn,
     isVisible,
     isColumn,
     gap,
 }: Props) => {
     const getButtonClasses = () => {
-        let classes = 'bg-white transition-all duration-800';
+        let classes = 'bg-white transition-all duration-800 ease-in-out';
         if (hasBorder) classes += ' border border-gray-200 hover:border-gray-300 rounded-lg';
         if (easeIn)
             classes += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
@@ -47,11 +49,12 @@ const FormContainer: React.FC<Props> = ({
         return classes;
     };
 
-    return (
-        <>
-            <div className={getButtonClasses()}>{children}</div>
-        </>
-    );
+    const getContainer = () => {
+        if (isAside) return <aside className={getButtonClasses()}>{children}</aside>;
+        return <div className={getButtonClasses()}>{children}</div>;
+    };
+
+    return <>{getContainer()}</>;
 };
 
 export default memo(FormContainer);

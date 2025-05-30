@@ -37,6 +37,3 @@ cypress/downloads
 
 .DS_Store
 .env
-
-# Ignore VS code folder
-/.vscode/

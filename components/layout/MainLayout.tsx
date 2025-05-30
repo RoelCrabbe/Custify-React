@@ -1,29 +1,48 @@
-import Navigation from '@components/layout/Navigation';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import { ClipLoader } from 'react-spinners';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminSidebar from './AdminSidebar';
+import Navigation from './Navigation';
 
-type Props = {
+type BaseProps = {
     pageName: string;
     children: ReactNode;
     pageTitle?: string;
     isLoading?: boolean;
-    isMiddleContent?: boolean;
 };
+
+type MiddleOnly = {
+    isMiddleContent: true;
+    isSideBarContent?: false;
+};
+
+type SideOnly = {
+    isSideBarContent: true;
+    isMiddleContent?: false;
+};
+
+type Neutral = {
+    isSideBarContent?: false;
+    isMiddleContent?: false;
+};
+
+type Props = BaseProps & (MiddleOnly | SideOnly | Neutral);
 
 const MainLayout: React.FC<Props> = ({
     pageName,
     pageTitle,
     children,
     isLoading = false,
+    isSideBarContent = false,
     isMiddleContent = false,
 }: Props) => {
     const getMainClassName = () => {
         let classes = 'main';
         if (isLoading) classes += ' loading';
+        if (isSideBarContent) classes += ' sidebar-content';
         if (isMiddleContent) classes += ' middle-content';
         return classes;
     };
@@ -44,9 +63,11 @@ const MainLayout: React.FC<Props> = ({
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Navigation />
+            {!isSideBarContent && <Navigation />}
 
             <main className={getMainClassName()}>
+                {isSideBarContent && <AdminSidebar />}
+
                 <div className="main-div-container">
                     {(isLoading || pageTitle) && (
                         <header className="main-head-container">

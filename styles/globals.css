@@ -41,13 +41,14 @@
 
 @layer base {
     ::-webkit-scrollbar {
-        width: 0.5rem;
+        width: 0.65rem;
         height: 0.5rem;
     }
 
     ::-webkit-scrollbar-track {
         background-color: #f3f4f6;
         border-radius: 0.5rem;
+        margin-block: 0.5rem;
     }
 
     ::-webkit-scrollbar-corner {
@@ -203,6 +204,10 @@
             'Segoe UI',
             Roboto,
             sans-serif;
+    }
+
+    .sidebar-content {
+        @apply flex;
     }
 
     .middle-content {
@@ -556,5 +561,70 @@
 
     .settings-backdrop {
         @apply fixed inset-0 -z-10;
+    }
+}
+
+@layer components {
+    .admin-sidebar {
+        @apply h-full w-72 justify-center items-center shadow-sm z-40;
+    }
+
+    .admin-sidebar-header {
+        @apply flex items-center justify-between px-4 py-6 w-full border-b border-gray-200 min-h-20;
+    }
+
+    .admin-brand {
+        @apply flex items-center space-x-3;
+    }
+
+    .admin-brand-icon {
+        @apply text-2xl flex-shrink-0 text-blue-600;
+    }
+
+    .admin-brand-title {
+        @apply text-xl font-semibold text-blue-600;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .admin-collapse-btn {
+        @apply flex p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 
+               text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 
+               focus:ring-blue-200;
+    }
+
+    .admin-nav {
+        @apply flex-1 overflow-y-auto px-4 py-6;
+    }
+
+    .admin-nav-list {
+        @apply flex flex-col gap-2;
+    }
+
+    .admin-nav-link {
+        @apply flex items-center gap-6 p-2 rounded-lg text-gray-600 
+               hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 
+               text-sm font-medium no-underline;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+
+    .admin-nav-link-active {
+        @apply bg-blue-50 text-blue-600;
+    }
+
+    .admin-nav-link-active:hover {
+        @apply bg-blue-100 text-blue-700;
+    }
+
+    .admin-sidebar-footer {
+        @apply flex items-center justify-between px-4 py-3 w-full border-t border-gray-200 min-h-20;
+    }
+
+    .admin-logout-btn {
+        @apply w-full flex items-center gap-4 p-3 rounded-lg 
+               bg-red-500 hover:bg-red-600 text-white transition-all duration-200 
+               focus:outline-none focus:ring-2 focus:ring-red-200 text-sm font-medium;
+        font-weight: 500;
     }
 }
