@@ -1,5 +1,6 @@
 import MainLayout from '@components/layout/MainLayout';
 import Button from '@components/shared/Button';
+import FormContainer from '@components/shared/FormContainer';
 import { useEffect, useState } from 'react';
 
 const Home: React.FC = () => {
@@ -51,10 +52,12 @@ const Home: React.FC = () => {
     return (
         <MainLayout pageName={'Home'}>
             <div className="flex flex-col gap-16">
-                <div className="bg-white border-b border-gray-200">
-                    <div
-                        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        <div className="flex flex-col items-center gap-4 text-center">
+                <FormContainer hasBorder>
+                    <FormContainer
+                        easeIn
+                        isVisible={isVisible}
+                        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
+                        <FormContainer isColumn gap={'4'} className="items-center">
                             <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
                                 Welcome to <span className="text-blue-600">Custify</span>
                             </h1>
@@ -62,12 +65,12 @@ const Home: React.FC = () => {
                                 The professional customer management platform that streamlines your
                                 business operations and enhances customer relationships.
                             </p>
-                            <div className="flex justify-center">
+                            <div className="flex justify-center w-36">
                                 <Button onClick={() => {}}>Get Started</Button>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </FormContainer>
+                    </FormContainer>
+                </FormContainer>
 
                 <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col items-center gap-4 text-center">
@@ -82,16 +85,20 @@ const Home: React.FC = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {features.map((feature, index) => (
-                            <div
+                            <FormContainer
                                 key={index}
-                                className={`flex flex-col gap-2 bg-white p-6 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all duration-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                                style={{ transitionDelay: `${index * 100}ms` }}>
+                                hasBorder
+                                easeIn
+                                isVisible={isVisible}
+                                isColumn
+                                gap={'4'}
+                                className={'p-6 hover:shadow-sm'}>
                                 <div className="text-2xl">{feature.icon}</div>
                                 <h3 className="text-lg font-medium text-gray-900">
                                     {feature.title}
                                 </h3>
                                 <p className="text-gray-600 text-sm">{feature.description}</p>
-                            </div>
+                            </FormContainer>
                         ))}
                     </div>
                 </div>

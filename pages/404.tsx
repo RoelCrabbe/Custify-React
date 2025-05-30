@@ -35,7 +35,7 @@ const Custom404: React.FC = () => {
                     </section>
 
                     <div className="error-page-actions">
-                        <Link href="/" className="button-base button-primary">
+                        <Link href="/" className="error-page-button error-page-button-primary">
                             Go to Home
                         </Link>
                         <button

@@ -38,7 +38,7 @@ const Navigation: React.FC = () => {
                 <div className="navigation-wrapper">
                     <div className="navigation-content">
                         <div className="navigation-brand">
-                            <Link href={isLoggedIn ? '/dashboard' : '/'}>
+                            <Link href="/">
                                 <h1 className="navigation-title">Custify</h1>
                             </Link>
                         </div>
@@ -77,7 +77,17 @@ const Navigation: React.FC = () => {
                                 </button>
                             ) : (
                                 <>
-                                    {!isAuthPage && (
+                                    {isAuthPage ? (
+                                        <Link
+                                            href={
+                                                router.pathname === '/login'
+                                                    ? '/register'
+                                                    : '/login'
+                                            }
+                                            className="nav-button nav-button-primary">
+                                            {router.pathname === '/login' ? 'Sign Up' : 'Login'}
+                                        </Link>
+                                    ) : (
                                         <>
                                             <Link
                                                 href="/login"
@@ -90,17 +100,6 @@ const Navigation: React.FC = () => {
                                                 Sign Up
                                             </Link>
                                         </>
-                                    )}
-                                    {isAuthPage && (
-                                        <Link
-                                            href={
-                                                router.pathname === '/login'
-                                                    ? '/register'
-                                                    : '/login'
-                                            }
-                                            className="nav-button nav-button-primary">
-                                            {router.pathname === '/login' ? 'Sign Up' : 'Login'}
-                                        </Link>
                                     )}
                                 </>
                             )}
