@@ -12,3 +12,4 @@ To run the frontend locally, create a `.env` file in the root directory with the
     NEXT_PUBLIC_API_URL=http://localhost:3000
     NEXT_BASE_API_URL=http://localhost:8080
     NEXT_WEBSOCKET_API_URL=ws://localhost:8765
+```
