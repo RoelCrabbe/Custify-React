@@ -1,6 +1,6 @@
 # Custify: Frontend
 
-Custify is a modern customer relationship management (CRM) platform focused on simplicity and real-time interactions. This repository contains the frontend code built with Next.js and TypeScript.
+Custify is a modern customer relationship management (CRM) platform focused on simplicity and real-time interactions. This repository contains the frontend code built with Next.js and React.
 
 ---
 
