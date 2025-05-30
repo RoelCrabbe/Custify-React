@@ -567,6 +567,7 @@
 @layer components {
     .admin-sidebar {
         @apply h-full w-72 justify-center items-center shadow-sm z-40;
+        transition: width 300ms ease;
     }
 
     .admin-sidebar-header {
@@ -598,7 +599,7 @@
     }
 
     .admin-nav-list {
-        @apply flex flex-col gap-2;
+        @apply flex flex-col gap-2 items-start;
     }
 
     .admin-nav-link {

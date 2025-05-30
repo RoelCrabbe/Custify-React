@@ -90,9 +90,9 @@ const AdminSidebar: React.FC = () => {
         },
     ];
 
-    // if (!isLoggedIn) {
-    //     return null;
-    // }
+    if (!isLoggedIn) {
+        return null;
+    }
 
     return (
         <FormContainer
