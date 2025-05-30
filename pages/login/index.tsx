@@ -9,8 +9,8 @@ import router from 'next/router';
 import { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
-const Home: React.FC = () => {
-    const user = useCurrentUser();
+const Login: React.FC = () => {
+    const currentUser = useCurrentUser();
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleLogin = async (data: any) => {
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                 type: 'success',
             });
 
-            user.refetch();
+            currentUser.refetch();
 
             setTimeout(() => {
                 router.push('/');
@@ -66,4 +66,4 @@ export const getServerSideProps = async (context: any) => {
     };
 };
 
-export default Home;
+export default Login;

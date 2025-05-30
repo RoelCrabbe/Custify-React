@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Register: React.FC = () => {
-    const user = useCurrentUser();
+    const currentUser = useCurrentUser();
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleRegister = async (data: any) => {
@@ -33,7 +33,7 @@ const Register: React.FC = () => {
                 type: 'success',
             });
 
-            user.refetch();
+            currentUser.refetch();
 
             setTimeout(() => {
                 router.push('/');

@@ -1,12 +1,14 @@
 import { useCurrentUser } from '@provider/UserProvider';
+import { Role } from '@types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { getUserRole } from 'utils/authUtils';
 
 const Navigation: React.FC = () => {
     const router = useRouter();
-    const user = useCurrentUser();
+    const currentUser = useCurrentUser();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -19,7 +21,7 @@ const Navigation: React.FC = () => {
     }, [router.pathname]);
 
     const handleLogout = () => {
-        user.logout();
+        currentUser.logout();
         setIsLoggedIn(false);
         toast.success('You logged out successfully!');
         setTimeout(() => {
@@ -34,6 +36,7 @@ const Navigation: React.FC = () => {
     };
 
     const isAuthPage = router.pathname === '/login' || router.pathname === '/register';
+    const isAdmin = isLoggedIn && getUserRole(currentUser.getValue()) === Role.ADMIN;
 
     return (
         <>
@@ -63,6 +66,13 @@ const Navigation: React.FC = () => {
                                     className={getLinkClassName(router.pathname === '/orders')}>
                                     Orders
                                 </Link>
+                                {isAdmin && (
+                                    <Link
+                                        href="/admin"
+                                        className={getLinkClassName(router.pathname === '/admin')}>
+                                        Admin Panel
+                                    </Link>
+                                )}
                                 <Link
                                     href="/settings"
                                     className={getLinkClassName(router.pathname === '/settings')}>
