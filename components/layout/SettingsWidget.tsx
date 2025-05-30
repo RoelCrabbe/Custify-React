@@ -1,8 +1,12 @@
 import { faCog, faMoon, faSun, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCurrentUser } from '@provider/UserProvider';
+import { Role } from '@types';
 import { useEffect, useState } from 'react';
+import { getUserRole } from 'utils/authUtils';
 
-const SettingsWidget: React.FC<{ isAdmin?: boolean }> = ({ isAdmin = false }) => {
+const SettingsWidget: React.FC = () => {
+    const currentUser = useCurrentUser();
     const [isOpen, setIsOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
     const [userMode, setUserMode] = useState(false);
@@ -13,11 +17,11 @@ const SettingsWidget: React.FC<{ isAdmin?: boolean }> = ({ isAdmin = false }) =>
         if (saved) document.documentElement.classList.add('dark');
         else document.documentElement.classList.remove('dark');
 
-        if (isAdmin) {
+        if (getUserRole(currentUser.getValue()) === Role.ADMIN) {
             const savedUserMode = localStorage.getItem('userMode') === 'true';
             setUserMode(savedUserMode);
         }
-    }, [isAdmin]);
+    }, [getUserRole(currentUser.getValue())]);
 
     const toggleUserMode = () => {
         setUserMode((prev) => {
@@ -89,7 +93,7 @@ const SettingsWidget: React.FC<{ isAdmin?: boolean }> = ({ isAdmin = false }) =>
                                     </button>
                                 </div>
 
-                                {isAdmin && (
+                                {getUserRole(currentUser.getValue()) === Role.ADMIN && (
                                     <div className="settings-option">
                                         <div className="settings-option-info">
                                             <div className="settings-option-icon">

@@ -1,6 +1,7 @@
 import MainLayout from '@components/layout/MainLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserLoginForm from '@components/users/UserLoginForm';
+import { useCurrentUser } from '@provider/UserProvider';
 import { userService } from '@services/userService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -9,6 +10,7 @@ import { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Home: React.FC = () => {
+    const user = useCurrentUser();
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleLogin = async (data: any) => {
@@ -23,18 +25,15 @@ const Home: React.FC = () => {
                 return;
             }
 
-            localStorage.setItem(
-                'authToken',
-                JSON.stringify({
-                    token: userJson.token,
-                }),
-            );
+            localStorage.setItem('authToken', userJson.token);
 
             setLabelMessage({
                 label: 'Login Successful!',
                 message: 'Redirecting you to the dashboard...',
                 type: 'success',
             });
+
+            user.refetch();
 
             setTimeout(() => {
                 router.push('/');

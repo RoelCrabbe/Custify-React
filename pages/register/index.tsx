@@ -1,6 +1,7 @@
 import MainLayout from '@components/layout/MainLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserRegisterForm from '@components/users/UserRegisterForm';
+import { useCurrentUser } from '@provider/UserProvider';
 import { userService } from '@services/userService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -9,6 +10,7 @@ import React, { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Register: React.FC = () => {
+    const user = useCurrentUser();
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleRegister = async (data: any) => {
@@ -23,18 +25,15 @@ const Register: React.FC = () => {
                 return;
             }
 
-            localStorage.setItem(
-                'authToken',
-                JSON.stringify({
-                    token: userJson.token,
-                }),
-            );
+            localStorage.setItem('authToken', userJson.token);
 
             setLabelMessage({
                 label: 'Registered Successful!',
                 message: 'Redirecting you to the dashboard...',
                 type: 'success',
             });
+
+            user.refetch();
 
             setTimeout(() => {
                 router.push('/');

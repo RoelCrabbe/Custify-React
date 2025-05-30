@@ -1,9 +1,15 @@
+export enum Role {
+    ADMIN = 'ADMIN',
+    HR = 'HR',
+    USER = 'USER',
+}
+
 export type User = {
     username: string;
     firstName?: string;
     lastName?: string;
     email?: string;
-    role: string;
+    role: Role;
 };
 
 export type LabelMessage = {

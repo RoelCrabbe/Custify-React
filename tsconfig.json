@@ -6,7 +6,8 @@
             "@services/*": ["services/*"],
             "@types": ["types/index.ts"],
             "@styles/*": ["styles/*"],
-            "@hooks/*": ["hooks/*"]
+            "@hooks/*": ["hooks/*"],
+            "@provider/*": ["provider/*"]
         },
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,

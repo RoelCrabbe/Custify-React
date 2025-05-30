@@ -1,3 +1,4 @@
+import { useCurrentUser } from '@provider/UserProvider';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { toast } from 'react-toastify';
 
 const Navigation: React.FC = () => {
     const router = useRouter();
+    const user = useCurrentUser();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -17,7 +19,7 @@ const Navigation: React.FC = () => {
     }, [router.pathname]);
 
     const handleLogout = () => {
-        localStorage.clear();
+        user.logout();
         setIsLoggedIn(false);
         toast.success('You logged out successfully!');
         setTimeout(() => {
