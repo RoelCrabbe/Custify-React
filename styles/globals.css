@@ -233,7 +233,7 @@
 
     .spinner-container {
         @apply flex items-center justify-center w-full;
-        height: 86vh;
+        height: 72vh;
     }
 
     .Toastify__toast-container {

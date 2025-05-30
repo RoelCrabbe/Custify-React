@@ -51,7 +51,7 @@ const Home: React.FC = () => {
 
     return (
         <MainLayout pageName={'Home'}>
-            <div className="flex flex-col gap-16">
+            <div className="flex flex-col gap-16 mb-12">
                 <FormContainer hasBorder>
                     <FormContainer
                         easeIn

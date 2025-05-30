@@ -41,7 +41,7 @@ const MainLayout: React.FC<Props> = ({
                 <title>{pageName}</title>
                 <meta name="description" content={pageName + ' page'} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/wacoLogo.ico" />
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <Navigation />
@@ -62,7 +62,7 @@ const MainLayout: React.FC<Props> = ({
                         <div className="spinner-container">
                             <ClipLoader
                                 color="#3B82F6"
-                                size={60}
+                                size={96}
                                 cssOverride={{
                                     borderWidth: '4px',
                                 }}
