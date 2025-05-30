@@ -1,4 +1,3 @@
-import { useRenderLogger } from '@hooks/useRenderLogger';
 import React, { memo, useState } from 'react';
 
 type Props = {
@@ -23,7 +22,6 @@ const InputField: React.FC<Props> = ({
     disabled = false,
 }: Props) => {
     const [error, setError] = useState<any>(null);
-    useRenderLogger('InputField');
 
     const validateValue = (newValue: any) => {
         if (newValue && validate) {

@@ -1,9 +1,20 @@
 import MainLayout from '@components/layout/MainLayout';
 import Button from '@components/shared/Button';
 import FormContainer from '@components/shared/FormContainer';
+import {
+    faBolt,
+    faChartBar,
+    faChartLine,
+    faCogs,
+    faLock,
+    faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const Home: React.FC = () => {
+    const router = useRouter();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -12,37 +23,37 @@ const Home: React.FC = () => {
 
     const features = [
         {
-            icon: '👥',
+            icon: faUsers,
             title: 'Customer Management',
             description:
                 'Organize and track all your customer information in one centralized platform with advanced search and filtering.',
         },
         {
-            icon: '📊',
+            icon: faChartBar,
             title: 'Order Tracking',
             description:
                 'Monitor orders from creation to completion with real-time status updates and comprehensive reporting.',
         },
         {
-            icon: '🔧',
+            icon: faCogs,
             title: 'Customizable Settings',
             description:
                 'Tailor the platform to your business needs with flexible configuration options and personalized workflows.',
         },
         {
-            icon: '📈',
+            icon: faChartLine,
             title: 'Analytics & Insights',
             description:
                 'Get valuable business insights with detailed analytics, trend analysis, and performance metrics.',
         },
         {
-            icon: '🔒',
+            icon: faLock,
             title: 'Secure & Reliable',
             description:
                 'Enterprise-grade security with data encryption, regular backups, and 99.9% uptime guarantee.',
         },
         {
-            icon: '⚡',
+            icon: faBolt,
             title: 'Lightning Fast',
             description:
                 'Built for speed with optimized performance, instant search, and seamless user experience.',
@@ -66,7 +77,9 @@ const Home: React.FC = () => {
                                 business operations and enhances customer relationships.
                             </p>
                             <div className="flex justify-center w-36">
-                                <Button onClick={() => {}}>Get Started</Button>
+                                <Button onClick={() => router.push('/register')}>
+                                    Get Started
+                                </Button>
                             </div>
                         </FormContainer>
                     </FormContainer>
@@ -93,7 +106,9 @@ const Home: React.FC = () => {
                                 isColumn
                                 gap={'4'}
                                 className={'p-6 hover:shadow-sm'}>
-                                <div className="text-2xl">{feature.icon}</div>
+                                <span>
+                                    <FontAwesomeIcon icon={feature.icon} size={'xl'} />
+                                </span>
                                 <h3 className="text-lg font-medium text-gray-900">
                                     {feature.title}
                                 </h3>

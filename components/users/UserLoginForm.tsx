@@ -2,6 +2,7 @@ import ErrorMessage from '@components/layout/ErrorMessage';
 import Button from '@components/shared/Button';
 import InputField from '@components/shared/InputField';
 import { ErrorLabelMessage } from '@types';
+import Link from 'next/link';
 import React, { ReactNode, useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
@@ -119,6 +120,13 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
                         </>
                     )}
                 </form>
+
+                <div className="login-form-footer">
+                    <span className="login-form-divider">Don't have an account?</span>
+                    <Link href="/register" className="login-form-register-link">
+                        Create your Custify account
+                    </Link>
+                </div>
             </div>
         </>
     );

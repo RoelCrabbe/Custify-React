@@ -137,7 +137,8 @@
 
 @layer components {
     .login-form-container {
-        @apply flex flex-col gap-4 w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-200;
+        @apply flex flex-col gap-6 w-full max-w-md mx-auto p-8 bg-white rounded-2xl shadow-xl border border-gray-100;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     }
 
     .login-form-header {
@@ -145,33 +146,48 @@
     }
 
     .login-form-title {
-        @apply text-2xl font-semibold text-gray-900 text-center;
-        font-weight: 600;
+        @apply text-3xl font-bold text-blue-600 text-center;
+        font-weight: 700;
         letter-spacing: -0.025em;
     }
 
     .login-form-subtitle {
-        @apply text-sm text-gray-600 text-center;
+        @apply text-base text-gray-600 text-center;
         font-weight: 400;
         letter-spacing: -0.011em;
     }
 
     .login-form {
-        @apply flex flex-col gap-4;
+        @apply flex flex-col gap-5;
     }
 
     .login-form-fields {
-        @apply space-y-4 my-4;
+        @apply space-y-5 my-2;
     }
 
     .login-form-container:focus-within {
-        @apply ring-2 ring-blue-200 ring-opacity-50;
+        @apply ring-2 ring-blue-500 ring-opacity-20;
+        box-shadow:
+            0 0 0 3px rgba(59, 130, 246, 0.1),
+            0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
-    .login-form-container .button-base {
-        @apply font-medium;
-        font-weight: 500;
-        letter-spacing: -0.011em;
+    .login-form-footer {
+        @apply flex flex-col items-center gap-4 pt-6 border-t border-gray-100;
+    }
+
+    .login-form-divider {
+        @apply text-sm text-gray-500 font-medium;
+    }
+
+    .login-form-register-link {
+        @apply text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors duration-200 cursor-pointer;
+        text-decoration: none;
+    }
+
+    .login-form-register-link:hover {
+        text-decoration: underline;
     }
 }
 
@@ -295,7 +311,7 @@
     }
 
     .navigation-title {
-        @apply text-xl font-semibold text-gray-900;
+        @apply text-xl font-semibold text-blue-600;
         font-weight: 600;
         letter-spacing: -0.025em;
     }

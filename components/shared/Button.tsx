@@ -1,4 +1,3 @@
-import { useRenderLogger } from '@hooks/useRenderLogger';
 import React, { memo, ReactNode } from 'react';
 
 type Props = {
@@ -18,8 +17,6 @@ const Button: React.FC<Props> = ({
     isActive = true,
     type = 'button',
 }: Props) => {
-    useRenderLogger('Button');
-
     const getButtonClasses = () => {
         let classes = 'button-base ';
         if (isLoading) {

@@ -1,7 +1,6 @@
 import ErrorMessage from '@components/layout/ErrorMessage';
 import MainLayout from '@components/layout/MainLayout';
 import UserRegisterForm from '@components/users/UserRegisterForm';
-import { usePageLoadTime } from '@hooks/usePageLoadTime';
 import { userService } from '@services/userService';
 import { ErrorLabelMessage } from '@types';
 import { t } from 'i18next';
@@ -13,7 +12,6 @@ import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Register: React.FC = () => {
     const [errorLabelMessage, setErrorLabelMessage] = useState<ErrorLabelMessage>();
-    usePageLoadTime();
 
     const handleRegister = async (data: any) => {
         setErrorLabelMessage(undefined);
