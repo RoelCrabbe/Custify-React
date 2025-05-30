@@ -6,9 +6,10 @@ export type User = {
     role: string;
 };
 
-export type ErrorLabelMessage = {
+export type LabelMessage = {
     label: string;
     message: string;
+    type: 'error' | 'success';
 };
 
 export type IdName = {

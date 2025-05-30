@@ -1,7 +1,7 @@
-import ErrorMessage from '@components/layout/ErrorMessage';
+import StatusMessage from '@components/layout/StatusMessage';
 import Button from '@components/shared/Button';
 import InputField from '@components/shared/InputField';
-import { ErrorLabelMessage } from '@types';
+import { LabelMessage } from '@types';
 import Link from 'next/link';
 import React, { ReactNode, useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
@@ -19,7 +19,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
     const [userName, setUserName] = useState<string | null>(null);
     const [passWord, setPassWord] = useState<string | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-    const [errorLabelMessage, setErrorLabelMessage] = useState<ErrorLabelMessage>();
+    const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const validateFirstName = (name: string | null) => {
         if (!name?.trim()) return 'First name is required.';
@@ -69,7 +69,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
         const passWordError = validatePassWord(passWord);
 
         if (userNameError || passWordError) {
-            handleErrorLabel(userNameError || passWordError, setErrorLabelMessage);
+            handleErrorLabel(userNameError || passWordError, setLabelMessage);
             valid = false;
         }
 
@@ -78,7 +78,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
 
     const clearAllErrors = () => {
         onClearError();
-        setErrorLabelMessage(undefined);
+        setLabelMessage(undefined);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -172,12 +172,10 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
                         Sign Up
                     </Button>
 
-                    {errorLabelMessage && (
-                        <>
-                            <ErrorMessage errorLabelMessage={errorLabelMessage} />
-                            {children}
-                        </>
-                    )}
+                    <>
+                        {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+                        {children}
+                    </>
                 </form>
 
                 <div className="login-form-footer">

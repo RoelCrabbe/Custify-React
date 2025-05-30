@@ -8,11 +8,12 @@ const Navigation: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token =
-            localStorage.getItem('token') ||
-            localStorage.getItem('authToken') ||
-            localStorage.getItem('accessToken');
-        setIsLoggedIn(!!token);
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const token = localStorage.getItem('authToken');
+            setIsLoggedIn(!!token);
+        } else {
+            setIsLoggedIn(false);
+        }
     }, [router.pathname]);
 
     const handleLogout = () => {

@@ -1,47 +1,46 @@
-import ErrorMessage from '@components/layout/ErrorMessage';
 import MainLayout from '@components/layout/MainLayout';
+import StatusMessage from '@components/layout/StatusMessage';
 import UserRegisterForm from '@components/users/UserRegisterForm';
 import { userService } from '@services/userService';
-import { ErrorLabelMessage } from '@types';
-import { t } from 'i18next';
+import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import router from 'next/router';
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Register: React.FC = () => {
-    const [errorLabelMessage, setErrorLabelMessage] = useState<ErrorLabelMessage>();
+    const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleRegister = async (data: any) => {
-        setErrorLabelMessage(undefined);
+        setLabelMessage(undefined);
 
         try {
             const userResponse = await userService.registerUser(data);
             const userJson = await userResponse.json();
 
             if (!userResponse.ok) {
-                handleErrorLabel(userJson.message, setErrorLabelMessage);
+                handleErrorLabel(userJson.message, setLabelMessage);
                 return;
             }
 
             localStorage.setItem(
-                'loggedInUser',
+                'authToken',
                 JSON.stringify({
                     token: userJson.token,
-                    fullname: userJson.fullName,
-                    username: userJson.userName,
-                    role: userJson.role,
                 }),
             );
 
-            toast.success(t('pages.login.success'));
+            setLabelMessage({
+                label: 'Registered Successful!',
+                message: 'Redirecting you to the dashboard...',
+                type: 'success',
+            });
 
             setTimeout(() => {
                 router.push('/');
             }, 2000);
         } catch (error) {
-            handleErrorLabel(error, setErrorLabelMessage);
+            handleErrorLabel(error, setLabelMessage);
         }
     };
 
@@ -50,8 +49,8 @@ const Register: React.FC = () => {
             <MainLayout pageName={'Register'} isMiddleContent>
                 <UserRegisterForm
                     onSubmit={handleRegister}
-                    onClearError={() => setErrorLabelMessage(undefined)}>
-                    {errorLabelMessage && <ErrorMessage errorLabelMessage={errorLabelMessage} />}
+                    onClearError={() => setLabelMessage(undefined)}>
+                    {labelMessage && <StatusMessage labelMessage={labelMessage} />}
                 </UserRegisterForm>
             </MainLayout>
         </>
