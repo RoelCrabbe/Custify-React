@@ -6,6 +6,7 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "prettier.requireConfig": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
         "source.addMissingImports": "explicit"
