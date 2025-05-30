@@ -16,6 +16,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
     const [firstName, setFirstName] = useState<string | null>(null);
     const [lastName, setLastName] = useState<string | null>(null);
     const [email, setEmail] = useState<string | null>(null);
+    const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
     const [userName, setUserName] = useState<string | null>(null);
     const [passWord, setPassWord] = useState<string | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
@@ -44,6 +45,12 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
         return null;
     };
 
+    const validatePhoneNumber = (phoneNumber: string | null) => {
+        if (!phoneNumber?.trim()) return 'Phone number is required.';
+        if (!/^\+?[0-9\s\-]{7,15}$/.test(phoneNumber)) return 'Phone number is invalid.';
+        return null;
+    };
+
     const validateUserName = (userName: string | null) => {
         if (!userName?.trim()) return 'Username is required.';
         if (userName.trim().length < 6) return 'Username must be at least 6 characters.';
@@ -65,11 +72,30 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
     const validate = (): boolean => {
         let valid = true;
 
+        const firstNameError = validateFirstName(firstName);
+        const lastNameError = validateLastName(lastName);
+        const emailError = validateEmail(email);
+        const phoneError = validatePhoneNumber(phoneNumber);
         const userNameError = validateUserName(userName);
         const passWordError = validatePassWord(passWord);
 
-        if (userNameError || passWordError) {
-            handleErrorLabel(userNameError || passWordError, setLabelMessage);
+        if (
+            firstNameError ||
+            lastNameError ||
+            emailError ||
+            phoneError ||
+            userNameError ||
+            passWordError
+        ) {
+            handleErrorLabel(
+                firstNameError ||
+                    lastNameError ||
+                    emailError ||
+                    phoneError ||
+                    userNameError ||
+                    passWordError,
+                setLabelMessage,
+            );
             valid = false;
         }
 
@@ -96,6 +122,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
             firstName,
             lastName,
             email,
+            phoneNumber,
             userName,
             passWord,
         };
@@ -119,7 +146,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
                             value={firstName}
                             onChange={setFirstName}
                             validate={validateFirstName}
-                            placeholder="Enter your first name"
+                            placeholder={'Enter your first name'}
                             required
                         />
 
@@ -129,7 +156,7 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
                             value={lastName}
                             onChange={setLastName}
                             validate={validateLastName}
-                            placeholder="Enter your last name"
+                            placeholder={'Enter your last name'}
                             required
                         />
 
@@ -139,7 +166,17 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
                             value={email}
                             onChange={setEmail}
                             validate={validateEmail}
-                            placeholder="Enter your email"
+                            placeholder={'Enter your email'}
+                            required
+                        />
+
+                        <InputField
+                            type="tel"
+                            label="Phone Number"
+                            value={phoneNumber}
+                            onChange={setPhoneNumber}
+                            validate={validatePhoneNumber}
+                            placeholder={'Enter your phone number'}
                             required
                         />
 
