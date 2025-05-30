@@ -7,14 +7,7 @@ module.exports = {
         './src/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
-        extend: {
-            height: {
-                'screen-dynamic': '100dvh',
-            },
-            width: {
-                'screen-dynamic': '100dvw',
-            },
-        },
+        extend: {},
     },
     plugins: [],
 };

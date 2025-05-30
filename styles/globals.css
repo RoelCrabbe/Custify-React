@@ -456,3 +456,105 @@
                focus:ring-gray-200 focus:border-gray-300;
     }
 }
+
+@layer components {
+    .settings-widget {
+        @apply fixed bottom-5 right-5 z-50;
+    }
+
+    .settings-button {
+        @apply bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg shadow-lg 
+             transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-200 
+             flex items-center justify-center min-w-[48px] min-h-[48px];
+    }
+
+    .settings-icon {
+        @apply w-5 h-5;
+    }
+
+    .settings-panel {
+        @apply absolute bottom-16 right-0 w-64 mt-2;
+    }
+
+    .settings-card {
+        @apply bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700;
+    }
+
+    .settings-header {
+        @apply px-4 py-3 border-b border-gray-200 dark:border-gray-700;
+    }
+
+    .settings-title {
+        @apply text-lg font-semibold text-gray-900 dark:text-white;
+    }
+
+    .settings-content {
+        @apply p-4 space-y-4;
+    }
+
+    .settings-option {
+        @apply flex items-center justify-between;
+    }
+
+    .settings-option-info {
+        @apply flex items-center gap-3;
+    }
+
+    .settings-option-icon {
+        @apply p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400;
+    }
+
+    .settings-option-icon-size {
+        @apply w-4 h-4;
+    }
+
+    .settings-option-label {
+        @apply text-sm font-medium text-gray-900 dark:text-white;
+    }
+
+    .toggle-switch {
+        @apply relative inline-flex h-6 w-11 items-center rounded-full
+             transition-colors duration-200 focus:outline-none;
+    }
+
+    .toggle-switch-dark {
+        @apply focus:ring-2 focus:ring-blue-200;
+    }
+
+    .toggle-switch-dark-active {
+        @apply bg-blue-500;
+    }
+
+    .toggle-switch-dark-inactive {
+        @apply bg-gray-300;
+    }
+
+    .toggle-switch-user {
+        @apply focus:ring-2 focus:ring-green-200;
+    }
+
+    .toggle-switch-user-active {
+        @apply bg-green-500;
+    }
+
+    .toggle-switch-user-inactive {
+        @apply bg-gray-300;
+    }
+
+    .toggle-circle {
+        @apply inline-block h-4 w-4 transform rounded-full bg-white shadow-sm
+             transition-transform duration-200;
+    }
+
+    .toggle-circle-active {
+        @apply translate-x-6;
+    }
+
+    .toggle-circle-inactive {
+        @apply translate-x-1;
+    }
+
+    .settings-backdrop {
+        @apply fixed inset-0 -z-10;
+    }
+}

@@ -106,7 +106,7 @@ const Home: React.FC = () => {
                                 isColumn
                                 gap={'4'}
                                 className={'p-6 hover:shadow-sm'}>
-                                <span>
+                                <span className="text-blue-600">
                                     <FontAwesomeIcon icon={feature.icon} size={'xl'} />
                                 </span>
                                 <h3 className="text-lg font-medium text-gray-900">

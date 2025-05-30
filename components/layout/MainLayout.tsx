@@ -1,4 +1,4 @@
-import Navigation from '@components/shared/Navigation';
+import Navigation from '@components/layout/Navigation';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';

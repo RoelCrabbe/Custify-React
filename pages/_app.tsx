@@ -1,3 +1,4 @@
+import SettingsWidget from '@components/layout/SettingsWidget';
 import '@styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
@@ -10,6 +11,7 @@ function App({ Component, pageProps }: AppProps) {
         <>
             <QueryClientProvider client={queryClient}>
                 <Component {...pageProps} />
+                <SettingsWidget isAdmin />
             </QueryClientProvider>
         </>
     );
