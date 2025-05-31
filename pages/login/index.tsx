@@ -1,7 +1,7 @@
 import MainLayout from '@components/layout/MainLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserLoginForm from '@components/users/UserLoginForm';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useBlockAuthenticated } from '@hooks/useAuthGuard';
 import { userService } from '@services/userService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Login: React.FC = () => {
-    const currentUser = useCurrentUser();
+    const { shouldRender, currentUser } = useBlockAuthenticated('/');
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleLogin = async (data: any) => {
@@ -45,7 +45,7 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName={'Login'} isMiddleContent>
+            <MainLayout pageName={'Login'} isMiddleContent isLoading={!shouldRender}>
                 <UserLoginForm
                     onSubmit={handleLogin}
                     onClearError={() => setLabelMessage(undefined)}>

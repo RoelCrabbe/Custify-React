@@ -1,7 +1,7 @@
 import MainLayout from '@components/layout/MainLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserRegisterForm from '@components/users/UserRegisterForm';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useBlockAuthenticated } from '@hooks/useAuthGuard';
 import { userService } from '@services/userService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { handleErrorLabel } from 'utils/handlers/handleUnexpectedError';
 
 const Register: React.FC = () => {
-    const currentUser = useCurrentUser();
+    const { shouldRender, currentUser } = useBlockAuthenticated('/');
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleRegister = async (data: any) => {
@@ -45,7 +45,7 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName={'Register'} isMiddleContent>
+            <MainLayout pageName={'Register'} isMiddleContent isLoading={!shouldRender}>
                 <UserRegisterForm
                     onSubmit={handleRegister}
                     onClearError={() => setLabelMessage(undefined)}>
