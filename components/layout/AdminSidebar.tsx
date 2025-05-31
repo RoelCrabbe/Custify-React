@@ -3,7 +3,6 @@ import {
     faBox,
     faChartBar,
     faChartLine,
-    faChevronLeft,
     faCog,
     faFileAlt,
     faLock,
@@ -112,16 +111,14 @@ const AdminSidebar: React.FC = () => {
                 ) : (
                     <>
                         <div className="admin-brand">
-                            <FontAwesomeIcon icon={faTools} className="admin-brand-icon" />
+                            <button
+                                type="button"
+                                onClick={() => setIsCollapsed(!isCollapsed)}
+                                className="admin-collapse-btn">
+                                <FontAwesomeIcon icon={faTools} className="admin-brand-icon" />
+                            </button>
                             <h2 className="admin-brand-title">Admin Panel</h2>
                         </div>
-
-                        <button
-                            type="button"
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            className="admin-collapse-btn">
-                            <FontAwesomeIcon icon={faChevronLeft} className="admin-brand-icon" />
-                        </button>
                     </>
                 )}
             </div>

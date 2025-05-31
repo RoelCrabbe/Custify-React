@@ -267,6 +267,10 @@
         @apply flex items-center justify-center h-full w-full;
     }
 
+    .main-sidebar-content {
+        @apply flex flex-col gap-4 pl-8;
+    }
+
     .spinner-container {
         @apply flex items-center justify-center w-full;
         height: 72vh;
@@ -479,7 +483,7 @@
 
 @layer components {
     .settings-widget {
-        @apply fixed bottom-5 right-5 z-50;
+        @apply fixed bottom-2 right-2 z-50;
     }
 
     .settings-button {
@@ -585,12 +589,13 @@
         transition: width 300ms ease;
     }
 
-    .admin-sidebar-header {
+    .admin-sidebar-header,
+    .admin-user-management-header {
         @apply flex items-center justify-between px-4 py-6 w-full border-b border-gray-200 min-h-20;
     }
 
     .admin-brand {
-        @apply flex items-center space-x-3;
+        @apply flex items-center gap-2;
     }
 
     .admin-brand-icon {
@@ -642,5 +647,9 @@
                bg-red-500 hover:bg-red-600 text-white transition-all duration-200 
                focus:outline-none focus:ring-2 focus:ring-red-200 text-sm font-medium;
         font-weight: 500;
+    }
+
+    .admin-table-header {
+        @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
     }
 }

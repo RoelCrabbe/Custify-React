@@ -48,9 +48,8 @@ const MainLayout: React.FC<Props> = ({
     };
 
     const getContentClassName = () => {
-        if (isMiddleContent && !isLoading) {
-            return 'main-middle-content';
-        }
+        if (isMiddleContent && !isLoading) return 'main-middle-content';
+        if (isSideBarContent) return 'main-sidebar-content';
         return 'main-inner-container';
     };
 

@@ -1,8 +1,9 @@
 import { userService } from '@services/userService';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from '@types';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { getToken } from 'utils/authUtils';
+import { handleExpiredToken } from 'utils/tokenUtils';
 
 type UserContextType = {
     getValue: () => User | null;
@@ -15,15 +16,25 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient();
 
-    const { data, refetch } = useQuery<User | null>({
+    const { data, refetch, error, failureCount } = useQuery<User | null>({
         queryKey: ['current-user'],
         staleTime: 10 * 60 * 1000,
         enabled: getToken() !== null,
+        retry: 2,
+        retryDelay: (5 / 3) * 1000,
         queryFn: async () => {
             const response = await userService.getCurrentUser();
-            return response.ok ? ((await response.json()) as User) : null;
+            if (!response.ok)
+                throw new Error(`CurrentUser Error ${response.status}: ${response.statusText}`);
+            return (await response.json()) as User;
         },
     });
+
+    useEffect(() => {
+        if (error && failureCount >= 2) {
+            handleExpiredToken();
+        }
+    }, [error, failureCount]);
 
     const getValue = () => data ?? null;
 

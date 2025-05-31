@@ -3,6 +3,7 @@ import React, { memo, ReactNode } from 'react';
 type Props = {
     children: ReactNode;
     onClick: (e: React.FormEvent) => void;
+    className?: string;
     isLoading?: boolean;
     isDisabled?: boolean;
     isActive?: boolean;
@@ -12,6 +13,7 @@ type Props = {
 const Button: React.FC<Props> = ({
     children,
     onClick,
+    className,
     isLoading = false,
     isDisabled = false,
     isActive = true,
@@ -28,6 +30,7 @@ const Button: React.FC<Props> = ({
         } else {
             classes += 'button-secondary';
         }
+        if (className) classes += ` ${className}`;
         return classes;
     };
 
