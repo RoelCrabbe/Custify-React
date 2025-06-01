@@ -2,31 +2,14 @@ import { useCurrentUser } from '@provider/UserProvider';
 import { Role } from '@types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { getUserRole } from 'utils/authUtils';
 
 const Navigation: React.FC = () => {
     const router = useRouter();
     const currentUser = useCurrentUser();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            const token = localStorage.getItem('authToken');
-            setIsLoggedIn(!!token);
-        } else {
-            setIsLoggedIn(false);
-        }
-    }, [router.pathname]);
 
     const handleLogout = () => {
-        currentUser.logout();
-        setIsLoggedIn(false);
-        toast.success('You logged out successfully!');
-        setTimeout(() => {
-            router.push('/');
-        }, 2000);
+        router.push('/logout');
     };
 
     const getLinkClassName = (isActive: boolean) => {
@@ -36,7 +19,7 @@ const Navigation: React.FC = () => {
     };
 
     const isAuthPage = router.pathname === '/login' || router.pathname === '/register';
-    const isAdmin = isLoggedIn && getUserRole(currentUser.getValue()) === Role.ADMIN;
+    const isAdmin = getUserRole(currentUser.getValue()) === Role.ADMIN;
 
     return (
         <>
@@ -49,7 +32,7 @@ const Navigation: React.FC = () => {
                             </Link>
                         </div>
 
-                        {isLoggedIn && (
+                        {currentUser.isLoggedIn && (
                             <nav className="navigation-menu">
                                 <Link
                                     href="/dashboard"
@@ -82,7 +65,7 @@ const Navigation: React.FC = () => {
                         )}
 
                         <div className="navigation-actions">
-                            {isLoggedIn ? (
+                            {currentUser.isLoggedIn ? (
                                 <button
                                     onClick={handleLogout}
                                     className="nav-button nav-button-logout">

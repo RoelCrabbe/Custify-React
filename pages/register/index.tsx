@@ -1,8 +1,8 @@
-import MainLayout from '@components/layout/MainLayout';
+import PageLayout from '@components/layout/PageLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserRegisterForm from '@components/users/UserRegisterForm';
 import { useBlockAuthenticated } from '@hooks/useAuthGuard';
-import { userService } from '@services/userService';
+import { authService } from '@services/authService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import router from 'next/router';
@@ -17,7 +17,7 @@ const Register: React.FC = () => {
         setLabelMessage(undefined);
 
         try {
-            const userResponse = await userService.registerUser(data);
+            const userResponse = await authService.registerUser(data);
             const userJson = await userResponse.json();
 
             if (!userResponse.ok) {
@@ -33,10 +33,9 @@ const Register: React.FC = () => {
                 type: 'success',
             });
 
-            currentUser.refetch();
-
             setTimeout(() => {
                 router.push('/');
+                currentUser.refetch();
             }, 2000);
         } catch (error) {
             handleErrorLabel(error, setLabelMessage);
@@ -45,13 +44,13 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName={'Register'} isMiddleContent isLoading={!shouldRender}>
+            <PageLayout pageName={'Register'} isMiddleContent isLoading={!shouldRender}>
                 <UserRegisterForm
                     onSubmit={handleRegister}
                     onClearError={() => setLabelMessage(undefined)}>
                     {labelMessage && <StatusMessage labelMessage={labelMessage} />}
                 </UserRegisterForm>
-            </MainLayout>
+            </PageLayout>
         </>
     );
 };

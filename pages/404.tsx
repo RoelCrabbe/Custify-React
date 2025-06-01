@@ -1,4 +1,4 @@
-import MainLayout from '@components/layout/MainLayout';
+import PageLayout from '@components/layout/PageLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -11,7 +11,7 @@ const Custom404: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName="404 - Page Not Found" isMiddleContent>
+            <PageLayout pageName="404 - Page Not Found" isMiddleContent>
                 <div className="error-page-content">
                     <div className="error-page-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,7 +45,7 @@ const Custom404: React.FC = () => {
                         </button>
                     </div>
                 </div>
-            </MainLayout>
+            </PageLayout>
         </>
     );
 };

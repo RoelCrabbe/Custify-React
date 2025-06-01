@@ -1,4 +1,5 @@
 import { useCurrentUser } from '@provider/UserProvider';
+import { Role } from '@types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -73,6 +74,14 @@ export const useRequireRole = (roles: string[], redirectTo: string = '/401') => 
 export const useBlockAuthenticated = (redirectTo: string = '/403') => {
     return useAuthGuard({
         blockIfAuthenticated: true,
+        redirectTo,
+    });
+};
+
+export const useRequireAdmin = (redirectTo: string = '/403') => {
+    return useAuthGuard({
+        requireAuth: true,
+        allowedRoles: [Role.ADMIN],
         redirectTo,
     });
 };

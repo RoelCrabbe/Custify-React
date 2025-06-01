@@ -14,30 +14,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 const AdminSidebar: React.FC = () => {
     const router = useRouter();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.localStorage) {
-            const token = localStorage.getItem('authToken');
-            setIsLoggedIn(!!token);
-        } else {
-            setIsLoggedIn(false);
-        }
-    }, [router.pathname]);
-
     const handleLogout = () => {
-        localStorage.clear();
-        setIsLoggedIn(false);
-        toast.success('Admin logged out successfully!');
-        setTimeout(() => {
-            router.push('/admin/login');
-        }, 2000);
+        router.push('/logout');
     };
 
     const getLinkClassName = (isActive: boolean) => {
@@ -89,10 +73,6 @@ const AdminSidebar: React.FC = () => {
         },
     ];
 
-    if (!isLoggedIn) {
-        return null;
-    }
-
     return (
         <FormContainer
             isAside
@@ -126,7 +106,7 @@ const AdminSidebar: React.FC = () => {
             <nav className="admin-nav">
                 <ul className={`admin-nav-list ${isCollapsed ? 'items-center' : ''}`}>
                     {adminNavItems.map((item) => (
-                        <li key={item.href}>
+                        <li key={item.href} className="w-full">
                             <Link
                                 href={item.href}
                                 className={getLinkClassName(router.pathname === item.href)}

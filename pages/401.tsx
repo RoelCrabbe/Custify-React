@@ -1,10 +1,10 @@
-import MainLayout from '@components/layout/MainLayout';
+import PageLayout from '@components/layout/PageLayout';
 import Link from 'next/link';
 
 const Custom401: React.FC = () => {
     return (
         <>
-            <MainLayout pageName="401 - Unauthorized" isMiddleContent>
+            <PageLayout pageName="401 - Unauthorized" isMiddleContent>
                 <div className="error-page-content">
                     <div className="error-page-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +36,7 @@ const Custom401: React.FC = () => {
                         </Link>
                     </div>
                 </div>
-            </MainLayout>
+            </PageLayout>
         </>
     );
 };

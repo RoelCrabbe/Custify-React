@@ -1,8 +1,8 @@
-import MainLayout from '@components/layout/MainLayout';
+import PageLayout from '@components/layout/PageLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import UserLoginForm from '@components/users/UserLoginForm';
 import { useBlockAuthenticated } from '@hooks/useAuthGuard';
-import { userService } from '@services/userService';
+import { authService } from '@services/authService';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import router from 'next/router';
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
         setLabelMessage(undefined);
 
         try {
-            const userResponse = await userService.loginUser(data);
+            const userResponse = await authService.loginUser(data);
             const userJson = await userResponse.json();
 
             if (!userResponse.ok) {
@@ -33,10 +33,9 @@ const Login: React.FC = () => {
                 type: 'success',
             });
 
-            currentUser.refetch();
-
             setTimeout(() => {
                 router.push('/');
+                currentUser.refetch();
             }, 2000);
         } catch (error) {
             handleErrorLabel(error, setLabelMessage);
@@ -45,13 +44,13 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <MainLayout pageName={'Login'} isMiddleContent isLoading={!shouldRender}>
+            <PageLayout pageName={'Login'} isMiddleContent isLoading={!shouldRender}>
                 <UserLoginForm
                     onSubmit={handleLogin}
                     onClearError={() => setLabelMessage(undefined)}>
                     {labelMessage && <StatusMessage labelMessage={labelMessage} />}
                 </UserLoginForm>
-            </MainLayout>
+            </PageLayout>
         </>
     );
 };

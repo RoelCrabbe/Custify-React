@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base font settings - consolidated */
 @layer base {
     html {
         font-family:
@@ -30,16 +31,8 @@
         font-variant-ligatures: common-ligatures;
         text-rendering: optimizeLegibility;
     }
-}
 
-#__next {
-    height: 100dvh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-@layer base {
+    /* Scrollbar styles */
     ::-webkit-scrollbar {
         width: 0.65rem;
         height: 0.5rem;
@@ -66,6 +59,40 @@
     }
 }
 
+/* Shared typography styles */
+@layer components {
+    .font-inter {
+        font-family:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            sans-serif;
+    }
+
+    .font-weight-400 {
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .font-weight-500 {
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+
+    .font-weight-600 {
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .font-weight-700 {
+        font-weight: 700;
+        letter-spacing: -0.025em;
+    }
+}
+
+/* Input Field Components */
 @layer components {
     .input-field-container {
         @apply flex flex-col gap-2 w-full;
@@ -106,6 +133,7 @@
     }
 }
 
+/* Button Components */
 @layer components {
     .button-base {
         @apply w-full px-4 py-2 border rounded-lg transition-all duration-200 
@@ -136,6 +164,7 @@
     }
 }
 
+/* Form Components */
 @layer components {
     .form-container-base {
         @apply flex flex-col w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-gray-100;
@@ -207,10 +236,25 @@
     }
 }
 
+/* Global layout coordination */
+#__next {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#__next:has(.sidebar-content) {
+    height: 100dvh;
+}
+
+#__next:not(:has(.sidebar-content)) {
+    min-height: 100dvh;
+    height: auto;
+}
+
 @layer components {
     .main {
-        @apply p-8 bg-gray-50;
-        height: 100dvh;
+        @apply py-8 px-4 bg-gray-50;
         width: 100%;
         font-family:
             'Inter',
@@ -219,24 +263,42 @@
             'Segoe UI',
             Roboto,
             sans-serif;
+        flex: 1;
+    }
+
+    .sidebar-content {
+        height: 100%;
+    }
+
+    .main:not(.sidebar-content) {
+        height: auto;
+        min-height: 0;
     }
 
     .sidebar-content {
         @apply flex;
+        height: 100%;
     }
 
     .middle-content {
         @apply flex items-center justify-center;
     }
 
+    .main-middle-content > * {
+        @apply m-8;
+    }
+
     .main-div-container {
-        @apply w-full h-full;
+        @apply flex flex-col w-full;
         position: relative;
         z-index: 10;
+        overflow-x: hidden;
+        flex: 1;
     }
 
     .main-head-container {
         @apply border-b border-gray-400 pb-6;
+        flex-shrink: 0;
     }
 
     .main-title-container {
@@ -261,6 +323,14 @@
 
     .main-inner-container {
         @apply flex flex-col gap-4 px-8;
+        max-width: 100%;
+        overflow-x: hidden;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .main:not(.sidebar-content) .main-inner-container {
+        flex: none;
     }
 
     .main-middle-content {
@@ -269,6 +339,10 @@
 
     .main-sidebar-content {
         @apply flex flex-col gap-4 pl-8;
+        max-width: 100%;
+        overflow-x: hidden;
+        flex: 1;
+        min-height: 0;
     }
 
     .spinner-container {
@@ -276,44 +350,16 @@
         height: 72vh;
     }
 
-    .Toastify__toast-container {
-        @apply font-sans;
-        font-family:
-            'Inter',
-            -apple-system,
-            BlinkMacSystemFont,
-            'Segoe UI',
-            Roboto,
-            sans-serif;
+    .main:not(.sidebar-content) {
+        overflow-y: visible;
     }
 
-    .Toastify__toast {
-        @apply rounded-lg shadow-lg border;
-        font-weight: 400;
-        letter-spacing: -0.011em;
-    }
-
-    .Toastify__toast--success {
-        @apply bg-green-50 border-green-200 text-green-800;
-    }
-
-    .Toastify__toast--error {
-        @apply bg-red-50 border-red-200 text-red-800;
-    }
-
-    .Toastify__toast--info {
-        @apply bg-blue-50 border-blue-200 text-blue-800;
-    }
-
-    .Toastify__toast--warning {
-        @apply bg-yellow-50 border-yellow-200 text-yellow-800;
-    }
-
-    .Toastify__progress-bar {
-        @apply bg-current opacity-30;
+    .sidebar-content {
+        overflow: hidden;
     }
 }
 
+/* Navigation Components */
 @layer components {
     .navigation-container {
         @apply bg-white border-b border-gray-200 shadow-sm;
@@ -426,6 +472,7 @@
     }
 }
 
+/* Error Page Components */
 @layer components {
     .error-page-content {
         @apply flex flex-col items-center max-w-md mx-auto text-center;
@@ -481,9 +528,10 @@
     }
 }
 
+/* Settings Widget Components */
 @layer components {
     .settings-widget {
-        @apply fixed bottom-2 right-2 z-50;
+        @apply fixed bottom-4 right-4 z-50;
     }
 
     .settings-button {
@@ -583,6 +631,7 @@
     }
 }
 
+/* Admin Components */
 @layer components {
     .admin-sidebar {
         @apply h-full w-72 justify-center items-center shadow-sm z-40;
@@ -623,7 +672,7 @@
     }
 
     .admin-nav-link {
-        @apply flex items-center gap-6 p-2 rounded-lg text-gray-600 
+        @apply flex items-center gap-6 p-2 px-4 rounded-lg text-gray-600 
                hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 
                text-sm font-medium no-underline;
         font-weight: 500;

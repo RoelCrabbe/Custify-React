@@ -1,13 +1,12 @@
 import UserManagementTable from '@components/admin/UserManagementTable';
-import MainLayout from '@components/layout/MainLayout';
-import { useCurrentUser } from '@provider/UserProvider';
+import PageLayout from '@components/layout/PageLayout';
+import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { userService } from '@services/userService';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Admin: React.FC = () => {
-    const currentUser = useCurrentUser();
-
+    const { shouldRender, currentUser } = useRequireAdmin();
     const queryClient = new QueryClient();
 
     const {
@@ -24,9 +23,11 @@ const Admin: React.FC = () => {
         },
     });
 
+    const pageLoading = !shouldRender || usersIsLoading;
+
     return (
         <>
-            <MainLayout pageName={'Admin Panel'} isSideBarContent isLoading={usersIsLoading}>
+            <PageLayout pageName={'Admin Panel'} isSideBarContent={true} isLoading={pageLoading}>
                 <UserManagementTable
                     data={users}
                     isError={usersIsError}
@@ -34,7 +35,7 @@ const Admin: React.FC = () => {
                     error={usersError}
                     onRetry={() => queryClient.invalidateQueries({ queryKey: ['all-users'] })}
                 />
-            </MainLayout>
+            </PageLayout>
         </>
     );
 };

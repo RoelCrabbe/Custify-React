@@ -2,8 +2,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import { ClipLoader } from 'react-spinners';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminSidebar from './AdminSidebar';
 import Navigation from './Navigation';
 
@@ -31,7 +29,7 @@ type Neutral = {
 
 type Props = BaseProps & (MiddleOnly | SideOnly | Neutral);
 
-const MainLayout: React.FC<Props> = ({
+const PageLayout: React.FC<Props> = ({
     pageName,
     pageTitle,
     children,
@@ -94,22 +92,8 @@ const MainLayout: React.FC<Props> = ({
                     )}
                 </div>
             </main>
-
-            <ToastContainer
-                position="bottom-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={true}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                toastClassName="custom-toast"
-            />
         </>
     );
 };
 
-export default MainLayout;
+export default PageLayout;

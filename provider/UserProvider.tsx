@@ -7,6 +7,7 @@ import { handleExpiredToken } from 'utils/tokenUtils';
 
 type UserContextType = {
     getValue: () => User | null;
+    isLoggedIn: boolean;
     logout: () => void;
     refetch: () => void;
 };
@@ -37,6 +38,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }, [error, failureCount]);
 
     const getValue = () => data ?? null;
+    const isLoggedIn = Boolean(data);
 
     const logout = () => {
         localStorage.removeItem('authToken');
@@ -45,7 +47,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <>
-            <UserContext.Provider value={{ getValue, logout, refetch }}>
+            <UserContext.Provider value={{ getValue, isLoggedIn, logout, refetch }}>
                 {children}
             </UserContext.Provider>
         </>
