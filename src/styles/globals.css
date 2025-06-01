@@ -32,7 +32,7 @@
         text-rendering: optimizeLegibility;
     }
 
-    /* Scrollbar styles */
+    /* Scrollbar styles for WebKit browsers (Chrome, Safari, Edge) */
     ::-webkit-scrollbar {
         width: 0.65rem;
         height: 0.5rem;
@@ -56,6 +56,29 @@
 
     ::-webkit-scrollbar-thumb:hover {
         background: #9ca3af;
+    }
+
+    /* Scrollbar styles for Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #d1d5db #f3f4f6;
+    }
+
+    /* Alternative Firefox approach with more specific targeting */
+    html {
+        scrollbar-width: thin;
+        scrollbar-color: #d1d5db #f3f4f6;
+    }
+
+    /* For dark mode compatibility (optional) */
+    @media (prefers-color-scheme: dark) {
+        * {
+            scrollbar-color: #6b7280 #374151;
+        }
+
+        html {
+            scrollbar-color: #6b7280 #374151;
+        }
     }
 }
 
