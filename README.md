@@ -1,8 +1,8 @@
-# ⚡️ Custify
+# ⚡️ Custify Frontend
 
 <div align="center">
 
-![Custify Logo](https://img.shields.io/badge/Custify-CRM-blue?style=for-the-badge&logo=react)
+![Custify Logo](https://img.shields.io/badge/Custify-Frontend-blue?style=for-the-badge&logo=react)
 
 **Simple, modern CRM platform focused on real-time customer interactions**
 
@@ -108,6 +108,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Roel Crabbe**
 
 - GitHub: [@RoelCrabbe](https://github.com/RoelCrabbe)
+
+## 🔗 Related Projects
+
+- **Backend**: [Custify-Typescript](https://github.com/RoelCrabbe/Custify-TypeScript) - Typescript backend for Custify CRM
+- **Mobile**: Coming soon - React Native mobile app
 
 ## 🙏 Acknowledgments
 
