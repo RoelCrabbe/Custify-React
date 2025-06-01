@@ -19,9 +19,11 @@
 
 ---
 
-## 🚀 About Custify
+## 🚀 About Custify Frontend
 
 Custify is a modern customer relationship management (CRM) platform designed with simplicity and efficiency in mind. Unlike traditional, bloated CRM systems, Custify focuses on providing essential customer management features with real-time interactions and a clean, intuitive interface.
+
+This frontend works seamlessly with the [Custify TypeScript Backend](https://github.com/RoelCrabbe/Custify-TypeScript) to deliver a complete CRM solution.
 
 ### ✨ Key Features
 
@@ -87,17 +89,46 @@ Custify is a modern customer relationship management (CRM) platform designed wit
 
 5. **Open your browser**
 
-    Navigate to [http://localhost:8080](http://localhost:8080) to see the application.
+    Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## 🔧 Configuration
 
 ### Environment Variables
 
-| Variable                 | Description              | Default                 |
-| ------------------------ | ------------------------ | ----------------------- |
-| `NEXT_PUBLIC_API_URL`    | Frontend API endpoint    | `http://localhost:3000` |
-| `NEXT_BASE_API_URL`      | Backend API base URL     | `http://localhost:8080` |
-| `NEXT_WEBSOCKET_API_URL` | WebSocket connection URL | `ws://localhost:8765`   |
+| Variable                 | Description              | Required | Default                 |
+| ------------------------ | ------------------------ | -------- | ----------------------- |
+| `NEXT_PUBLIC_API_URL`    | Frontend API endpoint    | ✅       | `http://localhost:3000` |
+| `NEXT_BASE_API_URL`      | Backend API base URL     | ✅       | `http://localhost:8080` |
+| `NEXT_WEBSOCKET_API_URL` | WebSocket connection URL | ✅       | `ws://localhost:8765`   |
+
+### Frontend Configuration
+
+```typescript
+// Example API configuration
+const apiConfig = {
+    baseURL: process.env.NEXT_BASE_API_URL,
+    websocketURL: process.env.NEXT_WEBSOCKET_API_URL,
+    timeout: 10000,
+};
+```
+
+## 🤝 Contributing
+
+We welcome contributions to the Custify Frontend! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/AmazingFeature`)
+3. **Commit your changes** (`git commit -m 'Add some AmazingFeature'`)
+4. **Push to the branch** (`git push origin feature/AmazingFeature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow React and TypeScript best practices
+- Maintain consistent UI/UX patterns
+- Write comprehensive tests
+- Use conventional commit messages
+- Ensure responsive design principles
 
 ## 📝 License
 
@@ -111,13 +142,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Related Projects
 
-- **Backend**: [Custify-Typescript](https://github.com/RoelCrabbe/Custify-TypeScript) - Typescript backend for Custify CRM
+- **Backend**: [Custify-TypeScript](https://github.com/RoelCrabbe/Custify-TypeScript) - TypeScript backend for Custify CRM
 - **Mobile**: Coming soon - React Native mobile app
 
 ## 🙏 Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
+- TypeScript for type safety
 
 ## 📊 Project Status
 
@@ -128,5 +160,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
 
 **Star ⭐ this repository if you found it helpful!**
+
+[Report Bug](https://github.com/RoelCrabbe/Custify-React/issues) · [Request Feature](https://github.com/RoelCrabbe/Custify-React/issues) · [Documentation](https://github.com/RoelCrabbe/Custify-React/wiki)
 
 </div>
