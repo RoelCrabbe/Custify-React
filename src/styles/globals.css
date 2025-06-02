@@ -109,9 +109,7 @@
 
     .input-field-base {
         @apply w-full max-h-12 px-3 py-2 border rounded-lg transition-all duration-200 
-               text-sm placeholder-gray-500 focus:outline-none focus:ring-2;
-        font-weight: 400;
-        letter-spacing: -0.011em;
+               text-sm placeholder-gray-500 focus:outline-none focus:ring-2 font-weight-400;
     }
 
     .input-field-normal {
@@ -192,9 +190,7 @@
     }
 
     .login-form-subtitle {
-        @apply text-base text-gray-600 text-center;
-        font-weight: 400;
-        letter-spacing: -0.011em;
+        @apply text-base text-gray-600 text-center font-weight-400;
     }
 
     .login-form {
@@ -233,88 +229,6 @@
 
     .login-form-register-link:hover {
         text-decoration: underline;
-    }
-}
-
-@layer components {
-    .main {
-        @apply py-8 px-4 bg-gray-50;
-        width: 100%;
-        font-family:
-            'Inter',
-            -apple-system,
-            BlinkMacSystemFont,
-            'Segoe UI',
-            Roboto,
-            sans-serif;
-        flex: 1;
-    }
-
-    .sidebar-content {
-        height: 100%;
-    }
-
-    .main:not(.sidebar-content) {
-        height: auto;
-        min-height: 0;
-    }
-
-    .sidebar-content {
-        @apply flex;
-        height: 100%;
-    }
-
-    .middle-content {
-        @apply flex items-center justify-center;
-    }
-
-    .main-middle-content > * {
-        @apply m-8;
-    }
-
-    .main-div-container {
-        @apply flex flex-col w-full;
-        position: relative;
-        z-index: 10;
-        overflow-x: hidden;
-        flex: 1;
-    }
-
-    .main-inner-container {
-        @apply flex flex-col gap-4 px-8;
-        max-width: 100%;
-        overflow-x: hidden;
-        flex: 1;
-        min-height: 0;
-    }
-
-    .main:not(.sidebar-content) .main-inner-container {
-        flex: none;
-    }
-
-    .main-middle-content {
-        @apply flex items-center justify-center h-full w-full;
-    }
-
-    .main-sidebar-content {
-        @apply flex flex-col gap-4 pl-8;
-        max-width: 100%;
-        overflow-x: hidden;
-        flex: 1;
-        min-height: 0;
-    }
-
-    .spinner-container {
-        @apply flex items-center justify-center w-full;
-        height: 72vh;
-    }
-
-    .main:not(.sidebar-content) {
-        overflow-y: visible;
-    }
-
-    .sidebar-content {
-        overflow: hidden;
     }
 }
 
@@ -613,15 +527,8 @@
 
 @layer components {
     .main {
-        @apply p-8 bg-gray-50;
+        @apply p-8 bg-gray-50 font-inter;
         width: 100%;
-        font-family:
-            'Inter',
-            -apple-system,
-            BlinkMacSystemFont,
-            'Segoe UI',
-            Roboto,
-            sans-serif;
     }
 
     .auth-layout {
@@ -637,13 +544,22 @@
         overflow: hidden;
     }
 
+    .admin-layout {
+        @apply main grid;
+        grid-template-columns: 20rem 1fr;
+        min-height: 0;
+        overflow: hidden;
+    }
+
     .auth-layout header,
+    .main-layout header,
     .main-layout header {
         @apply border-b border-gray-400 pb-6;
         flex-shrink: 0;
     }
 
     .auth-layout header h1,
+    .main-layout header h1,
     .main-layout header h1 {
         @apply text-2xl font-semibold text-blue-600 px-8;
         font-weight: 600;
@@ -653,7 +569,8 @@
 
     .auth-layout__loading,
     .auth-layout__content,
-    .main-layout__loading {
+    .main-layout__loading,
+    .admin-layout__loading {
         @apply flex items-center justify-center;
         flex: 1;
         width: 100%;
@@ -663,6 +580,12 @@
         @apply flex flex-col;
         flex: 1;
         width: 100%;
+    }
+
+    .admin-layout__content {
+        @apply flex flex-col w-full;
+        height: 100%;
+        overflow: hidden;
     }
 }
 
@@ -693,9 +616,7 @@
     }
 
     .error-page__content p {
-        @apply text-gray-600 leading-relaxed;
-        font-weight: 400;
-        letter-spacing: -0.011em;
+        @apply text-gray-600 leading-relaxed font-weight-400;
     }
 
     .error-page__actions {

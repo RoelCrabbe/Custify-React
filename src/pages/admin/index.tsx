@@ -1,5 +1,5 @@
 import UserManagementTable from '@components/admin/UserManagementTable';
-import PageLayout from '@components/layout/PageLayout';
+import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { userService } from '@services/index';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { useRequireAdmin } from 'context/hooks/useAuthGuard';
@@ -27,7 +27,10 @@ const Admin: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName={'Admin Panel'} isSideBarContent={true} isLoading={pageLoading}>
+            <AdminPageLayout
+                pageName={'Admin Panel'}
+                description={'Admin Panel'}
+                isLoading={pageLoading}>
                 <UserManagementTable
                     data={users}
                     isError={usersIsError}
@@ -35,7 +38,7 @@ const Admin: React.FC = () => {
                     error={usersError}
                     onRetry={() => queryClient.invalidateQueries({ queryKey: ['all-users'] })}
                 />
-            </PageLayout>
+            </AdminPageLayout>
         </>
     );
 };
