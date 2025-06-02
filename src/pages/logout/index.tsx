@@ -40,7 +40,7 @@ const LogoutPage: React.FC = () => {
 
     return (
         <>
-            <AuthPageLayout pageName={'Logging Out'}>
+            <AuthPageLayout pageName={'Logging Out'} description={'Logging Out'}>
                 <div className="error-page-content">
                     <div className="error-page-icon logout-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

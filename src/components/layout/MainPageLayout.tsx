@@ -4,26 +4,26 @@ import PageLoader from '@components/layout/PageLoader';
 import SettingsWidget from '@components/layout/SettingsWidget';
 import React, { ReactNode } from 'react';
 
-interface AuthPageLayoutProps extends PageHeadProps {
+interface MainPageLayoutProps extends PageHeadProps {
     children: ReactNode;
     isLoading?: boolean;
 }
 
-const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({
+const MainPageLayout: React.FC<MainPageLayoutProps> = ({
     pageName,
     children,
     isLoading = false,
-}: AuthPageLayoutProps) => {
+}: MainPageLayoutProps) => {
     const getMainClassName = () => {
-        return 'auth-layout';
+        return 'main-layout';
     };
 
     const getSpinnerClassName = () => {
-        return 'auth-layout__loading';
+        return 'main-layout__loading';
     };
 
     const getContentClassName = () => {
-        return 'auth-layout__content';
+        return 'main-layout__content';
     };
 
     return (
@@ -43,4 +43,4 @@ const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({
     );
 };
 
-export default AuthPageLayout;
+export default MainPageLayout;
