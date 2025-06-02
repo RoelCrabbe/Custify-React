@@ -101,6 +101,17 @@ This frontend works seamlessly with the [Custify TypeScript Backend](https://git
 | `NEXT_BASE_API_URL`      | Backend API base URL     | ✅       | `http://localhost:8080` |
 | `NEXT_WEBSOCKET_API_URL` | WebSocket connection URL | ✅       | `ws://localhost:8765`   |
 
+### Frontend Configuration
+
+```typescript
+// Example API configuration
+const apiConfig = {
+    baseURL: process.env.NEXT_BASE_API_URL,
+    websocketURL: process.env.NEXT_WEBSOCKET_API_URL,
+    timeout: 10000,
+};
+```
+
 ## 🤝 Contributing
 
 We welcome contributions to the Custify Frontend! Here's how you can help:
