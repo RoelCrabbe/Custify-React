@@ -1,4 +1,4 @@
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import { useRequireAuth } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -40,7 +40,7 @@ const LogoutPage: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName="Logging Out" isMiddleContent>
+            <AuthPageLayout pageName={'Logging Out'}>
                 <div className="error-page-content">
                     <div className="error-page-icon logout-icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +81,7 @@ const LogoutPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

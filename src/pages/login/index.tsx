@@ -1,5 +1,5 @@
 import UserLoginForm from '@components/auth/UserLoginForm';
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import { useBlockAuthenticated } from '@hooks/useAuthGuard';
 import { handleErrorLabel } from '@lib';
@@ -44,13 +44,13 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName={'Login'} isMiddleContent isLoading={!shouldRender}>
+            <AuthPageLayout pageName={'Login'} description={'Login'} isLoading={!shouldRender}>
                 <UserLoginForm
                     onSubmit={handleLogin}
                     onClearError={() => setLabelMessage(undefined)}>
                     {labelMessage && <StatusMessage labelMessage={labelMessage} />}
                 </UserLoginForm>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

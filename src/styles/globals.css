@@ -296,31 +296,6 @@
         flex: 1;
     }
 
-    .main-head-container {
-        @apply border-b border-gray-400 pb-6;
-        flex-shrink: 0;
-    }
-
-    .main-title-container {
-        @apply flex items-center justify-between px-8;
-        height: 2.5rem;
-    }
-
-    .main-title {
-        @apply flex items-center;
-    }
-
-    .main-title-extra {
-        @apply flex items-center;
-    }
-
-    .main-title h1 {
-        @apply text-2xl font-semibold text-gray-900;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        line-height: 1.2;
-    }
-
     .main-inner-container {
         @apply flex flex-col gap-4 px-8;
         max-width: 100%;
@@ -469,62 +444,6 @@
 
     .mobile-nav-actions {
         @apply px-3 py-2 border-t border-gray-200 space-y-2;
-    }
-}
-
-/* Error Page Components */
-@layer components {
-    .error-page-content {
-        @apply flex flex-col items-center max-w-md mx-auto text-center;
-    }
-
-    .error-page-icon {
-        @apply mx-auto w-24 h-24 text-gray-400;
-    }
-
-    .error-page-info {
-        @apply flex flex-col items-center gap-4 mb-4;
-    }
-
-    .error-page-code {
-        @apply text-6xl font-bold text-gray-900;
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        line-height: 1;
-    }
-
-    .error-page-title {
-        @apply text-2xl font-semibold text-gray-900;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-    }
-
-    .error-page-description {
-        @apply text-gray-600 leading-relaxed;
-        font-weight: 400;
-        letter-spacing: -0.011em;
-    }
-
-    .error-page-actions {
-        @apply flex flex-col sm:flex-row gap-4 justify-center;
-    }
-
-    .error-page-button {
-        @apply px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 
-               focus:outline-none focus:ring-2 cursor-pointer;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        min-height: 3rem;
-    }
-
-    .error-page-button-primary {
-        @apply bg-blue-500 border border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
-               focus:ring-blue-200 focus:border-blue-500;
-    }
-
-    .error-page-button-secondary {
-        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
-               focus:ring-gray-200 focus:border-gray-300;
     }
 }
 
@@ -700,5 +619,112 @@
 
     .admin-table-header {
         @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    }
+}
+
+#__next {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#__next:has(.sidebar-content) {
+    height: 100dvh;
+}
+
+#__next:not(:has(.sidebar-content)) {
+    min-height: 100dvh;
+    height: auto;
+}
+
+@layer components {
+    .auth-layout {
+        @apply p-8 bg-gray-50;
+        width: 100%;
+        font-family:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            sans-serif;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .auth-layout header {
+        @apply border-b border-gray-400 pb-6;
+        flex-shrink: 0;
+    }
+
+    .auth-layout header h1 {
+        @apply text-2xl font-semibold text-gray-900 px-8;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+    }
+
+    .auth-layout__loading,
+    .auth-layout__content {
+        @apply flex items-center justify-center;
+        flex: 1;
+        width: 100%;
+    }
+}
+
+@layer components {
+    .error-page {
+        @apply max-w-md text-center;
+    }
+
+    .error-page__icon {
+        @apply mx-auto w-24 h-24 text-gray-400;
+    }
+
+    .error-page__content {
+        @apply flex flex-col items-center gap-4 mb-4;
+    }
+
+    .error-page__content h1 {
+        @apply text-6xl font-bold text-gray-900;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1;
+    }
+
+    .error-page__content h2 {
+        @apply text-2xl font-semibold text-gray-900;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .error-page__content p {
+        @apply text-gray-600 leading-relaxed;
+        font-weight: 400;
+        letter-spacing: -0.011em;
+    }
+
+    .error-page__actions {
+        @apply flex gap-6 justify-center;
+    }
+
+    .error-page__button {
+        @apply px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 
+               focus:outline-none focus:ring-2 cursor-pointer;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        min-height: 3rem;
+    }
+
+    .error-page__button--primary {
+        @apply bg-blue-500 border border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
+               focus:ring-blue-200 focus:border-blue-500;
+    }
+
+    .error-page__button--secondary {
+        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
+               focus:ring-gray-200 focus:border-gray-300;
     }
 }

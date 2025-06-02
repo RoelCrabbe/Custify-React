@@ -1,12 +1,12 @@
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import Link from 'next/link';
 
 const Custom401: React.FC = () => {
     return (
         <>
-            <PageLayout pageName="401 - Unauthorized" isMiddleContent>
-                <div className="error-page-content">
-                    <div className="error-page-icon">
+            <AuthPageLayout pageName={'401 - Unauthorized'} description={'Unauthorized'}>
+                <div className="error-page">
+                    <div className="error-page__icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 strokeLinecap="round"
@@ -17,26 +17,27 @@ const Custom401: React.FC = () => {
                         </svg>
                     </div>
 
-                    <section className="error-page-info">
-                        <h1 className="error-page-code">401</h1>
-                        <h2 className="error-page-title">Unauthorized</h2>
-                        <p className="error-page-description">
+                    <section className="error-page__content">
+                        <h1>401</h1>
+                        <h2>Unauthorized</h2>
+
+                        <p>
                             Your session has expired or you are not logged in. Please log in again.
                         </p>
                     </section>
 
-                    <div className="error-page-actions">
-                        <Link href="/" className="error-page-button error-page-button-primary">
+                    <div className="error-page__actions">
+                        <Link href="/" className="error-page__button error-page__button--primary">
                             Go to Home
                         </Link>
                         <Link
                             href="/login"
-                            className="error-page-button error-page-button-secondary">
+                            className="error-page__button error-page__button--secondary">
                             Log In
                         </Link>
                     </div>
                 </div>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };
