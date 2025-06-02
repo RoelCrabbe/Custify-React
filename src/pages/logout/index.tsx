@@ -1,4 +1,4 @@
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import { useRequireAuth } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -40,9 +40,9 @@ const LogoutPage: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName="Logging Out" isMiddleContent>
-                <div className="error-page-content">
-                    <div className="error-page-icon logout-icon">
+            <AuthPageLayout pageName={'Logging Out'} description={'Logging Out'}>
+                <div className="error-page">
+                    <div className="error-page__icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 strokeLinecap="round"
@@ -53,35 +53,25 @@ const LogoutPage: React.FC = () => {
                         </svg>
                     </div>
 
-                    <section className="error-page-info">
-                        <h1 className="logout-title">You're being logged out</h1>
-                        <p className="error-page-description">
+                    <section className="error-page__content">
+                        <h2>You're being logged out</h2>
+
+                        <p>
                             Thank you for using Custify. You will be redirected to the home page in{' '}
-                            <span className="countdown-timer">{countdown}</span> second
+                            <span>{countdown}</span> second
                             {countdown !== 1 ? 's' : ''}.
                         </p>
                     </section>
 
-                    <div className="error-page-actions">
+                    <div className="error-page__actions">
                         <button
-                            onClick={handleImmediateRedirect}
-                            className="error-page-button error-page-button-primary">
+                            onClick={() => router.push(redirectTo)}
+                            className="error-page__button error-page__button--primary">
                             Go to Home Now
                         </button>
                     </div>
-
-                    <div className="logout-progress">
-                        <div className="logout-progress-bar">
-                            <div
-                                className="logout-progress-fill"
-                                style={{
-                                    animationDuration: `${delay}ms`,
-                                }}
-                            />
-                        </div>
-                    </div>
                 </div>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

@@ -1,4 +1,4 @@
-import PageLayout from '@components/layout/PageLayout';
+import MainPageLayout from '@components/layout/MainPageLayout';
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import {
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName={'Home'}>
+            <MainPageLayout pageName={'Home'}>
                 <div className="flex flex-col gap-16">
                     <FormContainer hasBorder>
                         <FormContainer
@@ -119,7 +119,7 @@ const Home: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </PageLayout>
+            </MainPageLayout>
         </>
     );
 };

@@ -1,5 +1,5 @@
 import UserRegisterForm from '@components/auth/UserRegisterForm';
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import StatusMessage from '@components/layout/StatusMessage';
 import { handleErrorLabel } from '@lib';
 import { authService } from '@services/index';
@@ -44,13 +44,16 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName={'Register'} isMiddleContent isLoading={!shouldRender}>
+            <AuthPageLayout
+                pageName={'Register'}
+                description={'Register'}
+                isLoading={!shouldRender}>
                 <UserRegisterForm
                     onSubmit={handleRegister}
                     onClearError={() => setLabelMessage(undefined)}>
                     {labelMessage && <StatusMessage labelMessage={labelMessage} />}
                 </UserRegisterForm>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

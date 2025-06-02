@@ -1,4 +1,4 @@
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -11,9 +11,9 @@ const Custom404: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName="404 - Page Not Found" isMiddleContent>
-                <div className="error-page-content">
-                    <div className="error-page-icon">
+            <AuthPageLayout pageName={'404 - Page Not Found'} description={'Page Not Found'}>
+                <div className="error-page">
+                    <div className="error-page__icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 strokeLinecap="round"
@@ -24,28 +24,28 @@ const Custom404: React.FC = () => {
                         </svg>
                     </div>
 
-                    <section className="error-page-info">
-                        <h1 className="error-page-code">404</h1>
-                        <h2 className="error-page-title">Page not found</h2>
+                    <section className="error-page__content">
+                        <h1>404</h1>
+                        <h2>Page not found</h2>
 
-                        <p className="error-page-description">
+                        <p>
                             Sorry, we couldn't find the page you're looking for. The page might have
                             been moved, deleted, or you entered the wrong URL.
                         </p>
                     </section>
 
-                    <div className="error-page-actions">
-                        <Link href="/" className="error-page-button error-page-button-primary">
+                    <div className="error-page__actions">
+                        <Link href="/" className="error-page__button error-page__button--primary">
                             Go to Home
                         </Link>
                         <button
                             onClick={handleGoBack}
-                            className="error-page-button error-page-button-secondary">
+                            className="error-page__button error-page__button--secondary">
                             Go Back
                         </button>
                     </div>
                 </div>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

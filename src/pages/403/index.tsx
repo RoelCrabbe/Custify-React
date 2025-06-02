@@ -1,4 +1,4 @@
-import PageLayout from '@components/layout/PageLayout';
+import AuthPageLayout from '@components/layout/AuthPageLayout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -11,9 +11,9 @@ const Custom403: React.FC = () => {
 
     return (
         <>
-            <PageLayout pageName="403 - Forbidden" isMiddleContent>
-                <div className="error-page-content">
-                    <div className="error-page-icon">
+            <AuthPageLayout pageName={'403 - Forbidden'} description={'Forbidden'}>
+                <div className="error-page">
+                    <div className="error-page__icon">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 strokeLinecap="round"
@@ -24,28 +24,30 @@ const Custom403: React.FC = () => {
                         </svg>
                     </div>
 
-                    <section className="error-page-info">
-                        <h1 className="error-page-code">403</h1>
-                        <h2 className="error-page-title">Access forbidden</h2>
+                    <section className="error-page__content">
+                        <h1>403</h1>
+                        <h2>Access forbidden</h2>
 
-                        <p className="error-page-description">
+                        <p>
                             You don't have permission to access this page. This could be because
                             you're not logged in or you don't have the required permissions.
                         </p>
                     </section>
 
-                    <div className="error-page-actions">
-                        <Link href="/" className="error-page-button error-page-button-primary">
+                    <div className="error-page__actions">
+                        <Link
+                            href="/login"
+                            className="error-page__button error-page__button--primary">
                             Go to Login
                         </Link>
                         <button
                             onClick={handleGoBack}
-                            className="error-page-button error-page-button-secondary">
+                            className="error-page__button error-page__button--secondary">
                             Go Back
                         </button>
                     </div>
                 </div>
-            </PageLayout>
+            </AuthPageLayout>
         </>
     );
 };

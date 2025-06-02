@@ -1,4 +1,3 @@
-import SettingsWidget from '@components/layout/SettingsWidget';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { UserProvider } from '@provider/UserProvider';
 import '@styles/globals.css';
@@ -14,7 +13,6 @@ function App({ Component, pageProps }: AppProps) {
             <QueryClientProvider client={queryClient}>
                 <UserProvider>
                     <Component {...pageProps} />
-                    <SettingsWidget />
                 </UserProvider>
             </QueryClientProvider>
         </>
