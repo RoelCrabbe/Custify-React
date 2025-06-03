@@ -1,9 +1,9 @@
 import React from 'react';
 
-type Props = {
+interface Props {
     message: string;
     onRetry: () => void;
-};
+}
 
 const TableError: React.FC<Props> = ({ message, onRetry }: Props) => {
     return (

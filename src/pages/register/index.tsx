@@ -1,6 +1,6 @@
 import UserRegisterForm from '@components/auth/UserRegisterForm';
 import AuthPageLayout from '@components/layout/AuthPageLayout';
-import StatusMessage from '@components/layout/StatusMessage';
+import StatusMessage from '@components/ui/StatusMessage';
 import { handleErrorLabel } from '@lib';
 import { authService } from '@services/index';
 import { LabelMessage } from '@types';

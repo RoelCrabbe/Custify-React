@@ -1,10 +1,10 @@
 import React from 'react';
 import { ClipLoader } from 'react-spinners';
 
-type Props = {
+interface Props {
     text?: string;
     size?: number;
-};
+}
 
 const TableLoading: React.FC<Props> = ({ text = 'Loading info...', size = 64 }: Props) => {
     return (

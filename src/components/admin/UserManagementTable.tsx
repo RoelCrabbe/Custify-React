@@ -17,13 +17,13 @@ import { capitalizeFirstLetter } from '@lib';
 import { Role, User } from '@types';
 import { useState } from 'react';
 
-type Props = {
+interface Props {
     data: any[];
     isError: boolean;
     isLoading: boolean;
     error: unknown;
     onRetry: () => void;
-};
+}
 
 const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error, onRetry }) => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);

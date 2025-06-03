@@ -1,4 +1,5 @@
 import AdminSidebar from '@components/layout/AdminSidebar';
+import Navigation from '@components/layout/Navigation';
 import PageHead, { PageHeadProps } from '@components/layout/PageHead';
 import PageLoader from '@components/layout/PageLoader';
 import React, { ReactNode } from 'react';
@@ -28,6 +29,7 @@ const AdminPageLayout: React.FC<AdminPageLayoutProps> = ({
     return (
         <>
             <PageHead pageName={pageName} />
+            <Navigation />
 
             <main className={getMainClassName()}>
                 {isLoading ? (

@@ -60,7 +60,7 @@
 }
 
 /* Shared typography styles */
-@layer components {
+@layer base {
     .font-inter {
         font-family:
             'Inter',
@@ -232,119 +232,6 @@
     }
 }
 
-/* Navigation Components */
-@layer components {
-    .navigation-container {
-        @apply bg-white border-b border-gray-200 shadow-sm;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-    }
-
-    .navigation-wrapper {
-        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-    }
-
-    .navigation-content {
-        @apply flex items-center justify-between h-16;
-    }
-
-    .navigation-brand {
-        @apply flex items-center;
-    }
-
-    .navigation-title {
-        @apply text-xl font-semibold text-blue-600;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-    }
-
-    .navigation-menu {
-        @apply hidden md:flex items-center space-x-8;
-    }
-
-    .nav-link {
-        @apply px-3 py-2 rounded-md text-sm font-medium transition-all duration-200;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        color: #6b7280;
-        text-decoration: none;
-    }
-
-    .nav-link:hover {
-        @apply text-gray-900 bg-gray-50;
-    }
-
-    .nav-link-active {
-        @apply text-blue-600 bg-blue-50;
-    }
-
-    .nav-link-active:hover {
-        @apply text-blue-700 bg-blue-100;
-    }
-
-    .navigation-actions {
-        @apply flex items-center space-x-4;
-    }
-
-    .nav-button {
-        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 
-               focus:outline-none focus:ring-2 cursor-pointer;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        min-height: 2.5rem;
-    }
-
-    .nav-button-primary {
-        @apply bg-blue-500 text-white hover:bg-blue-600 
-               focus:ring-blue-200 border border-blue-500;
-    }
-
-    .nav-button-secondary {
-        @apply bg-white text-gray-700 hover:bg-gray-50 
-               focus:ring-gray-200 border border-gray-300;
-    }
-
-    .nav-button-logout {
-        @apply bg-red-500 text-white hover:bg-red-600 
-               focus:ring-red-200 border border-red-500;
-    }
-
-    .mobile-menu-button {
-        @apply md:hidden inline-flex items-center justify-center p-2 rounded-md 
-               text-gray-400 hover:text-gray-500 hover:bg-gray-100 
-               focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500;
-    }
-
-    .mobile-menu {
-        @apply md:hidden border-t border-gray-200 bg-white;
-    }
-
-    .mobile-menu-content {
-        @apply px-2 pt-2 pb-3 space-y-1;
-    }
-
-    .mobile-nav-link {
-        @apply block px-3 py-2 rounded-md text-base font-medium transition-all duration-200;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        color: #6b7280;
-        text-decoration: none;
-    }
-
-    .mobile-nav-link:hover {
-        @apply text-gray-900 bg-gray-50;
-    }
-
-    .mobile-nav-link-active {
-        @apply text-blue-600 bg-blue-50;
-    }
-
-    .mobile-nav-actions {
-        @apply px-3 py-2 border-t border-gray-200 space-y-2;
-    }
-}
-
 /* Settings Widget Components */
 @layer components {
     .settings-widget {
@@ -451,7 +338,7 @@
 /* Admin Components */
 @layer components {
     .admin-sidebar {
-        @apply h-full w-72 justify-center items-center shadow-sm z-40;
+        @apply h-full w-80 justify-center items-center shadow-sm z-40;
         transition: width 300ms ease;
     }
 
@@ -534,7 +421,6 @@
     .auth-layout {
         @apply main flex flex-col;
         flex: 1;
-        min-height: 100%;
     }
 
     .main-layout {
@@ -545,8 +431,7 @@
     }
 
     .admin-layout {
-        @apply main grid;
-        grid-template-columns: 20rem 1fr;
+        @apply main flex gap-8;
         min-height: 0;
         overflow: hidden;
     }
@@ -639,5 +524,79 @@
     .error-page__button--secondary {
         @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
                focus:ring-gray-200 focus:border-gray-300;
+    }
+}
+
+@layer components {
+    .navigation {
+        @apply bg-white border-b border-gray-200 shadow-sm;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .navigation__wrapper {
+        @apply max-w-7xl mx-auto;
+    }
+
+    .navigation__content {
+        @apply flex items-center justify-between h-16;
+    }
+
+    .navigation__content h1 {
+        @apply text-xl font-semibold text-blue-600;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .navigation__content nav {
+        @apply flex items-center gap-8;
+    }
+
+    .navigation__content nav a {
+        @apply text-gray-600 text-sm;
+    }
+
+    .nav-link {
+        @apply px-3 py-2 rounded-md font-medium transition-all duration-200;
+    }
+
+    .nav-link:hover {
+        @apply text-gray-900 bg-gray-100;
+    }
+
+    .nav-link-active {
+        @apply text-blue-600 bg-blue-50;
+    }
+
+    .nav-link-active:hover {
+        @apply text-blue-700 bg-blue-100;
+    }
+
+    .navigation__actions {
+        @apply flex items-center gap-4;
+    }
+
+    .nav-button {
+        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 
+               focus:outline-none focus:ring-2 cursor-pointer;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+        min-height: 2.5rem;
+    }
+
+    .nav-button__primary {
+        @apply bg-blue-500 text-white hover:bg-blue-600 
+               focus:ring-blue-200 border border-blue-500;
+    }
+
+    .nav-button__secondary {
+        @apply bg-white text-gray-700 hover:bg-gray-50 
+               focus:ring-gray-200 border border-gray-300;
+    }
+
+    .nav-button__logout {
+        @apply bg-red-500 text-white hover:bg-red-600 
+               focus:ring-red-200 border border-red-500;
     }
 }

@@ -23,20 +23,18 @@ const Navigation: React.FC = () => {
 
     return (
         <>
-            <header className="navigation-container">
-                <div className="navigation-wrapper">
-                    <div className="navigation-content">
-                        <div className="navigation-brand">
-                            <Link href="/">
-                                <h1 className="navigation-title">Custify</h1>
-                            </Link>
-                        </div>
+            <header className="navigation">
+                <div className="navigation__wrapper">
+                    <div className="navigation__content">
+                        <Link href="/">
+                            <h1>Custify</h1>
+                        </Link>
 
                         {currentUser.isLoggedIn && (
-                            <nav className="navigation-menu">
+                            <nav>
                                 <Link
-                                    href="/dashboard"
-                                    className={getLinkClassName(router.pathname === '/dashboard')}>
+                                    href="/"
+                                    className={getLinkClassName(router.pathname === '/')}>
                                     Dashboard
                                 </Link>
                                 <Link
@@ -64,11 +62,11 @@ const Navigation: React.FC = () => {
                             </nav>
                         )}
 
-                        <div className="navigation-actions">
+                        <div className="navigation__actions">
                             {currentUser.isLoggedIn ? (
                                 <button
                                     onClick={handleLogout}
-                                    className="nav-button nav-button-logout">
+                                    className="nav-button nav-button__logout">
                                     Logout
                                 </button>
                             ) : (
@@ -80,19 +78,19 @@ const Navigation: React.FC = () => {
                                                     ? '/register'
                                                     : '/login'
                                             }
-                                            className="nav-button nav-button-primary">
+                                            className="nav-button nav-button__primary">
                                             {router.pathname === '/login' ? 'Sign Up' : 'Login'}
                                         </Link>
                                     ) : (
                                         <>
                                             <Link
                                                 href="/login"
-                                                className="nav-button nav-button-secondary">
+                                                className="nav-button nav-button__secondary">
                                                 Login
                                             </Link>
                                             <Link
                                                 href="/register"
-                                                className="nav-button nav-button-primary">
+                                                className="nav-button nav-button__primary">
                                                 Sign Up
                                             </Link>
                                         </>

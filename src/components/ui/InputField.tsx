@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 
-type Props = {
+interface Props {
     type: React.HTMLInputTypeAttribute;
     label: any;
     value: any;
@@ -9,7 +9,7 @@ type Props = {
     placeholder: any;
     required: boolean;
     disabled?: boolean;
-};
+}
 
 const InputField: React.FC<Props> = ({
     type,

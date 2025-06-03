@@ -1,16 +1,16 @@
-import StatusMessage from '@components/layout/StatusMessage';
 import Button from '@components/ui/Button';
 import InputField from '@components/ui/InputField';
+import StatusMessage from '@components/ui/StatusMessage';
 import { handleErrorLabel } from '@lib';
 import { LabelMessage } from '@types';
 import Link from 'next/link';
 import React, { ReactNode, useState } from 'react';
 
-type Props = {
+interface Props {
     onSubmit: (data: any) => void;
     onClearError: () => void;
     children?: ReactNode;
-};
+}
 
 const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Props) => {
     const [userName, setUserName] = useState<string | null>(null);

@@ -16,6 +16,49 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+const adminNavItems = [
+    {
+        icon: faChartBar,
+        label: 'Dashboard',
+        href: '/admin/dashboard',
+    },
+    {
+        icon: faUsers,
+        label: 'User Management',
+        href: '/admin/users',
+    },
+    {
+        icon: faBox,
+        label: 'Order Management',
+        href: '/admin/orders',
+    },
+    {
+        icon: faShoppingBag,
+        label: 'Product Management',
+        href: '/admin/products',
+    },
+    {
+        icon: faChartLine,
+        label: 'Analytics',
+        href: '/admin/analytics',
+    },
+    {
+        icon: faFileAlt,
+        label: 'Reports',
+        href: '/admin/reports',
+    },
+    {
+        icon: faCog,
+        label: 'System Settings',
+        href: '/admin/settings',
+    },
+    {
+        icon: faLock,
+        label: 'Permissions',
+        href: '/admin/permissions',
+    },
+];
+
 const AdminSidebar: React.FC = () => {
     const router = useRouter();
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -29,49 +72,6 @@ const AdminSidebar: React.FC = () => {
         if (isActive) classes += ' admin-nav-link-active';
         return classes;
     };
-
-    const adminNavItems = [
-        {
-            href: '/admin/dashboard',
-            label: 'Dashboard',
-            icon: faChartBar,
-        },
-        {
-            href: '/admin/users',
-            label: 'User Management',
-            icon: faUsers,
-        },
-        {
-            href: '/admin/orders',
-            label: 'Order Management',
-            icon: faBox,
-        },
-        {
-            href: '/admin/products',
-            label: 'Product Management',
-            icon: faShoppingBag,
-        },
-        {
-            href: '/admin/analytics',
-            label: 'Analytics',
-            icon: faChartLine,
-        },
-        {
-            href: '/admin/reports',
-            label: 'Reports',
-            icon: faFileAlt,
-        },
-        {
-            href: '/admin/settings',
-            label: 'System Settings',
-            icon: faCog,
-        },
-        {
-            href: '/admin/permissions',
-            label: 'Permissions',
-            icon: faLock,
-        },
-    ];
 
     return (
         <FormContainer

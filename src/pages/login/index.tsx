@@ -1,6 +1,6 @@
 import UserLoginForm from '@components/auth/UserLoginForm';
 import AuthPageLayout from '@components/layout/AuthPageLayout';
-import StatusMessage from '@components/layout/StatusMessage';
+import StatusMessage from '@components/ui/StatusMessage';
 import { useBlockAuthenticated } from '@hooks/useAuthGuard';
 import { handleErrorLabel } from '@lib';
 import { authService } from '@services/index';

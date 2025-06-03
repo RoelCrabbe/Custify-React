@@ -7,12 +7,12 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Role, User } from '@types';
 
-type Props = {
+interface Props {
     isOpen: boolean;
     user: User | null;
     onClose: () => void;
     onEdit: (user: User) => void;
-};
+}
 
 const UserDetailsModal: React.FC<Props> = ({ isOpen, user, onClose, onEdit }) => {
     if (!isOpen || !user) {

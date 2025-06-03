@@ -1,6 +1,6 @@
 import React, { memo, ReactNode } from 'react';
 
-type Props = {
+interface Props {
     children: ReactNode;
     onClick: (e: React.FormEvent) => void;
     className?: string;
@@ -8,7 +8,7 @@ type Props = {
     isDisabled?: boolean;
     isActive?: boolean;
     type?: 'button' | 'submit' | 'reset';
-};
+}
 
 const Button: React.FC<Props> = ({
     children,
