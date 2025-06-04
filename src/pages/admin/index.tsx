@@ -1,19 +1,12 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
 import FormContainer from '@components/ui/FormContainer';
-import {
-    faBell,
-    faChartLine,
-    faClipboardList,
-    faCog,
-    faDatabase,
-    faServer,
-    faShieldAlt,
-    faUsers,
-    faUserShield,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getAdminFeatures } from 'config/adminConfig';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+const adminFeatures = getAdminFeatures();
 
 const AdminLandingPage: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -22,66 +15,6 @@ const AdminLandingPage: React.FC = () => {
     useEffect(() => {
         setIsVisible(true);
     }, []);
-
-    const adminFeatures = [
-        {
-            icon: faUsers,
-            title: 'User Management',
-            description:
-                'Manage user accounts, permissions, and access levels across your platform.',
-            href: '/admin/user-management',
-        },
-        {
-            icon: faChartLine,
-            title: 'Analytics Dashboard',
-            description:
-                'View comprehensive analytics, reports, and business intelligence metrics.',
-            href: '/admin/analytics',
-        },
-        {
-            icon: faDatabase,
-            title: 'Data Management',
-            description: 'Monitor database performance, backups, and data integrity checks.',
-            href: '/admin/data',
-        },
-        {
-            icon: faShieldAlt,
-            title: 'Security Center',
-            description: 'Configure security settings, monitor threats, and manage authentication.',
-            href: '/admin/security',
-        },
-        {
-            icon: faCog,
-            title: 'System Settings',
-            description: 'Configure platform settings, integrations, and operational parameters.',
-            href: '/admin/settings',
-        },
-        {
-            icon: faBell,
-            title: 'Notifications',
-            description: 'Manage system notifications, alerts, and communication preferences.',
-            href: '/admin/notifications',
-        },
-        {
-            icon: faUserShield,
-            title: 'Access Control',
-            description:
-                'Define roles, permissions, and access policies for different user groups.',
-            href: '/admin/access-control',
-        },
-        {
-            icon: faClipboardList,
-            title: 'Audit Logs',
-            description: 'Review system activities, user actions, and compliance reporting.',
-            href: '/admin/audit',
-        },
-        {
-            icon: faServer,
-            title: 'System Health',
-            description: 'Monitor server performance, uptime, and infrastructure metrics.',
-            href: '/admin/health',
-        },
-    ];
 
     const quickStats = [
         { label: 'Total Users', value: '2,847', change: '+12%', trend: 'up' },
@@ -164,17 +97,15 @@ const AdminLandingPage: React.FC = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {adminFeatures.map((feature, index) => (
+                            {adminFeatures.map((feature) => (
                                 <FormContainer
-                                    key={index}
+                                    key={feature.id}
                                     hasBorder
                                     easeIn
                                     isVisible={isVisible}
                                     isColumn
                                     gap={'4'}
-                                    className={
-                                        'p-6 hover:shadow-md transition-shadow cursor-pointer'
-                                    }
+                                    className={'p-6 cursor-pointer'}
                                     onClick={() => router.push(feature.href)}>
                                     <span className="text-blue-600">
                                         <FontAwesomeIcon icon={feature.icon} size={'xl'} />
@@ -182,9 +113,7 @@ const AdminLandingPage: React.FC = () => {
                                     <h3 className="text-lg font-medium text-gray-900">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-gray-600 text-sm flex-grow">
-                                        {feature.description}
-                                    </p>
+                                    <p className="text-gray-600 text-sm">{feature.description}</p>
                                     <div className="flex items-center text-blue-600 text-sm font-medium mt-2">
                                         Access Tool
                                         <FontAwesomeIcon

@@ -1,62 +1,12 @@
 import FormContainer from '@components/ui/FormContainer';
-import {
-    faBoxes,
-    faChartBar,
-    faChevronRight,
-    faClipboardList,
-    faCog,
-    faDatabase,
-    faLock,
-    faTools,
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faTools } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getAdminNavItems } from 'config/adminConfig';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const adminNavItems = [
-    {
-        icon: faChartBar,
-        label: 'Dashboard',
-        href: '/admin',
-    },
-    {
-        icon: faUsers,
-        label: 'User Management',
-        href: '/admin/user-management',
-    },
-    {
-        icon: faBoxes,
-        label: 'Order Management',
-        href: '/admin/order-management',
-    },
-    {
-        icon: faDatabase,
-        label: 'Product Management',
-        href: '/admin/product-management',
-    },
-    {
-        icon: faChartBar,
-        label: 'Analytics',
-        href: '/admin/analytics',
-    },
-    {
-        icon: faClipboardList,
-        label: 'Reports',
-        href: '/admin/reports',
-    },
-    {
-        icon: faCog,
-        label: 'System Settings',
-        href: '/admin/system-settings',
-    },
-    {
-        icon: faLock,
-        label: 'Permissions',
-        href: '/admin/permissions',
-    },
-];
+const adminNavItems = getAdminNavItems();
 
 const AdminSidebar: React.FC = () => {
     const router = useRouter();
