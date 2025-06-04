@@ -335,83 +335,12 @@
     }
 }
 
-/* Admin Components */
-@layer components {
-    .admin-sidebar {
-        @apply h-full w-80 justify-center items-center shadow-sm z-40;
-        transition: width 300ms ease;
-    }
-
-    .admin-sidebar-header,
-    .admin-user-management-header {
-        @apply flex items-center justify-between px-4 py-6 w-full border-b border-gray-200 min-h-20;
-    }
-
-    .admin-brand {
-        @apply flex items-center gap-2;
-    }
-
-    .admin-brand-icon {
-        @apply text-2xl flex-shrink-0 text-blue-600;
-    }
-
-    .admin-brand-title {
-        @apply text-xl font-semibold text-blue-600;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-    }
-
-    .admin-collapse-btn {
-        @apply flex p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 
-               text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 
-               focus:ring-blue-200;
-    }
-
-    .admin-nav {
-        @apply flex-1 overflow-y-auto px-4 py-6;
-    }
-
-    .admin-nav-list {
-        @apply flex flex-col gap-2 items-start;
-    }
-
-    .admin-nav-link {
-        @apply flex items-center gap-6 p-2 px-4 rounded-lg text-gray-600 
-               hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 
-               text-sm font-medium no-underline;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-    }
-
-    .admin-nav-link-active {
-        @apply bg-blue-50 text-blue-600;
-    }
-
-    .admin-nav-link-active:hover {
-        @apply bg-blue-100 text-blue-700;
-    }
-
-    .admin-sidebar-footer {
-        @apply flex items-center justify-between px-4 py-3 w-full border-t border-gray-200 min-h-20;
-    }
-
-    .admin-logout-btn {
-        @apply w-full flex items-center gap-4 p-3 rounded-lg 
-               bg-red-500 hover:bg-red-600 text-white transition-all duration-200 
-               focus:outline-none focus:ring-2 focus:ring-red-200 text-sm font-medium;
-        font-weight: 500;
-    }
-
-    .admin-table-header {
-        @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
-    }
-}
-
 #__next {
     @apply flex flex-col w-full;
     height: 100dvh;
 }
 
+/* Layouts */
 @layer components {
     .main {
         @apply p-8 bg-gray-50 font-inter;
@@ -427,7 +356,7 @@
         @apply main flex flex-col;
         flex: 1;
         min-height: 0;
-        overflow: hidden;
+        overflow: auto;
     }
 
     .admin-layout {
@@ -474,6 +403,7 @@
     }
 }
 
+/* Error Pages */
 @layer components {
     .error-page {
         @apply max-w-md text-center;
@@ -527,6 +457,7 @@
     }
 }
 
+/* Navigation */
 @layer components {
     .navigation {
         @apply bg-white border-b border-gray-200 shadow-sm;
@@ -598,5 +529,195 @@
     .nav-button__logout {
         @apply bg-red-500 text-white hover:bg-red-600 
                focus:ring-red-200 border border-red-500;
+    }
+}
+
+/* Admin Navigation */
+@layer components {
+    .admin-sidebar {
+        @apply h-full w-80 shadow-sm z-40 transition-all duration-300 ease-in-out;
+    }
+
+    .admin-sidebar--collapsed {
+        @apply w-20;
+    }
+
+    .admin-sidebar__header,
+    .admin-sidebar__footer {
+        @apply flex px-4 py-2 min-h-16 items-center w-full;
+    }
+
+    .admin-sidebar__footer {
+        @apply gap-4;
+    }
+
+    .admin-sidebar__header--collapsed,
+    .admin-sidebar__footer--collapsed {
+        @apply justify-center;
+    }
+
+    .admin-sidebar__header {
+        @apply border-b border-gray-200;
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .admin-sidebar__footer {
+        @apply border-t border-gray-200 mt-auto;
+    }
+
+    .admin-sidebar__header-icon {
+        @apply flex items-center justify-center h-6 w-6;
+        grid-column: 1;
+    }
+
+    .admin-sidebar__header-icon svg {
+        @apply text-2xl text-blue-600;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .admin-sidebar__header-title {
+        @apply text-xl font-semibold text-blue-600 transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap;
+        grid-column: 2;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        transform: translateX(0);
+        opacity: 1;
+        width: auto;
+    }
+
+    .admin-sidebar__header-title--hidden {
+        transform: translateX(-10px);
+        opacity: 0;
+        width: 0;
+    }
+
+    .admin-sidebar--collapsed .admin-sidebar__header {
+        grid-template-columns: 24px;
+        gap: 0;
+        justify-items: center;
+    }
+
+    .admin-sidebar nav {
+        @apply flex flex-col px-4 py-6;
+    }
+
+    .admin-nav__list {
+        @apply flex flex-col gap-2;
+    }
+
+    .admin-nav__list li {
+        @apply w-full;
+    }
+
+    .admin-nav__link {
+        @apply grid rounded-lg text-gray-600 text-sm p-2 px-4
+            hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 
+            no-underline items-center;
+        grid-template-columns: 24px 1fr;
+        gap: 1.5rem;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+
+    .admin-nav__icon {
+        @apply flex items-center justify-center h-6 w-6;
+        grid-column: 1;
+    }
+
+    .admin-nav__icon svg {
+        @apply text-xl text-blue-600;
+        font-weight: 600;
+    }
+
+    .admin-nav__label {
+        @apply transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap;
+        grid-column: 2;
+        transform: translateX(0);
+        opacity: 1;
+        width: auto;
+    }
+
+    .admin-nav__label--hidden {
+        transform: translateX(-10px);
+        opacity: 0;
+        width: 0;
+    }
+
+    .admin-nav__link--active {
+        @apply bg-blue-50 text-blue-600;
+    }
+
+    .admin-nav__link--active:hover {
+        @apply bg-blue-100 text-blue-700;
+    }
+
+    .admin-nav__link--active .admin-nav__icon svg {
+        @apply text-blue-600;
+    }
+
+    .admin-sidebar--collapsed .admin-nav__link {
+        @apply justify-center;
+        grid-template-columns: 24px;
+        gap: 0;
+    }
+
+    .admin-sidebar--collapsed .admin-nav__icon {
+        @apply mx-auto;
+    }
+}
+
+@layer components {
+    /* // Admin */
+
+    .admin-sidebar-header,
+    .admin-user-management-header {
+        @apply flex items-center justify-between px-4 py-6 w-full border-b border-gray-200 min-h-20;
+    }
+
+    .admin-brand {
+        @apply flex items-center gap-2;
+    }
+
+    .admin-brand-title {
+        @apply text-xl font-semibold text-blue-600;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+    }
+
+    .admin-collapse-btn {
+        @apply flex p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 
+               text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 
+               focus:ring-blue-200;
+    }
+
+    .admin-nav-list {
+        @apply flex flex-col gap-2 items-start;
+    }
+
+    .admin-nav-link {
+        @apply flex items-center gap-6 p-2 px-4 rounded-lg text-gray-600 
+               hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 
+               text-sm font-medium no-underline;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+
+    .admin-sidebar-footer {
+        @apply flex items-center justify-between px-4 py-3 w-full border-t border-gray-200 min-h-20;
+    }
+
+    .admin-logout-btn {
+        @apply w-full flex items-center gap-4 p-3 rounded-lg 
+               bg-red-500 hover:bg-red-600 text-white transition-all duration-200 
+               focus:outline-none focus:ring-2 focus:ring-red-200 text-sm font-medium;
+        font-weight: 500;
+    }
+
+    .admin-table-header {
+        @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
     }
 }
