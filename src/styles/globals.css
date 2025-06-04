@@ -365,20 +365,10 @@
         overflow: hidden;
     }
 
-    .auth-layout header,
-    .main-layout header,
-    .main-layout header {
-        @apply border-b border-gray-400 pb-6;
-        flex-shrink: 0;
-    }
-
-    .auth-layout header h1,
-    .main-layout header h1,
-    .main-layout header h1 {
-        @apply text-2xl font-semibold text-blue-600 px-8;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        line-height: 1.2;
+    .admin-layout--loading {
+        @apply main flex flex-col gap-0 h-full;
+        min-height: 0;
+        overflow: hidden;
     }
 
     .auth-layout__loading,
@@ -388,6 +378,22 @@
         @apply flex items-center justify-center;
         flex: 1;
         width: 100%;
+    }
+
+    .auth-layout__loading header,
+    .main-layout__loading header,
+    .admin-layout__loading header {
+        @apply border-b border-gray-400 pb-6;
+        flex-shrink: 0;
+    }
+
+    .auth-layout__loading header h1,
+    .main-layout__loading header h1,
+    .layout__loading-layout header h1 {
+        @apply text-2xl font-semibold text-blue-600 px-8;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
     }
 
     .main-layout__content {
@@ -544,7 +550,7 @@
 
     .admin-sidebar__header,
     .admin-sidebar__footer {
-        @apply flex px-4 py-2 min-h-16 items-center w-full;
+        @apply flex p-4 min-h-16 items-center w-full;
     }
 
     .admin-sidebar__footer {

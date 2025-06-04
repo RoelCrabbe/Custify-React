@@ -43,7 +43,7 @@ const AdminSidebar: React.FC = () => {
 
     return (
         <>
-            <FormContainer isAside hasBorder isColumn gap={'0'} className={getBarClassName()}>
+            <FormContainer.Sidebar className={getBarClassName()}>
                 <header className={getHeaderClassName()}>
                     <div className="admin-sidebar__header-icon">
                         <FontAwesomeIcon icon={faTools} />
@@ -73,7 +73,7 @@ const AdminSidebar: React.FC = () => {
                         {isCollapsed ? <FontAwesomeIcon icon={faChevronRight} /> : 'Hide'}
                     </button>
                 </div>
-            </FormContainer>
+            </FormContainer.Sidebar>
         </>
     );
 };

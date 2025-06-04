@@ -23,7 +23,7 @@ const UserManagement: React.FC = () => {
         },
     });
 
-    const pageLoading = !shouldRender || usersIsLoading;
+    const pageLoading = usersIsLoading || !shouldRender;
 
     return (
         <>

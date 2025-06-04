@@ -20,12 +20,12 @@ const Home: React.FC = () => {
         <>
             <MainPageLayout pageName={'Home'}>
                 <div className="flex flex-col gap-16">
-                    <FormContainer hasBorder>
+                    <FormContainer.Card>
                         <FormContainer
                             easeIn
                             isVisible={isVisible}
                             className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
-                            <FormContainer isColumn gap={'4'} className="items-center">
+                            <FormContainer.Column className="items-center">
                                 <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
                                     Welcome to <span className="text-blue-600">Custify</span>
                                 </h1>
@@ -38,9 +38,9 @@ const Home: React.FC = () => {
                                         Get Started
                                     </Button>
                                 </div>
-                            </FormContainer>
+                            </FormContainer.Column>
                         </FormContainer>
-                    </FormContainer>
+                    </FormContainer.Card>
 
                     <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col items-center gap-4 text-center">
@@ -55,14 +55,10 @@ const Home: React.FC = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {userFeatures.map((feature) => (
-                                <FormContainer
+                                <FormContainer.FeatureCard
                                     key={feature.id}
-                                    hasBorder
-                                    easeIn
                                     isVisible={isVisible}
-                                    isColumn
-                                    gap={'4'}
-                                    className={'p-6 hover:shadow-sm'}>
+                                    className={'cursor-default'}>
                                     <span className="text-blue-600">
                                         <FontAwesomeIcon icon={feature.icon} size={'xl'} />
                                     </span>
@@ -70,7 +66,7 @@ const Home: React.FC = () => {
                                         {feature.title}
                                     </h3>
                                     <p className="text-gray-600 text-sm">{feature.description}</p>
-                                </FormContainer>
+                                </FormContainer.FeatureCard>
                             ))}
                         </div>
                     </div>

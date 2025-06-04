@@ -82,7 +82,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
 
     return (
         <>
-            <FormContainer hasBorder className="overflow-hidden h-full">
+            <FormContainer.Card className="overflow-hidden h-full">
                 <FormContainer className="flex flex-col h-full">
                     <div className="admin-user-management-header flex-shrink-0">
                         <div className="flex items-center gap-2">
@@ -215,7 +215,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                         </div>
                     </div>
                 </FormContainer>
-            </FormContainer>
+            </FormContainer.Card>
 
             <UserDetailsModal
                 isOpen={showModal}

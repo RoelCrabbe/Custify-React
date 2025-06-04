@@ -20,12 +20,12 @@ const AdminLandingPage: React.FC = () => {
         <>
             <MainPageLayout pageName={'Admin Panel'}>
                 <div className="flex flex-col gap-16">
-                    <FormContainer hasBorder>
+                    <FormContainer.Card>
                         <FormContainer
                             easeIn
                             isVisible={isVisible}
                             className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
-                            <FormContainer isColumn gap={'4'} className="items-center">
+                            <FormContainer.Column className="items-center">
                                 <div className="flex items-center gap-4">
                                     <FontAwesomeIcon
                                         icon={faUserShield}
@@ -40,9 +40,9 @@ const AdminLandingPage: React.FC = () => {
                                     Comprehensive platform administration and management tools.
                                     Monitor, configure, and optimize your Custify instance.
                                 </p>
-                            </FormContainer>
+                            </FormContainer.Column>
                         </FormContainer>
-                    </FormContainer>
+                    </FormContainer.Card>
 
                     <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                         <h2 className="text-3xl font-semibold text-gray-900 text-center">
@@ -50,32 +50,25 @@ const AdminLandingPage: React.FC = () => {
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {adminQuickStats.map((stat, index) => (
-                                <FormContainer
-                                    key={index}
-                                    hasBorder
-                                    easeIn
-                                    isVisible={isVisible}
-                                    isColumn
-                                    gap={'4'}
-                                    className={'p-6 text-center'}>
+                            {adminQuickStats.map((quickStat) => (
+                                <FormContainer.StatCard isVisible={isVisible}>
                                     <h3 className="text-2xl font-semibold text-gray-900">
-                                        {stat.value}
+                                        {quickStat.value}
                                     </h3>
                                     <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-                                        {stat.label}
+                                        {quickStat.label}
                                     </p>
                                     <div
                                         className={`text-sm font-medium ${
-                                            stat.trend === 'up'
+                                            quickStat.trend === 'up'
                                                 ? 'text-green-600'
-                                                : stat.trend === 'down'
+                                                : quickStat.trend === 'down'
                                                   ? 'text-red-600'
                                                   : 'text-gray-500'
                                         }`}>
-                                        {stat.change}
+                                        {quickStat.change}
                                     </div>
-                                </FormContainer>
+                                </FormContainer.StatCard>
                             ))}
                         </div>
                     </div>
@@ -93,14 +86,8 @@ const AdminLandingPage: React.FC = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {adminFeatures.map((feature) => (
-                                <FormContainer
-                                    key={feature.id}
-                                    hasBorder
-                                    easeIn
+                                <FormContainer.FeatureCard
                                     isVisible={isVisible}
-                                    isColumn
-                                    gap={'4'}
-                                    className={'p-6 cursor-pointer'}
                                     onClick={() => router.push(feature.href)}>
                                     <span className="text-blue-600">
                                         <FontAwesomeIcon icon={feature.icon} size={'xl'} />
@@ -113,7 +100,7 @@ const AdminLandingPage: React.FC = () => {
                                         Access Tool
                                         <FontAwesomeIcon icon={faChartLine} size={'sm'} />
                                     </div>
-                                </FormContainer>
+                                </FormContainer.FeatureCard>
                             ))}
                         </div>
                     </div>

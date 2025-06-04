@@ -15,7 +15,7 @@ const AdminPageLayout: React.FC<AdminPageLayoutProps> = ({
     isLoading = false,
 }: AdminPageLayoutProps) => {
     const getMainClassName = () => {
-        return 'admin-layout';
+        return `admin-layout ${isLoading ? 'admin-layout--loading' : ''}`;
     };
 
     const getSpinnerClassName = () => {
