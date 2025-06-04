@@ -29,7 +29,9 @@
             "@styles/*": ["styles/*"],
             "@styles": ["styles"],
             "@types": ["types/index.ts"],
-            "@pages/*": ["pages/*"]
+            "@pages/*": ["pages/*"],
+            "@config/*": ["config/*"],
+            "@config": ["config"]
         },
         "plugins": [
             {

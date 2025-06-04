@@ -1,8 +1,11 @@
+import { getUserNavItems } from '@config/userConfig';
 import { useCurrentUser } from '@provider/UserProvider';
 import { Role } from '@types';
 import { getUserRole } from '@utils/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+const userNavItems = getUserNavItems();
 
 const Navigation: React.FC = () => {
     const router = useRouter();
@@ -32,33 +35,31 @@ const Navigation: React.FC = () => {
 
                         {currentUser.isLoggedIn && (
                             <nav>
-                                <Link
-                                    href="/"
-                                    className={getLinkClassName(router.pathname === '/')}>
-                                    Dashboard
-                                </Link>
-                                <Link
-                                    href="/customers"
-                                    className={getLinkClassName(router.pathname === '/customers')}>
-                                    Customers
-                                </Link>
-                                <Link
-                                    href="/orders"
-                                    className={getLinkClassName(router.pathname === '/orders')}>
-                                    Orders
-                                </Link>
-                                {isAdmin && (
-                                    <Link
-                                        href="/admin"
-                                        className={getLinkClassName(router.pathname === '/admin')}>
-                                        Admin Panel
-                                    </Link>
-                                )}
-                                <Link
-                                    href="/settings"
-                                    className={getLinkClassName(router.pathname === '/settings')}>
-                                    Settings
-                                </Link>
+                                <ul>
+                                    {userNavItems.map((feature) => (
+                                        <li key={feature.id}>
+                                            <Link
+                                                href={feature.href}
+                                                className={getLinkClassName(
+                                                    router.pathname === feature.href,
+                                                )}>
+                                                {feature.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+
+                                    {isAdmin && (
+                                        <li key={'admin'}>
+                                            <Link
+                                                href="/admin"
+                                                className={getLinkClassName(
+                                                    router.pathname === '/admin',
+                                                )}>
+                                                Admin Panel
+                                            </Link>
+                                        </li>
+                                    )}
+                                </ul>
                             </nav>
                         )}
 

@@ -1,7 +1,7 @@
 import FormContainer from '@components/ui/FormContainer';
+import { getAdminNavItems } from '@config/adminConfig';
 import { faChevronRight, faTools } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getAdminNavItems } from 'config/adminConfig';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';

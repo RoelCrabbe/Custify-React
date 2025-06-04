@@ -480,8 +480,8 @@
         letter-spacing: -0.025em;
     }
 
-    .navigation__content nav {
-        @apply flex items-center gap-8;
+    .navigation__content nav ul {
+        @apply flex items-center gap-4;
     }
 
     .navigation__content nav a {

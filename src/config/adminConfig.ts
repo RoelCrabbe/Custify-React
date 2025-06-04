@@ -150,3 +150,10 @@ export const getAdminItemById = (id: any) => {
 export const getAdminItemByHref = (href: any) => {
     return adminNavigation.find((item) => item.href === href);
 };
+
+export const adminQuickStats = [
+    { label: 'Total Users', value: '2,847', change: '+12%', trend: 'up' },
+    { label: 'Active Sessions', value: '1,234', change: '+5%', trend: 'up' },
+    { label: 'System Uptime', value: '99.9%', change: '0%', trend: 'stable' },
+    { label: 'Pending Issues', value: '3', change: '-2', trend: 'down' },
+];

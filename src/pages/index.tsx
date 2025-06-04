@@ -1,17 +1,12 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
-import {
-    faBolt,
-    faChartBar,
-    faChartLine,
-    faCogs,
-    faLock,
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import { getUserFeatures } from '@config/userConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+const userFeatures = getUserFeatures();
 
 const Home: React.FC = () => {
     const router = useRouter();
@@ -20,45 +15,6 @@ const Home: React.FC = () => {
     useEffect(() => {
         setIsVisible(true);
     }, []);
-
-    const features = [
-        {
-            icon: faUsers,
-            title: 'Customer Management',
-            description:
-                'Organize and track all your customer information in one centralized platform with advanced search and filtering.',
-        },
-        {
-            icon: faChartBar,
-            title: 'Order Tracking',
-            description:
-                'Monitor orders from creation to completion with real-time status updates and comprehensive reporting.',
-        },
-        {
-            icon: faCogs,
-            title: 'Customizable Settings',
-            description:
-                'Tailor the platform to your business needs with flexible configuration options and personalized workflows.',
-        },
-        {
-            icon: faChartLine,
-            title: 'Analytics & Insights',
-            description:
-                'Get valuable business insights with detailed analytics, trend analysis, and performance metrics.',
-        },
-        {
-            icon: faLock,
-            title: 'Secure & Reliable',
-            description:
-                'Enterprise-grade security with data encryption, regular backups, and 99.9% uptime guarantee.',
-        },
-        {
-            icon: faBolt,
-            title: 'Lightning Fast',
-            description:
-                'Built for speed with optimized performance, instant search, and seamless user experience.',
-        },
-    ];
 
     return (
         <>
@@ -73,7 +29,7 @@ const Home: React.FC = () => {
                                 <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
                                     Welcome to <span className="text-blue-600">Custify</span>
                                 </h1>
-                                <p className="text-lg text-gray-600 mb-4 max-w-2xl mx-auto">
+                                <p className="text-lg text-gray-600 mb-4 max-w-2xl mx-auto text-center">
                                     The professional customer management platform that streamlines
                                     your business operations and enhances customer relationships.
                                 </p>
@@ -98,9 +54,9 @@ const Home: React.FC = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {features.map((feature, index) => (
+                            {userFeatures.map((feature) => (
                                 <FormContainer
-                                    key={index}
+                                    key={feature.id}
                                     hasBorder
                                     easeIn
                                     isVisible={isVisible}
