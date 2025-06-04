@@ -3,12 +3,12 @@ import { Role } from '@types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-type AuthGuardConfig = {
+interface AuthGuardConfig {
     redirectTo?: string;
     requireAuth?: boolean;
     allowedRoles?: string[];
     blockIfAuthenticated?: boolean;
-};
+}
 
 export const useAuthGuard = (config: AuthGuardConfig = {}) => {
     const {

@@ -1,11 +1,11 @@
 import { processEnv } from '@lib';
 import { useEffect, useRef, useState } from 'react';
 
-type CardDisplayMessage = {
+interface CardDisplayMessage {
     type: 'card-display';
     cardId: string;
     timestamp?: string;
-};
+}
 
 export const useCardScannerWS = (onCardScanned: (cardId: string) => void) => {
     const [lastMessage, setLastMessage] = useState<CardDisplayMessage | null>(null);

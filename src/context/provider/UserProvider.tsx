@@ -4,12 +4,12 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from '@types';
 import { createContext, ReactNode, useContext, useEffect } from 'react';
 
-type UserContextType = {
+interface UserContextType {
     getValue: () => User | null;
     isLoggedIn: boolean;
     logout: () => void;
     refetch: () => void;
-};
+}
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
