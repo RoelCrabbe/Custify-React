@@ -5,6 +5,7 @@ type BaseProps = {
     className?: string;
     hasBorder?: boolean;
     isAside?: boolean;
+    onClick?: () => void;
 };
 
 type WithEaseIn = {
@@ -38,6 +39,7 @@ const FormContainer: React.FC<Props> = ({
     isVisible,
     isColumn,
     gap,
+    onClick,
 }: Props) => {
     const getButtonClasses = () => {
         let classes = 'bg-white transition-all duration-800 ease-in-out';
@@ -50,8 +52,17 @@ const FormContainer: React.FC<Props> = ({
     };
 
     const getContainer = () => {
-        if (isAside) return <aside className={getButtonClasses()}>{children}</aside>;
-        return <div className={getButtonClasses()}>{children}</div>;
+        if (isAside)
+            return (
+                <aside onClick={onClick} className={getButtonClasses()}>
+                    {children}
+                </aside>
+            );
+        return (
+            <div onClick={onClick} className={getButtonClasses()}>
+                {children}
+            </div>
+        );
     };
 
     return <>{getContainer()}</>;

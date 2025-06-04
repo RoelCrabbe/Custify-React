@@ -1,13 +1,12 @@
 import FormContainer from '@components/ui/FormContainer';
 import {
-    faBox,
+    faBoxes,
     faChartBar,
-    faChartLine,
     faChevronRight,
+    faClipboardList,
     faCog,
-    faFileAlt,
+    faDatabase,
     faLock,
-    faShoppingBag,
     faTools,
     faUsers,
 } from '@fortawesome/free-solid-svg-icons';
@@ -20,37 +19,37 @@ const adminNavItems = [
     {
         icon: faChartBar,
         label: 'Dashboard',
-        href: '/admin/dashboard',
+        href: '/admin',
     },
     {
         icon: faUsers,
         label: 'User Management',
-        href: '/admin/users',
+        href: '/admin/user-management',
     },
     {
-        icon: faBox,
+        icon: faBoxes,
         label: 'Order Management',
-        href: '/admin/orders',
+        href: '/admin/order-management',
     },
     {
-        icon: faShoppingBag,
+        icon: faDatabase,
         label: 'Product Management',
-        href: '/admin/products',
+        href: '/admin/product-management',
     },
     {
-        icon: faChartLine,
+        icon: faChartBar,
         label: 'Analytics',
         href: '/admin/analytics',
     },
     {
-        icon: faFileAlt,
+        icon: faClipboardList,
         label: 'Reports',
         href: '/admin/reports',
     },
     {
         icon: faCog,
         label: 'System Settings',
-        href: '/admin/settings',
+        href: '/admin/system-settings',
     },
     {
         icon: faLock,
