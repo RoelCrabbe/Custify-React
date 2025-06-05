@@ -676,54 +676,33 @@
     }
 }
 
+/* User Management */
 @layer components {
-    /* // Admin */
-
-    .admin-sidebar-header,
-    .admin-user-management-header {
-        @apply flex items-center justify-between px-4 py-6 w-full border-b border-gray-200 min-h-20;
+    .user-management-header {
+        @apply flex p-4 min-h-16 items-center w-full justify-between border-b border-gray-200;
     }
 
-    .admin-brand {
-        @apply flex items-center gap-2;
-    }
-
-    .admin-brand-title {
+    .user-management-header h2 {
         @apply text-xl font-semibold text-blue-600;
         font-weight: 600;
         letter-spacing: -0.025em;
     }
 
-    .admin-collapse-btn {
-        @apply flex p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 
-               text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 
-               focus:ring-blue-200;
+    .user-management-header svg {
+        @apply text-2xl text-blue-600;
+        font-weight: 600;
+        letter-spacing: -0.025em;
     }
 
-    .admin-nav-list {
-        @apply flex flex-col gap-2 items-start;
+    .user-management-table {
+        @apply min-w-full;
     }
 
-    .admin-nav-link {
-        @apply flex items-center gap-6 p-2 px-4 rounded-lg text-gray-600 
-               hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 
-               text-sm font-medium no-underline;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-    }
-
-    .admin-sidebar-footer {
-        @apply flex items-center justify-between px-4 py-3 w-full border-t border-gray-200 min-h-20;
-    }
-
-    .admin-logout-btn {
-        @apply w-full flex items-center gap-4 p-3 rounded-lg 
-               bg-red-500 hover:bg-red-600 text-white transition-all duration-200 
-               focus:outline-none focus:ring-2 focus:ring-red-200 text-sm font-medium;
-        font-weight: 500;
-    }
-
-    .admin-table-header {
+    .user-management-table thead tr th {
         @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    }
+
+    .user-management__icon {
+        @apply h-4 w-4 text-gray-400;
     }
 }

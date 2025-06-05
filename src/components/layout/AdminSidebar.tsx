@@ -20,7 +20,7 @@ const AdminSidebar: React.FC = () => {
         return `admin-sidebar__header ${isCollapsed ? 'admin-sidebar__header--collapsed' : ''}`;
     };
 
-    const getH1ClassName = () => {
+    const getH2ClassName = () => {
         return `admin-sidebar__header-title ${isCollapsed ? 'admin-sidebar__header-title--hidden' : ''}`;
     };
 
@@ -48,7 +48,7 @@ const AdminSidebar: React.FC = () => {
                     <div className="admin-sidebar__header-icon">
                         <FontAwesomeIcon icon={faTools} />
                     </div>
-                    <h1 className={getH1ClassName()}>Admin Panel</h1>
+                    <h2 className={getH2ClassName()}>Admin Panel</h2>
                 </header>
 
                 <nav>

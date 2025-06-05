@@ -3,6 +3,7 @@ import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
+import UserAvatar from '@components/ui/UserAvatar';
 import {
     faCheckCircle,
     faEnvelope,
@@ -30,7 +31,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
     const [showModal, setShowModal] = useState(false);
 
     if (isLoading) {
-        return <TableLoading text="Loading user management info..." />;
+        return <TableLoading text={'Loading user management info...'} />;
     }
 
     if (isError) {
@@ -84,127 +85,117 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
         <>
             <FormContainer.Card className="overflow-hidden h-full">
                 <FormContainer className="flex flex-col h-full">
-                    <div className="admin-user-management-header flex-shrink-0">
-                        <div className="flex items-center gap-2">
-                            <button
-                                type="button"
-                                onClick={() => onRetry()}
-                                className="admin-collapse-btn">
-                                <FontAwesomeIcon icon={faUsers} className="admin-brand-icon" />
-                            </button>
-                            <h2 className="admin-brand-title">User Management</h2>
+                    <header className="user-management-header">
+                        <div className="flex items-center gap-4">
+                            <FontAwesomeIcon icon={faUsers} />
+                            <h2>User Management</h2>
                         </div>
-                        <p className="text-sm text-gray-600 pr-2">
-                            Manage and monitor user accounts
-                        </p>
-                    </div>
+                        <p className="text-sm text-gray-600">Manage and monitor user accounts</p>
+                    </header>
 
                     <div className="flex-1 flex flex-col min-h-0">
                         <div className="overflow-hidden flex-1 flex flex-col">
                             <div className="flex-shrink-0 bg-gray-50 border-b border-gray-200">
-                                <table className="min-w-full">
+                                <table className="user-management-table">
                                     <thead>
                                         <tr>
-                                            <th className="admin-table-header">User</th>
-                                            <th className="admin-table-header">Contact</th>
-                                            <th className="admin-table-header">Role</th>
-                                            <th className="admin-table-header">Status</th>
-                                            <th className="admin-table-header">Actions</th>
+                                            <th>User</th>
+                                            <th>Contact</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
 
                             <div className="flex-1 overflow-y-auto bg-white mr-2">
-                                <table className="min-w-full">
+                                <table className="user-management-table">
                                     <tbody className="divide-y divide-gray-200">
                                         {data.map((user) => (
                                             <tr
                                                 key={user.id}
-                                                className="hover:bg-gray-50 transition-colors duration-150">
+                                                className="hover:bg-gray-100 transition-colors duration-150">
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center gap-4">
-                                                        <div className="flex-shrink-0 h-10 w-10">
-                                                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                                <span className="text-sm font-medium text-blue-600">
-                                                                    {user.firstName[0]}
-                                                                    {user.lastName[0]}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <section className="flex flex-col">
-                                                            <span className="text-sm font-medium text-gray-900">
+                                                        <UserAvatar
+                                                            firstName={user.firstName}
+                                                            lastName={user.lastName}
+                                                        />
+
+                                                        <section className="flex flex-col gap-1 text-sm text-gray-600">
+                                                            <span className="font-medium text-gray-900">
                                                                 {user.firstName} {user.lastName}
                                                             </span>
-                                                            <span className="text-sm text-gray-500">
-                                                                @{user.userName}
-                                                            </span>
+                                                            <span>@{user.userName}</span>
                                                         </section>
                                                     </div>
                                                 </td>
 
                                                 <td className="flex flex-col gap-1 px-6 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center gap-2 text-sm text-gray-900">
+                                                    <section className="flex items-center gap-2 text-sm text-gray-600">
                                                         <FontAwesomeIcon
                                                             icon={faEnvelope}
-                                                            className="h-4 w-4 text-gray-400"
+                                                            className="user-management__icon"
                                                         />
-                                                        {user.email}
-                                                    </div>
+                                                        <span>{user.email}</span>
+                                                    </section>
                                                     {user.phoneNumber && (
-                                                        <div className="flex items-center gap-2 text-sm text-gray-900">
+                                                        <section className="flex items-center gap-2 text-sm text-gray-600">
                                                             <FontAwesomeIcon
                                                                 icon={faPhone}
-                                                                className="h-4 w-4 text-gray-400"
+                                                                className="user-management__icon"
                                                             />
-                                                            {user.phoneNumber}
-                                                        </div>
+                                                            <span>{user.phoneNumber}</span>
+                                                        </section>
                                                     )}
                                                 </td>
 
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <span
-                                                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
+                                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
                                                         <FontAwesomeIcon
                                                             icon={faShieldAlt}
-                                                            className="h-4 w-4"
+                                                            className="management__icon"
                                                         />
-                                                        {capitalizeFirstLetter(user.role)}
+                                                        <span>
+                                                            {capitalizeFirstLetter(user.role)}
+                                                        </span>
                                                     </span>
                                                 </td>
 
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <span
-                                                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(user.isActive)}`}>
+                                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(user.isActive)}`}>
                                                         {user.isActive ? (
                                                             <>
                                                                 <FontAwesomeIcon
                                                                     icon={faCheckCircle}
-                                                                    className="h-4 w-4"
+                                                                    className="management__icon"
                                                                 />
-                                                                Active
+                                                                <span>Active</span>
                                                             </>
                                                         ) : (
                                                             <>
                                                                 <FontAwesomeIcon
                                                                     icon={faXmarkCircle}
-                                                                    className="h-4 w-4"
+                                                                    className="management__icon"
                                                                 />
-                                                                Inactive
+                                                                <span>Inactive</span>
                                                             </>
                                                         )}
                                                     </span>
                                                 </td>
 
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <td className="px-6 py-4 whitespace-nowrap">
                                                     <Button
                                                         onClick={() => handleViewDetails(user)}
                                                         className="inline-flex items-center gap-2 w-fit">
                                                         <FontAwesomeIcon
                                                             icon={faEye}
-                                                            className="h-4 w-4"
+                                                            className="management__icon"
                                                         />
-                                                        View Details
+                                                        <span>View Details</span>
                                                     </Button>
                                                 </td>
                                             </tr>

@@ -3,6 +3,7 @@ import FormContainer from '@components/ui/FormContainer';
 import { adminQuickStats, getAdminFeatures } from '@config/adminConfig';
 import { faChartLine, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -10,6 +11,7 @@ const adminFeatures = getAdminFeatures();
 
 const AdminLandingPage: React.FC = () => {
     const router = useRouter();
+    const { shouldRender, currentUser } = useRequireAdmin();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
