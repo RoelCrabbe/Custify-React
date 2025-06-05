@@ -698,12 +698,27 @@
         @apply min-w-full;
     }
 
+    .user-management-table thead {
+        box-shadow:
+            0 1px 0 0 rgb(229 231 235),
+            0 1px 3px 0 rgb(0 0 0 / 0.1);
+    }
+
     .user-management-table thead tr th {
         @apply px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
     }
 
     .user-management__icon {
         @apply h-4 w-4;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }
 
