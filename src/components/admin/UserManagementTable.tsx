@@ -122,7 +122,6 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                             firstName={user.firstName}
                                                             lastName={user.lastName}
                                                         />
-
                                                         <section className="flex flex-col gap-1 text-sm text-gray-600">
                                                             <span className="font-medium text-gray-900">
                                                                 {user.firstName} {user.lastName}
@@ -132,23 +131,25 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                     </div>
                                                 </td>
 
-                                                <td className="flex flex-col gap-1 px-6 py-4 whitespace-nowrap">
-                                                    <section className="flex items-center gap-2 text-sm text-gray-600">
-                                                        <FontAwesomeIcon
-                                                            icon={faEnvelope}
-                                                            className="user-management__icon"
-                                                        />
-                                                        <span>{user.email}</span>
-                                                    </section>
-                                                    {user.phoneNumber && (
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="flex flex-col gap-1">
                                                         <section className="flex items-center gap-2 text-sm text-gray-600">
                                                             <FontAwesomeIcon
-                                                                icon={faPhone}
-                                                                className="user-management__icon"
+                                                                icon={faEnvelope}
+                                                                className="user-management__icon text-gray-400"
                                                             />
-                                                            <span>{user.phoneNumber}</span>
+                                                            <span>{user.email}</span>
                                                         </section>
-                                                    )}
+                                                        {user.phoneNumber && (
+                                                            <section className="flex items-center gap-2 text-sm text-gray-600">
+                                                                <FontAwesomeIcon
+                                                                    icon={faPhone}
+                                                                    className="user-management__icon text-gray-400"
+                                                                />
+                                                                <span>{user.phoneNumber}</span>
+                                                            </section>
+                                                        )}
+                                                    </div>
                                                 </td>
 
                                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -156,7 +157,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
                                                         <FontAwesomeIcon
                                                             icon={faShieldAlt}
-                                                            className="management__icon"
+                                                            className="user-management__icon"
                                                         />
                                                         <span>
                                                             {capitalizeFirstLetter(user.role)}
@@ -171,7 +172,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                             <>
                                                                 <FontAwesomeIcon
                                                                     icon={faCheckCircle}
-                                                                    className="management__icon"
+                                                                    className="user-management__icon"
                                                                 />
                                                                 <span>Active</span>
                                                             </>
@@ -179,7 +180,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                             <>
                                                                 <FontAwesomeIcon
                                                                     icon={faXmarkCircle}
-                                                                    className="management__icon"
+                                                                    className="user-management__icon"
                                                                 />
                                                                 <span>Inactive</span>
                                                             </>
@@ -193,7 +194,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                         className="inline-flex items-center gap-2 w-fit">
                                                         <FontAwesomeIcon
                                                             icon={faEye}
-                                                            className="management__icon"
+                                                            className="user-management__icon"
                                                         />
                                                         <span>View Details</span>
                                                     </Button>

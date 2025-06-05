@@ -703,6 +703,6 @@
     }
 
     .user-management__icon {
-        @apply h-4 w-4 text-gray-400;
+        @apply h-4 w-4;
     }
 }
