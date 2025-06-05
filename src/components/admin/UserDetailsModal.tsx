@@ -25,7 +25,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onClose }) => {
     return (
         <>
             {user && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 z-50">
+                <FormContainer.Modal>
                     <FormContainer.Card className="relative flex flex-col gap-4 mx-auto p-5 w-96">
                         <header className="user-details-header">
                             <h3>User Details</h3>
@@ -110,7 +110,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onClose }) => {
                             </Button.Primary>
                         </div>
                     </FormContainer.Card>
-                </div>
+                </FormContainer.Modal>
             )}
         </>
     );

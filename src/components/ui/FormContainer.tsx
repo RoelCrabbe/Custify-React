@@ -28,7 +28,18 @@ type WithoutColumn = {
     gap?: never;
 };
 
-type Props = (WithEaseIn | WithoutEaseIn) & (WithColumn | WithoutColumn) & BaseProps;
+type WithModal = {
+    isModal: boolean;
+};
+
+type WithoutModal = {
+    isModal?: never;
+};
+
+type Props = (WithEaseIn | WithoutEaseIn) &
+    (WithColumn | WithoutColumn) &
+    (WithModal | WithoutModal) &
+    BaseProps;
 
 const ContainerComponent: React.FC<Props> = ({
     children,
@@ -37,18 +48,22 @@ const ContainerComponent: React.FC<Props> = ({
     isAside,
     easeIn,
     isVisible,
+    isModal,
     isColumn,
     gap,
     onClick,
 }: Props) => {
     const getContainerClasses = () => {
+        if (isModal)
+            return 'fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 z-50';
         let classes = 'bg-white transition-all duration-800 ease-in-out';
+
         if (hasBorder) classes += ' border border-gray-200 hover:border-gray-300 rounded-lg';
         if (easeIn)
             classes += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
         if (isColumn) classes += ` flex flex-col gap-${gap}`;
         if (className) classes += ` ${className}`;
-        return classes;
+        return classes.trim();
     };
 
     const getContainer = () => {
@@ -75,6 +90,7 @@ type AnimatedColumnProps = Omit<BaseProps, never> & { isVisible: boolean; gap?: 
 type StatCardProps = Omit<BaseProps, 'className'> & { isVisible: boolean; className?: string };
 type FeatureCardProps = Omit<BaseProps, 'className'> & { isVisible: boolean; className?: string };
 type SidebarProps = Omit<BaseProps, 'hasBorder' | 'isColumn'> & WithoutEaseIn;
+type ModalProps = BaseProps & WithoutModal;
 
 const Card: React.FC<CardProps> = (props) => {
     const formattedProps: Props = {
@@ -151,6 +167,14 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
     return <ContainerComponent {...formattedProps} />;
 };
 
+const Modal: React.FC<ModalProps> = (props) => {
+    const formattedProps: Props = {
+        ...props,
+        isModal: true,
+    };
+    return <ContainerComponent {...formattedProps} />;
+};
+
 type FormContainerType = typeof ContainerComponent & {
     Card: typeof Card;
     Column: typeof Column;
@@ -159,6 +183,7 @@ type FormContainerType = typeof ContainerComponent & {
     StatCard: typeof StatCard;
     FeatureCard: typeof FeatureCard;
     Sidebar: typeof Sidebar;
+    Modal: typeof Modal;
 };
 
 const FormContainer = ContainerComponent as FormContainerType;
@@ -170,5 +195,6 @@ FormContainer.AnimatedColumn = AnimatedColumn;
 FormContainer.StatCard = StatCard;
 FormContainer.FeatureCard = FeatureCard;
 FormContainer.Sidebar = Sidebar;
+FormContainer.Modal = Modal;
 
 export default FormContainer;
