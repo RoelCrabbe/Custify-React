@@ -3,6 +3,7 @@ import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import { getUserFeatures } from '@config/userConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useCurrentUser } from '@provider/UserProvider';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -10,6 +11,7 @@ const userFeatures = getUserFeatures();
 
 const Home: React.FC = () => {
     const router = useRouter();
+    const currentUser = useCurrentUser();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -33,11 +35,13 @@ const Home: React.FC = () => {
                                     The professional customer management platform that streamlines
                                     your business operations and enhances customer relationships.
                                 </p>
-                                <div className="flex justify-center w-36">
-                                    <Button onClick={() => router.push('/register')}>
-                                        Get Started
-                                    </Button>
-                                </div>
+                                {!currentUser.isLoggedIn && (
+                                    <div className="flex justify-center w-36">
+                                        <Button onClick={() => router.push('/register')}>
+                                            Get Started
+                                        </Button>
+                                    </div>
+                                )}
                             </FormContainer.Column>
                         </FormContainer>
                     </FormContainer.Card>
@@ -58,7 +62,7 @@ const Home: React.FC = () => {
                                 <FormContainer.FeatureCard
                                     key={feature.id}
                                     isVisible={isVisible}
-                                    className={'cursor-default'}>
+                                    className={'!cursor-default'}>
                                     <span className="text-blue-600">
                                         <FontAwesomeIcon icon={feature.icon} size={'xl'} />
                                     </span>

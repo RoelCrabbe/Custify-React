@@ -65,7 +65,7 @@ const LogoutPage: React.FC = () => {
 
                     <div className="error-page__actions">
                         <button
-                            onClick={() => router.push(redirectTo)}
+                            onClick={handleImmediateRedirect}
                             className="error-page__button error-page__button--primary">
                             Go to Home Now
                         </button>
