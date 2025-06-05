@@ -1,3 +1,4 @@
+import Button from '@components/ui/Button';
 import { getUserNavItems } from '@config/userConfig';
 import { useCurrentUser } from '@provider/UserProvider';
 import { Role } from '@types';
@@ -65,11 +66,7 @@ const Navigation: React.FC = () => {
 
                         <div className="navigation__actions">
                             {currentUser.isLoggedIn ? (
-                                <button
-                                    onClick={handleLogout}
-                                    className="nav-button nav-button__logout">
-                                    Logout
-                                </button>
+                                <Button.Danger onClick={handleLogout}>Logout</Button.Danger>
                             ) : (
                                 <>
                                     {isAuthPage ? (
@@ -79,19 +76,19 @@ const Navigation: React.FC = () => {
                                                     ? '/register'
                                                     : '/login'
                                             }
-                                            className="nav-button nav-button__primary">
+                                            className="button-base button-primary button-md">
                                             {router.pathname === '/login' ? 'Sign Up' : 'Login'}
                                         </Link>
                                     ) : (
                                         <>
                                             <Link
                                                 href="/login"
-                                                className="nav-button nav-button__secondary">
+                                                className="button-base button-secondary button-md">
                                                 Login
                                             </Link>
                                             <Link
                                                 href="/register"
-                                                className="nav-button nav-button__primary">
+                                                className="button-base button-primary button-md">
                                                 Sign Up
                                             </Link>
                                         </>

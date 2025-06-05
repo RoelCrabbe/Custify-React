@@ -164,15 +164,14 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                             </td>
 
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <Button
-                                                    onClick={() => handleViewDetails(user)}
-                                                    className="inline-flex items-center gap-2 w-fit">
+                                                <Button.Primary
+                                                    onClick={() => handleViewDetails(user)}>
                                                     <FontAwesomeIcon
                                                         icon={faEye}
                                                         className="user-management__icon"
                                                     />
                                                     <span>View Details</span>
-                                                </Button>
+                                                </Button.Primary>
                                             </td>
                                         </tr>
                                     ))}

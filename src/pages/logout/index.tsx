@@ -1,4 +1,5 @@
 import AuthPageLayout from '@components/layout/AuthPageLayout';
+import Button from '@components/ui/Button';
 import { useRequireAuth } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -64,11 +65,9 @@ const LogoutPage: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <button
-                            onClick={handleImmediateRedirect}
-                            className="error-page__button error-page__button--primary">
+                        <Button.Primary onClick={handleImmediateRedirect} size={'lg'}>
                             Go to Home Now
-                        </button>
+                        </Button.Primary>
                     </div>
                 </div>
             </AuthPageLayout>

@@ -1,4 +1,5 @@
 import AuthPageLayout from '@components/layout/AuthPageLayout';
+import Button from '@components/ui/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -35,16 +36,10 @@ const Custom403: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <Link
-                            href="/login"
-                            className="error-page__button error-page__button--primary">
+                        <Link href="/login" className="button-base button-primary button-md">
                             Go to Login
                         </Link>
-                        <button
-                            onClick={handleGoBack}
-                            className="error-page__button error-page__button--secondary">
-                            Go Back
-                        </button>
+                        <Button.Secondary onClick={handleGoBack}>Go Back</Button.Secondary>
                     </div>
                 </div>
             </AuthPageLayout>

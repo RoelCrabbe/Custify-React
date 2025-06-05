@@ -103,15 +103,11 @@ const UserDetailsModal: React.FC<Props> = ({ user, onClose }) => {
                         </div>
 
                         <div className="flex justify-end gap-4 pt-4 border-t">
-                            <Button
-                                onClick={onClose}
-                                className="w-fit text-gray-700 bg-gray-100 border border-gray-300 hover:bg-gray-200">
-                                Close
-                            </Button>
-                            <Button onClick={handleEdit} className="w-fit flex items-center gap-2">
+                            <Button.Secondary onClick={onClose}>Close</Button.Secondary>
+                            <Button.Primary onClick={handleEdit}>
                                 <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                                 Edit User
-                            </Button>
+                            </Button.Primary>
                         </div>
                     </FormContainer.Card>
                 </div>

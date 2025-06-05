@@ -105,18 +105,12 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
                         />
                     </div>
 
-                    <Button
-                        type="submit"
-                        onClick={handleSubmit}
-                        isLoading={isButtonDisabled}
-                        isDisabled={isButtonDisabled}>
+                    <Button.Submit onClick={handleSubmit} isLoading={isButtonDisabled} size={'lg'}>
                         Sign In
-                    </Button>
+                    </Button.Submit>
 
-                    <>
-                        {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-                        {children}
-                    </>
+                    {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+                    {children}
                 </form>
 
                 <div className="login-form-footer">

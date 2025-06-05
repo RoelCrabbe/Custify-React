@@ -1,3 +1,4 @@
+import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import { getAdminNavItems } from '@config/adminConfig';
 import { faChevronRight, faTools } from '@fortawesome/free-solid-svg-icons';
@@ -67,11 +68,9 @@ const AdminSidebar: React.FC = () => {
                 </nav>
 
                 <div className={getFooterClassName()}>
-                    <button
-                        onClick={() => setIsCollapsed(!isCollapsed)}
-                        className={`button-base button-primary inline-flex items-center justify-center`}>
+                    <Button.Primary onClick={() => setIsCollapsed(!isCollapsed)} className="w-full">
                         {isCollapsed ? <FontAwesomeIcon icon={faChevronRight} /> : 'Hide'}
-                    </button>
+                    </Button.Primary>
                 </div>
             </FormContainer.Sidebar>
         </>

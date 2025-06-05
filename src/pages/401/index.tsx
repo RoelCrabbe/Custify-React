@@ -27,12 +27,10 @@ const Custom401: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <Link href="/" className="error-page__button error-page__button--primary">
+                        <Link href="/" className="button-base button-primary button-md">
                             Go to Home
                         </Link>
-                        <Link
-                            href="/login"
-                            className="error-page__button error-page__button--secondary">
+                        <Link href="/login" className="button-base button-secondary button-md">
                             Log In
                         </Link>
                     </div>

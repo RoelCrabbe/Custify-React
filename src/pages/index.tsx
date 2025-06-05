@@ -36,11 +36,11 @@ const Home: React.FC = () => {
                                     your business operations and enhances customer relationships.
                                 </p>
                                 {!currentUser.isLoggedIn && (
-                                    <div className="flex justify-center w-36">
-                                        <Button onClick={() => router.push('/register')}>
-                                            Get Started
-                                        </Button>
-                                    </div>
+                                    <Button.Primary
+                                        onClick={() => router.push('/register')}
+                                        size="lg">
+                                        Get Started
+                                    </Button.Primary>
                                 )}
                             </FormContainer.Column>
                         </FormContainer>

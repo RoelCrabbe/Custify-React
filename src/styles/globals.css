@@ -131,37 +131,6 @@
     }
 }
 
-/* Button Components */
-@layer components {
-    .button-base {
-        @apply w-full px-4 py-2 border rounded-lg transition-all duration-200 
-               text-sm font-medium focus:outline-none focus:ring-2 cursor-pointer;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        min-height: 3rem;
-    }
-
-    .button-primary {
-        @apply bg-blue-500 border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
-               focus:ring-blue-200 focus:border-blue-500;
-    }
-
-    .button-secondary {
-        @apply bg-red-500 border-red-500 text-white hover:bg-red-600 hover:border-red-600
-               focus:ring-red-200 focus:border-red-500;
-    }
-
-    .button-disabled {
-        @apply bg-gray-50 border-gray-300 text-gray-500 cursor-not-allowed
-               hover:bg-gray-50 hover:border-gray-300;
-    }
-
-    .button-loading {
-        @apply bg-gray-400 border-gray-400 text-white cursor-not-allowed opacity-75
-               hover:bg-gray-400 hover:border-gray-400;
-    }
-}
-
 /* Form Components */
 @layer components {
     .form-container-base {
@@ -443,24 +412,6 @@
     .error-page__actions {
         @apply flex gap-6 justify-center;
     }
-
-    .error-page__button {
-        @apply px-6 py-3 rounded-lg text-sm font-medium transition-all duration-200 
-               focus:outline-none focus:ring-2 cursor-pointer;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        min-height: 3rem;
-    }
-
-    .error-page__button--primary {
-        @apply bg-blue-500 border border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
-               focus:ring-blue-200 focus:border-blue-500;
-    }
-
-    .error-page__button--secondary {
-        @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
-               focus:ring-gray-200 focus:border-gray-300;
-    }
 }
 
 /* Navigation */
@@ -512,29 +463,6 @@
 
     .navigation__actions {
         @apply flex items-center gap-4;
-    }
-
-    .nav-button {
-        @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 
-               focus:outline-none focus:ring-2 cursor-pointer;
-        font-weight: 500;
-        letter-spacing: -0.011em;
-        min-height: 2.5rem;
-    }
-
-    .nav-button__primary {
-        @apply bg-blue-500 text-white hover:bg-blue-600 
-               focus:ring-blue-200 border border-blue-500;
-    }
-
-    .nav-button__secondary {
-        @apply bg-white text-gray-700 hover:bg-gray-50 
-               focus:ring-gray-200 border border-gray-300;
-    }
-
-    .nav-button__logout {
-        @apply bg-red-500 text-white hover:bg-red-600 
-               focus:ring-red-200 border border-red-500;
     }
 }
 
@@ -738,5 +666,95 @@
 
     .user-details-header svg {
         @apply h-6 w-6;
+    }
+}
+
+/* Button Components */
+@layer components {
+    .button-base {
+        @apply border rounded-lg transition-all duration-200 
+               font-medium focus:outline-none focus:ring-2 cursor-pointer
+               inline-flex items-center justify-center gap-2;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
+
+    .button-sm {
+        @apply px-3 py-1.5 text-sm;
+        min-height: 2rem;
+    }
+
+    .button-md {
+        @apply px-4 py-2 text-sm;
+        min-height: 2.5rem;
+    }
+
+    .button-lg {
+        @apply px-6 py-2.5 text-base;
+        min-height: 3rem;
+    }
+
+    .button-primary {
+        @apply bg-blue-500 border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600
+               focus:ring-blue-200 focus:border-blue-500;
+    }
+
+    .button-secondary {
+        @apply bg-gray-100 text-gray-700 hover:bg-gray-200 
+               focus:ring-gray-200 border border-gray-300;
+    }
+
+    .button-danger {
+        @apply bg-red-500 border-red-500 text-white hover:bg-red-600 hover:border-red-600
+               focus:ring-red-200 focus:border-red-500;
+    }
+
+    .button-outline {
+        @apply bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400
+               focus:ring-gray-200 focus:border-gray-400;
+    }
+
+    .button-ghost {
+        @apply bg-transparent border-transparent text-gray-700 hover:bg-gray-100
+               focus:ring-gray-200 focus:bg-gray-50;
+    }
+
+    .button-disabled {
+        @apply bg-gray-50 border-gray-300 text-gray-500 cursor-not-allowed
+               hover:bg-gray-50 hover:border-gray-300;
+    }
+
+    .button-loading {
+        @apply bg-gray-400 border-gray-400 text-white cursor-not-allowed opacity-75
+               hover:bg-gray-400 hover:border-gray-400;
+    }
+
+    .button-full-width {
+        @apply w-full;
+    }
+
+    .button-with-icon {
+        @apply gap-2;
+    }
+
+    .button-icon-right {
+        @apply flex-row-reverse;
+    }
+
+    .button-icon-only {
+        @apply aspect-square p-0 gap-0;
+        min-width: auto;
+    }
+
+    .button-icon-only.button-sm {
+        @apply w-8 h-8;
+    }
+
+    .button-icon-only.button-md {
+        @apply w-10 h-10;
+    }
+
+    .button-icon-only.button-lg {
+        @apply w-12 h-12;
     }
 }
