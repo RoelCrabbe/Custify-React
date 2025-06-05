@@ -4,6 +4,7 @@ import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import UserAvatar from '@components/ui/UserAvatar';
+import { getRoleBadgeColor, getStatusColor } from '@config/roleConfig';
 import {
     faCheckCircle,
     faEnvelope,
@@ -15,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
-import { Role, User } from '@types';
+import { User } from '@types';
 import { useState } from 'react';
 
 interface Props {
@@ -51,34 +52,6 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
     const handleCloseModal = () => {
         setShowModal(false);
         setSelectedUser(null);
-    };
-
-    const handleEditUser = (user: User) => {
-        console.log('Edit user:', user);
-    };
-
-    const getRoleBadgeColor = (role: any) => {
-        switch (role) {
-            case Role.ADMIN:
-                return 'bg-purple-100 text-purple-800';
-            case Role.HR:
-                return 'bg-yellow-100 text-yellow-800';
-            case Role.USER:
-                return 'bg-indigo-100 text-indigo-800';
-            default:
-                return 'bg-gray-100 text-gray-800';
-        }
-    };
-
-    const getStatusColor = (status: any) => {
-        switch (status) {
-            case true:
-                return 'bg-green-100 text-green-800';
-            case false:
-                return 'bg-red-100 text-red-800';
-            default:
-                return 'bg-gray-100 text-gray-800';
-        }
     };
 
     return (
@@ -119,6 +92,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center gap-4">
                                                         <UserAvatar
+                                                            size={'sm'}
                                                             firstName={user.firstName}
                                                             lastName={user.lastName}
                                                         />
@@ -159,9 +133,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                             icon={faShieldAlt}
                                                             className="user-management__icon"
                                                         />
-                                                        <span>
-                                                            {capitalizeFirstLetter(user.role)}
-                                                        </span>
+                                                        {capitalizeFirstLetter(user.role)}
                                                     </span>
                                                 </td>
 
@@ -174,7 +146,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                                     icon={faCheckCircle}
                                                                     className="user-management__icon"
                                                                 />
-                                                                <span>Active</span>
+                                                                Active
                                                             </>
                                                         ) : (
                                                             <>
@@ -182,7 +154,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                                                                     icon={faXmarkCircle}
                                                                     className="user-management__icon"
                                                                 />
-                                                                <span>Inactive</span>
+                                                                Inactive
                                                             </>
                                                         )}
                                                     </span>
@@ -209,12 +181,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                 </FormContainer>
             </FormContainer.Card>
 
-            <UserDetailsModal
-                isOpen={showModal}
-                user={selectedUser}
-                onClose={handleCloseModal}
-                onEdit={handleEditUser}
-            />
+            {showModal && <UserDetailsModal user={selectedUser} onClose={handleCloseModal} />}
         </>
     );
 };

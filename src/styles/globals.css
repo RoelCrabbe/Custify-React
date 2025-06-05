@@ -699,10 +699,29 @@
     }
 
     .user-management-table thead tr th {
-        @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+        @apply px-6 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
     }
 
     .user-management__icon {
         @apply h-4 w-4;
+    }
+}
+
+/* User Management */
+@layer components {
+    .user-details-header {
+        @apply flex items-center justify-between;
+    }
+
+    .user-details-header h3 {
+        @apply text-lg font-semibold text-gray-900;
+    }
+
+    .user-details-header button {
+        @apply text-gray-400 hover:text-gray-600 flex;
+    }
+
+    .user-details-header svg {
+        @apply h-6 w-6;
     }
 }
