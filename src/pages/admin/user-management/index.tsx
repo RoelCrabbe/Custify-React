@@ -1,11 +1,11 @@
-import UserManagementTable from '@components/admin/UserManagementTable';
+import UserManagement from '@components/admin/UserManagement';
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { userService } from '@services/index';
 import { QueryClient, useQuery } from '@tanstack/react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-const UserManagement: React.FC = () => {
+const UserManagementPage: React.FC = () => {
     const { shouldRender, currentUser } = useRequireAdmin();
     const queryClient = new QueryClient();
 
@@ -31,7 +31,7 @@ const UserManagement: React.FC = () => {
                 pageName={'User Management'}
                 description={'Manage and monitor user accounts'}
                 isLoading={pageLoading}>
-                <UserManagementTable
+                <UserManagement
                     data={users}
                     isError={usersIsError}
                     isLoading={usersIsLoading}
@@ -53,4 +53,4 @@ export const getServerSideProps = async (context: any) => {
     };
 };
 
-export default UserManagement;
+export default UserManagementPage;
