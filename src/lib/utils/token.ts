@@ -1,3 +1,4 @@
+import { isAuthPage } from '@lib/utils/auth';
 import { jwtDecode } from 'jwt-decode';
 import router from 'next/router';
 
@@ -19,10 +20,7 @@ export const isTokenExpired = (token: string): boolean => {
 export const handleExpiredToken = () => {
     localStorage.removeItem('authToken');
 
-    const currentPath = router.asPath;
-    const authPages = ['/login', '/register'];
-
-    if (!authPages.includes(currentPath)) {
+    if (!isAuthPage(router.asPath)) {
         router.push('/login');
     }
 };

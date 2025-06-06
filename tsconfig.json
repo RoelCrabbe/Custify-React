@@ -32,7 +32,9 @@
             "@types/*": ["types/*"],
             "@pages/*": ["pages/*"],
             "@config/*": ["config/*"],
-            "@config": ["config"]
+            "@config": ["config"],
+            "@validators/*": ["validators/*"],
+            "@validators": ["validators/index.ts"]
         },
         "plugins": [
             {

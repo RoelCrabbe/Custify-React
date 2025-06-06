@@ -1,7 +1,7 @@
 import { faCog, faMoon, faSun, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCurrentUser } from '@provider/UserProvider';
-import { getUserRole, Role } from '@types';
+import { getUserRole, isAdmin } from '@types';
 import { useEffect, useState } from 'react';
 
 const SettingsWidget: React.FC = () => {
@@ -16,7 +16,7 @@ const SettingsWidget: React.FC = () => {
         if (saved) document.documentElement.classList.add('dark');
         else document.documentElement.classList.remove('dark');
 
-        if (getUserRole(currentUser.getValue()) === Role.Admin) {
+        if (isAdmin(currentUser.getValue())) {
             const savedUserMode = localStorage.getItem('userMode') === 'true';
             setUserMode(savedUserMode);
         }
@@ -92,7 +92,7 @@ const SettingsWidget: React.FC = () => {
                                     </button>
                                 </div>
 
-                                {getUserRole(currentUser.getValue()) === Role.Admin && (
+                                {isAdmin(currentUser.getValue()) && (
                                     <div className="settings-option">
                                         <div className="settings-option-info">
                                             <div className="settings-option-icon">

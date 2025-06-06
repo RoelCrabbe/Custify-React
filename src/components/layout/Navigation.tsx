@@ -1,7 +1,8 @@
 import Button from '@components/ui/Button';
 import { getUserNavItems } from '@config/userConfig';
+import { isAuthPage } from '@lib/utils/auth';
 import { useCurrentUser } from '@provider/UserProvider';
-import { getUserRole, Role } from '@types';
+import { isAdmin } from '@types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -20,9 +21,6 @@ const Navigation: React.FC = () => {
         if (isActive) classes += ' nav-link-active';
         return classes;
     };
-
-    const isAuthPage = router.pathname === '/login' || router.pathname === '/register';
-    const isAdmin = getUserRole(currentUser.getValue()) === Role.Admin;
 
     return (
         <>
@@ -48,7 +46,7 @@ const Navigation: React.FC = () => {
                                         </li>
                                     ))}
 
-                                    {isAdmin && (
+                                    {isAdmin(currentUser.getValue()) && (
                                         <li key={'admin'}>
                                             <Link
                                                 href="/admin"
@@ -68,7 +66,7 @@ const Navigation: React.FC = () => {
                                 <Button.Danger onClick={handleLogout}>Logout</Button.Danger>
                             ) : (
                                 <>
-                                    {isAuthPage ? (
+                                    {isAuthPage(router.pathname) ? (
                                         <Link
                                             href={
                                                 router.pathname === '/login'

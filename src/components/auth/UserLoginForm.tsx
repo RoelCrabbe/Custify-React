@@ -3,6 +3,7 @@ import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
 import { handleErrorLabel } from '@lib';
 import { LabelMessage } from '@types';
+import { validatePassWord, validateUserName } from '@validators/user';
 import Link from 'next/link';
 import React, { ReactNode, useState } from 'react';
 
@@ -18,28 +19,15 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
-    const validateUserName = (userName: string | null) => {
-        if (!userName?.trim()) return 'Username is required.';
-        return null;
-    };
-
-    const validatePassWord = (passWord: string | null) => {
-        if (!passWord?.trim()) return 'Password is required.';
-        return null;
-    };
-
     const validate = (): boolean => {
-        let valid = true;
+        const errors = [validateUserName(userName), validatePassWord(passWord)].filter(Boolean);
 
-        const userNameError = validateUserName(userName);
-        const passWordError = validatePassWord(passWord);
-
-        if (userNameError || passWordError) {
-            handleErrorLabel(userNameError || passWordError, setLabelMessage);
-            valid = false;
+        if (errors.length > 0) {
+            handleErrorLabel(errors[0], setLabelMessage);
+            return false;
         }
 
-        return valid;
+        return true;
     };
 
     const clearAllErrors = () => {

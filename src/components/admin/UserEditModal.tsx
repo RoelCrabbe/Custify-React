@@ -8,6 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
 import { LabelMessage, Role, User } from '@types';
+import {
+    validateEmail,
+    validateFirstName,
+    validateLastName,
+    validatePhoneNumber,
+    validateRole,
+    validateUserName,
+} from '@validators/user';
 import { useState } from 'react';
 interface Props {
     user: User;
@@ -27,59 +35,22 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
-    const validateFirstName = (name: string | null) => {
-        if (!name?.trim()) return 'First name is required.';
-        return null;
-    };
-
-    const validateLastName = (name: string | null) => {
-        if (!name?.trim()) return 'Last name is required.';
-        return null;
-    };
-
-    const validateEmail = (email: string | null) => {
-        if (!email?.trim()) return 'Email is required.';
-        return null;
-    };
-
-    const validatePhoneNumber = (phoneNumber: string | null) => {
-        if (phoneNumber && !phoneNumber?.trim()) return 'Phone number is required.';
-        return null;
-    };
-
-    const validateUserName = (userName: string | null) => {
-        if (!userName?.trim()) return 'Username is required.';
-        return null;
-    };
-
-    const validateIsActive = (isActive: boolean | null) => {
-        if (!isActive) return 'Status is required.';
-        return null;
-    };
-
-    const validateRole = (role: Role | null) => {
-        if (!role?.trim()) return 'Role is required.';
-        return null;
-    };
-
     const validate = (): boolean => {
-        let valid = true;
+        const errors = [
+            validateFirstName(firstName),
+            validateLastName(lastName),
+            validateEmail(email),
+            validatePhoneNumber(phoneNumber),
+            validateUserName(userName),
+            validateRole(role),
+        ].filter(Boolean);
 
-        const firstNameError = validateFirstName(firstName);
-        const lastNameError = validateLastName(lastName);
-        const emailError = validateEmail(email);
-        const phoneError = validatePhoneNumber(phoneNumber);
-        const userNameError = validateUserName(userName);
-
-        if (firstNameError || lastNameError || emailError || phoneError || userNameError) {
-            handleErrorLabel(
-                firstNameError || lastNameError || emailError || phoneError || userNameError,
-                setLabelMessage,
-            );
-            valid = false;
+        if (errors.length > 0) {
+            handleErrorLabel(errors[0], setLabelMessage);
+            return false;
         }
 
-        return valid;
+        return true;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {

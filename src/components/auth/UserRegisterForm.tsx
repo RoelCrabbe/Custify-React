@@ -3,6 +3,14 @@ import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
 import { handleErrorLabel } from '@lib';
 import { LabelMessage } from '@types';
+import {
+    validateEmail,
+    validateFirstName,
+    validateLastName,
+    validatePassWord,
+    validatePhoneNumber,
+    validateUserName,
+} from '@validators/user';
 import Link from 'next/link';
 import React, { ReactNode, useState } from 'react';
 
@@ -22,67 +30,22 @@ const UserRegisterForm: React.FC<Props> = ({ onSubmit, onClearError, children }:
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
-    const validateFirstName = (name: string | null) => {
-        if (!name?.trim()) return 'First name is required.';
-        return null;
-    };
-
-    const validateLastName = (name: string | null) => {
-        if (!name?.trim()) return 'Last name is required.';
-        return null;
-    };
-
-    const validateEmail = (email: string | null) => {
-        if (!email?.trim()) return 'Email is required.';
-        return null;
-    };
-
-    const validatePhoneNumber = (phoneNumber: string | null) => {
-        if (phoneNumber && !phoneNumber?.trim()) return "Phone number can't be empty.";
-        return null;
-    };
-
-    const validateUserName = (userName: string | null) => {
-        if (!userName?.trim()) return 'Username is required.';
-        return null;
-    };
-
-    const validatePassWord = (passWord: string | null) => {
-        if (!passWord?.trim()) return 'Password is required.';
-        return null;
-    };
-
     const validate = (): boolean => {
-        let valid = true;
+        const errors = [
+            validateFirstName(firstName),
+            validateLastName(lastName),
+            validateEmail(email),
+            validatePhoneNumber(phoneNumber),
+            validateUserName(userName),
+            validatePassWord(passWord),
+        ].filter(Boolean);
 
-        const firstNameError = validateFirstName(firstName);
-        const lastNameError = validateLastName(lastName);
-        const emailError = validateEmail(email);
-        const phoneError = validatePhoneNumber(phoneNumber);
-        const userNameError = validateUserName(userName);
-        const passWordError = validatePassWord(passWord);
-
-        if (
-            firstNameError ||
-            lastNameError ||
-            emailError ||
-            phoneError ||
-            userNameError ||
-            passWordError
-        ) {
-            handleErrorLabel(
-                firstNameError ||
-                    lastNameError ||
-                    emailError ||
-                    phoneError ||
-                    userNameError ||
-                    passWordError,
-                setLabelMessage,
-            );
-            valid = false;
+        if (errors.length > 0) {
+            handleErrorLabel(errors[0], setLabelMessage);
+            return false;
         }
 
-        return valid;
+        return true;
     };
 
     const clearAllErrors = () => {
