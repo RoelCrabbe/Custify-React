@@ -20,14 +20,22 @@ import { User } from '@types';
 import { useState } from 'react';
 
 interface Props {
-    data: any[];
+    users: User[];
     isError: boolean;
     isLoading: boolean;
     error: unknown;
     onRetry: () => void;
+    onUpdate: (updatedUser: User) => void;
 }
 
-const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error, onRetry }) => {
+const UserManagementTable: React.FC<Props> = ({
+    users,
+    isError,
+    isLoading,
+    error,
+    onRetry,
+    onUpdate,
+}) => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -48,11 +56,6 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
     const handleViewDetails = (user: User) => {
         setSelectedUser(user);
         setShowDetailsModal(true);
-    };
-
-    const handleCloseDetailsModal = () => {
-        setShowDetailsModal(false);
-        setSelectedUser(null);
     };
 
     const handleOpenEditModal = () => {
@@ -93,7 +96,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
-                        {data.map((user) => (
+                        {users.map((user) => (
                             <tr
                                 key={user.id}
                                 className="hover:bg-gray-100 transition-colors duration-150">
@@ -198,6 +201,7 @@ const UserManagementTable: React.FC<Props> = ({ data, isError, isLoading, error,
                             user={selectedUser}
                             onCancel={handleCloseEditModal}
                             onClose={handleCloseAllModal}
+                            onUpdate={onUpdate}
                         />
                     )}
                 </>

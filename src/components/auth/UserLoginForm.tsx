@@ -20,19 +20,11 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
 
     const validateUserName = (userName: string | null) => {
         if (!userName?.trim()) return 'Username is required.';
-        if (userName.trim().length < 6) return 'Username must be at least 6 characters long.';
-        if (userName.trim().length > 30) return 'Username cannot exceed 30 characters.';
         return null;
     };
 
     const validatePassWord = (passWord: string | null) => {
         if (!passWord?.trim()) return 'Password is required.';
-        if (passWord.trim().length < 6) return 'Password must be at least 6 characters long.';
-        if (passWord.trim().length > 30) return 'Password cannot exceed 30 characters.';
-        if (!/[A-Z]/.test(passWord)) return 'Password must contain at least one uppercase letter.';
-        if (!/[0-9]/.test(passWord)) return 'Password must contain at least one number.';
-        if (!/[@$!%*?&#]/.test(passWord))
-            return 'Password must contain at least one special character (@$!%*?&#).';
         return null;
     };
 
@@ -77,10 +69,10 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
     return (
         <>
             <div className="login-form-container">
-                <section className="login-form-header">
+                <header className="login-form-header">
                     <h1 className="login-form-title">Welcome Back</h1>
                     <span className="login-form-subtitle">Please sign in to your account</span>
-                </section>
+                </header>
 
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="login-form-fields">

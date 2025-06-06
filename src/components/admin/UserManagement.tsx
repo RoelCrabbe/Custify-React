@@ -2,16 +2,25 @@ import UserManagementTable from '@components/admin/UserManagementTable';
 import FormContainer from '@components/ui/FormContainer';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { User } from '@types';
 
 interface Props {
-    data: any[];
+    users: User[];
     isError: boolean;
     isLoading: boolean;
     error: unknown;
     onRetry: () => void;
+    onUpdate: (updatedUser: User) => void;
 }
 
-const UserManagement: React.FC<Props> = ({ data, isError, isLoading, error, onRetry }) => {
+const UserManagement: React.FC<Props> = ({
+    users,
+    isError,
+    isLoading,
+    error,
+    onRetry,
+    onUpdate,
+}) => {
     return (
         <>
             <FormContainer.Card className="overflow-hidden h-full">
@@ -26,11 +35,12 @@ const UserManagement: React.FC<Props> = ({ data, isError, isLoading, error, onRe
 
                     <div className="flex-1 flex flex-col min-h-0">
                         <UserManagementTable
-                            data={data}
+                            users={users}
                             isError={isError}
                             isLoading={isLoading}
                             error={error}
                             onRetry={onRetry}
+                            onUpdate={onUpdate}
                         />
                     </div>
                 </FormContainer>

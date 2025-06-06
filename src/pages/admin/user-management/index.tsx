@@ -3,19 +3,23 @@ import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { userService } from '@services/index';
 import { QueryClient, useQuery } from '@tanstack/react-query';
+import { User } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect, useState } from 'react';
+
+const queryClient = new QueryClient();
 
 const UserManagementPage: React.FC = () => {
     const { shouldRender, currentUser } = useRequireAdmin();
-    const queryClient = new QueryClient();
+    const [users, setUsers] = useState<User[]>([]);
 
     const {
-        data: users,
+        data: usersData,
         isError: usersIsError,
         isLoading: usersIsLoading,
         error: usersError,
     } = useQuery({
-        queryKey: ['all-users'],
+        queryKey: ['user-management'],
         staleTime: 600000,
         queryFn: async () => {
             const response = await userService.getAllUsers();
@@ -23,20 +27,35 @@ const UserManagementPage: React.FC = () => {
         },
     });
 
-    const pageLoading = usersIsLoading || !shouldRender;
+    const handleRetry = () => {
+        queryClient.invalidateQueries({ queryKey: ['user-management'] });
+    };
+
+    const handleUserUpdate = (updatedUser: User) => {
+        setUsers((prevUsers) =>
+            prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
+        );
+    };
+
+    useEffect(() => {
+        if (usersData && Array.isArray(usersData)) {
+            setUsers(usersData);
+        }
+    }, [usersData]);
 
     return (
         <>
             <AdminPageLayout
                 pageName={'User Management'}
                 description={'Manage and monitor user accounts'}
-                isLoading={pageLoading}>
+                isLoading={usersIsLoading || !shouldRender}>
                 <UserManagement
-                    data={users}
+                    users={users}
+                    error={usersError}
                     isError={usersIsError}
                     isLoading={usersIsLoading}
-                    error={usersError}
-                    onRetry={() => queryClient.invalidateQueries({ queryKey: ['all-users'] })}
+                    onUpdate={handleUserUpdate}
+                    onRetry={handleRetry}
                 />
             </AdminPageLayout>
         </>
