@@ -1,8 +1,7 @@
 import Button from '@components/ui/Button';
 import { getUserNavItems } from '@config/userConfig';
 import { useCurrentUser } from '@provider/UserProvider';
-import { Role } from '@types';
-import { getUserRole } from '@utils/auth';
+import { getUserRole, Role } from '@types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -23,7 +22,7 @@ const Navigation: React.FC = () => {
     };
 
     const isAuthPage = router.pathname === '/login' || router.pathname === '/register';
-    const isAdmin = getUserRole(currentUser.getValue()) === Role.ADMIN;
+    const isAdmin = getUserRole(currentUser.getValue()) === Role.Admin;
 
     return (
         <>

@@ -1,8 +1,5 @@
-export enum Role {
-    ADMIN = 'ADMIN',
-    HR = 'HR',
-    USER = 'USER',
-}
+import { Role } from '@types';
+export * from './role';
 
 export type User = {
     id?: number;

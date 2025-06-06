@@ -2,11 +2,11 @@ import { Role } from '@types';
 
 export const getRoleBadgeColor = (role: any) => {
     switch (role) {
-        case Role.ADMIN:
+        case Role.Admin:
             return 'bg-purple-100 text-purple-800';
-        case Role.HR:
+        case Role.HumanResources:
             return 'bg-yellow-100 text-yellow-800';
-        case Role.USER:
+        case Role.Guest:
             return 'bg-indigo-100 text-indigo-800';
         default:
             return 'bg-gray-100 text-gray-800';

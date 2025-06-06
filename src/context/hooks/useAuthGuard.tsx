@@ -81,7 +81,7 @@ export const useBlockAuthenticated = (redirectTo: string = '/403') => {
 export const useRequireAdmin = (redirectTo: string = '/403') => {
     return useAuthGuard({
         requireAuth: true,
-        allowedRoles: [Role.ADMIN],
+        allowedRoles: [Role.Admin],
         redirectTo,
     });
 };

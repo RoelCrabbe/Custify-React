@@ -28,7 +28,8 @@
             "@services": ["services/index.ts"],
             "@styles/*": ["styles/*"],
             "@styles": ["styles"],
-            "@types": ["types/index.ts"],
+            "@types": ["types"],
+            "@types/*": ["types/*"],
             "@pages/*": ["pages/*"],
             "@config/*": ["config/*"],
             "@config": ["config"]

@@ -128,13 +128,6 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
         }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, checked, type } = e.target;
-        if (type === 'checkbox' && name === 'isActive') {
-            setIsActive(checked);
-        }
-    };
-
     return (
         <>
             <FormContainer.Modal className="z-[60]">
@@ -207,19 +200,15 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                             required
                         />
 
-                        <section className="flex items-center gap-2 text-sm">
-                            <input
-                                type="checkbox"
-                                id="isActive"
-                                name="isActive"
-                                checked={isActive ?? false}
-                                onChange={handleInputChange}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                            />
-                            <label htmlFor="isActive" className="font-medium text-gray-700">
-                                Active User
-                            </label>
-                        </section>
+                        {/* <InputSelect<UserStatus>
+                            label="Status"
+                            value={role}
+                            onChange={setRole}
+                            validate={validateRole}
+                            enumObject={Role}
+                            placeholder="Select a role"
+                            required
+                        /> */}
 
                         {labelMessage && <StatusMessage labelMessage={labelMessage} />}
 

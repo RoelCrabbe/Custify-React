@@ -7,7 +7,7 @@ interface Props {
     value: any;
     onChange: (value: any) => void;
     validate?: (value: any) => any;
-    placeholder: any;
+    placeholder?: any;
     required?: boolean;
     disabled?: boolean;
 }
