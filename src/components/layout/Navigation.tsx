@@ -16,9 +16,9 @@ const Navigation: React.FC = () => {
         router.push('/logout');
     };
 
-    const getLinkClassName = (isActive: boolean) => {
+    const getLinkClassName = (isCurrent: boolean) => {
         let classes = 'nav-link';
-        if (isActive) classes += ' nav-link-active';
+        if (isCurrent) classes += ' nav-link-active';
         return classes;
     };
 

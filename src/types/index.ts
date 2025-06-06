@@ -1,16 +1,6 @@
-import { Role } from '@types';
-export * from './role';
-
-export type User = {
-    id?: number;
-    userName: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber?: string;
-    isActive: boolean;
-    role: Role;
-};
+export * from './user/index';
+export * from './user/role';
+export * from './user/status';
 
 export type LabelMessage = {
     label: string;

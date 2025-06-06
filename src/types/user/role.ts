@@ -31,3 +31,16 @@ export const isHumanResources = (user: User | null): boolean => {
 export const isGuest = (user: User | null): boolean => {
     return isUserRole(user, Role.Guest);
 };
+
+export const getRoleColor = (role: Role) => {
+    switch (role) {
+        case Role.Admin:
+            return 'bg-orange-100 text-orange-800 border-orange-200';
+        case Role.HumanResources:
+            return 'bg-cyan-100 text-cyan-800 border-cyan-200';
+        case Role.Guest:
+            return 'bg-violet-100 text-violet-800 border-violet-200';
+        default:
+            return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+};

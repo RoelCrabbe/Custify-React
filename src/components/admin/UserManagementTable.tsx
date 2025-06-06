@@ -4,19 +4,16 @@ import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
 import UserAvatar from '@components/ui/UserAvatar';
-import { getRoleBadgeColor, getStatusColor } from '@config/roleConfig';
 import {
     faArrowsUpDown,
-    faCheckCircle,
     faEnvelope,
     faEye,
     faPhone,
     faShieldAlt,
-    faXmarkCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
-import { User } from '@types';
+import { getRoleColor, getStatusColor, getStatusIcon, User } from '@types';
 import { useState } from 'react';
 
 interface Props {
@@ -139,7 +136,7 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
+                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
                                         <FontAwesomeIcon
                                             icon={faShieldAlt}
                                             className="user-management__icon"
@@ -150,24 +147,12 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(user.isActive)}`}>
-                                        {user.isActive ? (
-                                            <>
-                                                <FontAwesomeIcon
-                                                    icon={faCheckCircle}
-                                                    className="user-management__icon"
-                                                />
-                                                Active
-                                            </>
-                                        ) : (
-                                            <>
-                                                <FontAwesomeIcon
-                                                    icon={faXmarkCircle}
-                                                    className="user-management__icon"
-                                                />
-                                                Inactive
-                                            </>
-                                        )}
+                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
+                                        <FontAwesomeIcon
+                                            icon={getStatusIcon(user.status)}
+                                            className="user-management__icon"
+                                        />
+                                        {capitalizeFirstLetter(user.status)}
                                     </span>
                                 </td>
 

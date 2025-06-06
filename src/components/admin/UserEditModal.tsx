@@ -7,13 +7,14 @@ import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
-import { LabelMessage, Role, User } from '@types';
+import { LabelMessage, Role, Status, User } from '@types';
 import {
     validateEmail,
     validateFirstName,
     validateLastName,
     validatePhoneNumber,
     validateRole,
+    validateStatus,
     validateUserName,
 } from '@validators/user';
 import { useState } from 'react';
@@ -30,8 +31,8 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     const [email, setEmail] = useState<string | null>(user.email);
     const [phoneNumber, setPhoneNumber] = useState<string | null>(user.phoneNumber || '');
     const [userName, setUserName] = useState<string | null>(user.userName);
-    const [isActive, setIsActive] = useState<boolean | null>(user.isActive);
     const [role, setRole] = useState<Role | null>(user.role);
+    const [status, setStatus] = useState<Status | null>(user.status);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
@@ -71,7 +72,7 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
             email,
             phoneNumber,
             userName,
-            isActive,
+            status,
             role,
         };
 
@@ -170,15 +171,15 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                             required
                         />
 
-                        {/* <InputSelect<UserStatus>
+                        <InputSelect<Status>
                             label="Status"
-                            value={role}
-                            onChange={setRole}
-                            validate={validateRole}
-                            enumObject={Role}
+                            value={status}
+                            onChange={setStatus}
+                            validate={validateStatus}
+                            enumObject={Status}
                             placeholder="Select a role"
                             required
-                        /> */}
+                        />
 
                         {labelMessage && <StatusMessage labelMessage={labelMessage} />}
 

@@ -1,16 +1,10 @@
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import UserAvatar from '@components/ui/UserAvatar';
-import { getRoleBadgeColor, getStatusColor } from '@config/roleConfig';
-import {
-    faCheckCircle,
-    faEdit,
-    faShieldAlt,
-    faXmarkCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faShieldAlt, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
-import { User } from '@types';
+import { getRoleColor, getStatusColor, getStatusIcon, User } from '@types';
 
 interface Props {
     user: User;
@@ -64,7 +58,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
                         <section className="flex flex-col text-sm text-gray-600">
                             <label className="font-medium">Role</label>
                             <span
-                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleBadgeColor(user.role)}`}>
+                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
                                 <FontAwesomeIcon
                                     icon={faShieldAlt}
                                     className="user-management__icon"
@@ -76,24 +70,12 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
                         <section className="flex flex-col text-sm text-gray-600">
                             <label className="font-medium">Status</label>
                             <span
-                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.isActive)}`}>
-                                {user.isActive ? (
-                                    <>
-                                        <FontAwesomeIcon
-                                            icon={faCheckCircle}
-                                            className="user-management__icon"
-                                        />
-                                        Active
-                                    </>
-                                ) : (
-                                    <>
-                                        <FontAwesomeIcon
-                                            icon={faXmarkCircle}
-                                            className="user-management__icon"
-                                        />
-                                        Inactive
-                                    </>
-                                )}
+                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
+                                <FontAwesomeIcon
+                                    icon={getStatusIcon(user.status)}
+                                    className="user-management__icon"
+                                />
+                                {capitalizeFirstLetter(user.status)}
                             </span>
                         </section>
                     </div>

@@ -30,8 +30,8 @@ const AdminSidebar: React.FC = () => {
     };
 
     const getLinkClassName = (item: any) => {
-        const isActive = router.pathname === item.href;
-        return `admin-nav__link ${isActive ? 'admin-nav__link--active' : ''}`;
+        const isCurrent = router.pathname === item.href;
+        return `admin-nav__link ${isCurrent ? 'admin-nav__link--active' : ''}`;
     };
 
     const getSpanClassName = () => {
