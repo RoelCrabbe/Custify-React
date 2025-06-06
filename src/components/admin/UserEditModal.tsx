@@ -36,6 +36,18 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
+    const hasChanges = (): boolean => {
+        return (
+            firstName !== user.firstName ||
+            lastName !== user.lastName ||
+            email !== user.email ||
+            phoneNumber !== (user.phoneNumber || '') ||
+            userName !== user.userName ||
+            role !== user.role ||
+            status !== user.status
+        );
+    };
+
     const validate = (): boolean => {
         const errors = [
             validateFirstName(firstName),
@@ -62,6 +74,15 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
         setTimeout(() => setIsButtonDisabled(false), 2000);
 
         if (!validate()) {
+            return;
+        }
+
+        if (!hasChanges()) {
+            setLabelMessage({
+                label: 'No changes detected',
+                message: 'No updates were made.',
+                type: 'info',
+            });
             return;
         }
 
@@ -103,7 +124,7 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     return (
         <>
             <FormContainer.Modal className="z-[60]">
-                <FormContainer.Card className="relative flex flex-col gap-4 mx-auto p-5 w-96 max-h-[80vh] overflow-y-auto">
+                <FormContainer.Card className="relative flex flex-col gap-4 mx-auto p-5 w-1/3 max-h-[90vh]">
                     <header className="user-details-header">
                         <h3>Edit User</h3>
                         <button type="button" onClick={onClose}>
@@ -111,45 +132,47 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                         </button>
                     </header>
 
-                    <form className="grid grid-cols-1 gap-4 px-2">
-                        <InputField
-                            type="text"
-                            label="First Name"
-                            value={firstName}
-                            onChange={setFirstName}
-                            validate={validateFirstName}
-                            placeholder={'Enter your first name'}
-                            required
-                        />
+                    <form className="flex flex-col gap-4 px-2">
+                        <div className="grid grid-cols-2 gap-4">
+                            <InputField
+                                type="text"
+                                label="First Name"
+                                value={firstName}
+                                onChange={setFirstName}
+                                validate={validateFirstName}
+                                placeholder={'Enter your first name'}
+                                required
+                            />
+                            <InputField
+                                type="text"
+                                label="Last Name"
+                                value={lastName}
+                                onChange={setLastName}
+                                validate={validateLastName}
+                                placeholder={'Enter your last name'}
+                                required
+                            />
+                        </div>
 
-                        <InputField
-                            type="text"
-                            label="Last Name"
-                            value={lastName}
-                            onChange={setLastName}
-                            validate={validateLastName}
-                            placeholder={'Enter your last name'}
-                            required
-                        />
-
-                        <InputField
-                            type="email"
-                            label="Email"
-                            value={email}
-                            onChange={setEmail}
-                            validate={validateEmail}
-                            placeholder={'Enter your email'}
-                            required
-                        />
-
-                        <InputField
-                            type="tel"
-                            label="Phone Number"
-                            value={phoneNumber}
-                            onChange={setPhoneNumber}
-                            validate={validatePhoneNumber}
-                            placeholder={'Enter your phone number'}
-                        />
+                        <div className="grid grid-cols-2 gap-4">
+                            <InputField
+                                type="email"
+                                label="Email"
+                                value={email}
+                                onChange={setEmail}
+                                validate={validateEmail}
+                                placeholder={'Enter your email'}
+                                required
+                            />
+                            <InputField
+                                type="tel"
+                                label="Phone Number"
+                                value={phoneNumber}
+                                onChange={setPhoneNumber}
+                                validate={validatePhoneNumber}
+                                placeholder={'Enter your phone number'}
+                            />
+                        </div>
 
                         <InputField
                             type="text"
@@ -161,38 +184,39 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                             required
                         />
 
-                        <InputSelect<Role>
-                            label="Role"
-                            value={role}
-                            onChange={setRole}
-                            validate={validateRole}
-                            enumObject={Role}
-                            placeholder="Select a role"
-                            required
-                        />
+                        <div className="grid grid-cols-2 gap-4">
+                            <InputSelect<Role>
+                                label="Role"
+                                value={role}
+                                onChange={setRole}
+                                validate={validateRole}
+                                enumObject={Role}
+                                placeholder="Select a role"
+                                required
+                            />
 
-                        <InputSelect<Status>
-                            label="Status"
-                            value={status}
-                            onChange={setStatus}
-                            validate={validateStatus}
-                            enumObject={Status}
-                            placeholder="Select a role"
-                            required
-                        />
-
-                        {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-
-                        <div className="flex justify-end gap-4 pt-4 border-t">
-                            <Button.Secondary onClick={onCancel}>Cancel</Button.Secondary>
-                            <Button.Submit
-                                onClick={handleSubmit}
-                                isLoading={isButtonDisabled}
-                                size={'lg'}>
-                                Save Changes
-                            </Button.Submit>
+                            <InputSelect<Status>
+                                label="Status"
+                                value={status}
+                                onChange={setStatus}
+                                validate={validateStatus}
+                                enumObject={Status}
+                                placeholder="Select a status"
+                                required
+                            />
                         </div>
+
+                        <section className="w-2/3 mx-auto">
+                            {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+                        </section>
                     </form>
+
+                    <div className="flex justify-end gap-4 pt-4 border-t">
+                        <Button.Secondary onClick={onCancel}>Cancel</Button.Secondary>
+                        <Button.Submit onClick={handleSubmit} isLoading={isButtonDisabled}>
+                            Save Changes
+                        </Button.Submit>
+                    </div>
                 </FormContainer.Card>
             </FormContainer.Modal>
         </>

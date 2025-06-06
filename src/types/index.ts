@@ -5,7 +5,7 @@ export * from './user/status';
 export type LabelMessage = {
     label: string;
     message: string;
-    type: 'error' | 'success';
+    type: 'error' | 'success' | 'info';
 };
 
 export type IdName = {

@@ -6,19 +6,50 @@ interface Props {
 }
 
 const StatusMessage: React.FC<Props> = ({ labelMessage }: Props) => {
-    const isError = 'type' in labelMessage ? labelMessage.type === 'error' : true;
-
     const getBaseClasses = () => 'border-2 rounded-xl p-4 text-center';
-    const getErrorClasses = () => 'bg-red-100 border-red-500';
-    const getSuccessClasses = () => 'bg-green-100 border-green-500';
 
-    const getLabelColorClass = () => (isError ? 'text-red-700' : 'text-green-700');
-    const getMessageColorClass = () => (isError ? 'text-red-600' : 'text-green-600');
+    const getTypeClasses = () => {
+        switch (labelMessage.type) {
+            case 'error':
+                return 'bg-red-100 border-red-500';
+            case 'success':
+                return 'bg-green-100 border-green-500';
+            case 'info':
+                return 'bg-blue-100 border-blue-500';
+            default:
+                return 'bg-red-100 border-red-500';
+        }
+    };
+
+    const getLabelColorClass = () => {
+        switch (labelMessage.type) {
+            case 'error':
+                return 'text-red-700';
+            case 'success':
+                return 'text-green-700';
+            case 'info':
+                return 'text-blue-700';
+            default:
+                return 'text-red-700';
+        }
+    };
+
+    const getMessageColorClass = () => {
+        switch (labelMessage.type) {
+            case 'error':
+                return 'text-red-600';
+            case 'success':
+                return 'text-green-600';
+            case 'info':
+                return 'text-blue-600';
+            default:
+                return 'text-red-600';
+        }
+    };
 
     return (
         <>
-            <div
-                className={`${getBaseClasses()} ${isError ? getErrorClasses() : getSuccessClasses()}`}>
+            <div className={`${getBaseClasses()} ${getTypeClasses()}`}>
                 <div className={`${getLabelColorClass()} font-bold`}>{labelMessage.label}</div>
                 <div className={`${getMessageColorClass()} text-sm mt-1`}>
                     {labelMessage.message}
