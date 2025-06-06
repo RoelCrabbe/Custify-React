@@ -148,7 +148,6 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                             onChange={setPhoneNumber}
                             validate={validatePhoneNumber}
                             placeholder={'Enter your phone number'}
-                            required
                         />
 
                         <InputField
