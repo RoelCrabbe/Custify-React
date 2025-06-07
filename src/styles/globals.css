@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base font settings - consolidated */
 @layer base {
     html {
         font-family:
@@ -20,7 +19,7 @@
 
     html,
     body {
-        @apply bg-gray-50 text-gray-900;
+        @apply bg-surface;
         scroll-behavior: smooth;
         margin: 0;
         -webkit-font-smoothing: antialiased;
@@ -28,18 +27,28 @@
     }
 
     * {
+        transition-property:
+            background-color, border-color, color, fill, stroke, opacity, box-shadow, transform,
+            filter, backdrop-filter;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
         font-variant-ligatures: common-ligatures;
         text-rendering: optimizeLegibility;
     }
 
-    /* Scrollbar styles */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition-duration: 0.01ms !important;
+        }
+    }
+
     ::-webkit-scrollbar {
         width: 0.65rem;
         height: 0.5rem;
     }
 
     ::-webkit-scrollbar-track {
-        background-color: #f3f4f6;
+        @apply: bg-gray-100 dark:bg-gray-800;
         border-radius: 0.5rem;
         margin-block: 0.5rem;
     }
@@ -50,12 +59,15 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background: #d1d5db;
+        @apply bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500;
         border-radius: 0.5rem;
     }
+}
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: #9ca3af;
+/* Background Colors */
+@layer utilities {
+    .bg-surface {
+        @apply bg-gray-50 dark:bg-gray-900;
     }
 }
 
@@ -273,7 +285,7 @@
 /* Layouts */
 @layer components {
     .main {
-        @apply p-8 bg-gray-50 font-inter;
+        @apply p-8 bg-surface font-inter;
         width: 100%;
     }
 
