@@ -10,7 +10,7 @@
     },
     "scripts": {
         "start": "node server.js",
-        "dev": "next dev --turbo -p 8080",
+        "dev": "next dev -p 8080",
         "base": "next dev -p 8080",
         "build": "next build",
         "e2e": "npx cypress open",
