@@ -285,7 +285,7 @@
 /* Layouts */
 @layer components {
     .main {
-        @apply p-8 bg-surface font-inter;
+        @apply px-8 py-6 bg-surface font-inter;
         width: 100%;
     }
 
@@ -302,7 +302,7 @@
     }
 
     .admin-layout {
-        @apply main flex gap-8;
+        @apply main flex gap-6;
         min-height: 0;
         overflow: hidden;
     }

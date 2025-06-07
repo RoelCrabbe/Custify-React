@@ -1,26 +1,38 @@
 import Button from '@components/ui/Button';
-import { isAuthPage, ROUTES } from '@config/routes';
+import { ROUTES } from '@config/routes';
 import { getUserNavItems } from '@config/userConfig';
-import { useAuth } from '@provider/AuthProvider';
-import { isAdmin } from '@types';
+import { useNavigationState } from '@hooks/useNavigationState';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { memo } from 'react';
 
 const userNavItems = getUserNavItems();
 
 const Navigation: React.FC = () => {
-    const router = useRouter();
-    const currentUser = useAuth();
+    const {
+        isLoading,
+        isAuthenticated,
+        isOnAuthPage,
+        isOnLoginPage,
+        userIsAdmin,
+        getLinkClassName,
+        handleLogout,
+    } = useNavigationState();
 
-    const handleLogout = () => {
-        router.push(ROUTES.AUTH.LOGOUT);
-    };
-
-    const getLinkClassName = (isCurrent: boolean) => {
-        let classes = 'nav-link';
-        if (isCurrent) classes += ' nav-link-active';
-        return classes;
-    };
+    if (isLoading) {
+        return (
+            <>
+                <header className="navigation">
+                    <div className="navigation__wrapper">
+                        <div className="navigation__content">
+                            <Link href={ROUTES.HOME}>
+                                <h1>Custify</h1>
+                            </Link>
+                        </div>
+                    </div>
+                </header>
+            </>
+        );
+    }
 
     return (
         <>
@@ -31,27 +43,25 @@ const Navigation: React.FC = () => {
                             <h1>Custify</h1>
                         </Link>
 
-                        {currentUser.isAuthenticated && (
+                        {isAuthenticated && (
                             <nav>
                                 <ul>
                                     {userNavItems.map((feature) => (
                                         <li key={feature.id}>
                                             <Link
                                                 href={feature.href}
-                                                className={getLinkClassName(
-                                                    router.pathname === feature.href,
-                                                )}>
+                                                className={getLinkClassName(feature.href)}>
                                                 {feature.label}
                                             </Link>
                                         </li>
                                     ))}
 
-                                    {isAdmin(currentUser.getValue()) && (
-                                        <li key={'admin'}>
+                                    {userIsAdmin && (
+                                        <li key="admin">
                                             <Link
                                                 href={ROUTES.ADMIN.DASHBOARD}
                                                 className={getLinkClassName(
-                                                    router.pathname === ROUTES.ADMIN.DASHBOARD,
+                                                    ROUTES.ADMIN.DASHBOARD,
                                                 )}>
                                                 Admin Panel
                                             </Link>
@@ -62,36 +72,26 @@ const Navigation: React.FC = () => {
                         )}
 
                         <div className="navigation__actions">
-                            {currentUser.isAuthenticated ? (
+                            {isAuthenticated ? (
                                 <Button.Danger onClick={handleLogout}>Logout</Button.Danger>
+                            ) : isOnAuthPage ? (
+                                <Link
+                                    href={isOnLoginPage ? ROUTES.AUTH.REGISTER : ROUTES.AUTH.LOGIN}
+                                    className="button-base button-primary button-md">
+                                    {isOnLoginPage ? 'Sign Up' : 'Login'}
+                                </Link>
                             ) : (
                                 <>
-                                    {isAuthPage(router.pathname) ? (
-                                        <Link
-                                            href={
-                                                router.pathname === ROUTES.AUTH.LOGIN
-                                                    ? ROUTES.AUTH.REGISTER
-                                                    : ROUTES.AUTH.LOGIN
-                                            }
-                                            className="button-base button-primary button-md">
-                                            {router.pathname === ROUTES.AUTH.LOGIN
-                                                ? 'Sign Up'
-                                                : 'Login'}
-                                        </Link>
-                                    ) : (
-                                        <>
-                                            <Link
-                                                href={ROUTES.AUTH.LOGIN}
-                                                className="button-base button-secondary button-md">
-                                                Login
-                                            </Link>
-                                            <Link
-                                                href={ROUTES.AUTH.REGISTER}
-                                                className="button-base button-primary button-md">
-                                                Sign Up
-                                            </Link>
-                                        </>
-                                    )}
+                                    <Link
+                                        href={ROUTES.AUTH.LOGIN}
+                                        className="button-base button-secondary button-md">
+                                        Login
+                                    </Link>
+                                    <Link
+                                        href={ROUTES.AUTH.REGISTER}
+                                        className="button-base button-primary button-md">
+                                        Sign Up
+                                    </Link>
                                 </>
                             )}
                         </div>
@@ -102,4 +102,4 @@ const Navigation: React.FC = () => {
     );
 };
 
-export default Navigation;
+export default memo(Navigation);
