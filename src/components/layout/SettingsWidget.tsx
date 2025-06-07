@@ -1,11 +1,11 @@
 import { faCog, faMoon, faSun, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useAuth } from '@provider/AuthProvider';
 import { getUserRole, isAdmin } from '@types';
 import { useEffect, useState } from 'react';
 
 const SettingsWidget: React.FC = () => {
-    const currentUser = useCurrentUser();
+    const currentUser = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
     const [userMode, setUserMode] = useState(false);

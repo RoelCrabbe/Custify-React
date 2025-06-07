@@ -4,7 +4,7 @@ import FormContainer from '@components/ui/FormContainer';
 import { ROUTES } from '@config/routes';
 import { getUserFeatures } from '@config/userConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useOptionalAuth } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -12,7 +12,7 @@ const userFeatures = getUserFeatures();
 
 const Home: React.FC = () => {
     const router = useRouter();
-    const currentUser = useCurrentUser();
+    const currentUser = useOptionalAuth();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const Home: React.FC = () => {
                                     The professional customer management platform that streamlines
                                     your business operations and enhances customer relationships.
                                 </p>
-                                {!currentUser.isLoggedIn && (
+                                {!currentUser.isAuthenticated && (
                                     <Button.Primary
                                         onClick={() => router.push(ROUTES.AUTH.REGISTER)}
                                         size="lg">

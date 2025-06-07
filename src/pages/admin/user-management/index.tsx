@@ -15,12 +15,13 @@ const UserManagementPage: React.FC = () => {
 
     const {
         data: usersData,
+        error: usersError,
         isError: usersIsError,
         isLoading: usersIsLoading,
-        error: usersError,
     } = useQuery({
         queryKey: ['user-management'],
-        staleTime: 600000,
+        staleTime: 10 * 60 * 1000,
+        enabled: shouldRender,
         queryFn: async () => {
             const response = await userService.getAllUsers();
             return response.ok ? await response.json() : [];

@@ -1,5 +1,5 @@
 import { ROUTES } from '@config/routes';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useAuth } from '@provider/AuthProvider';
 import { Role } from '@types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -19,11 +19,13 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
         blockIfAuthenticated = false,
     } = config;
 
-    const currentUser = useCurrentUser();
     const router = useRouter();
+    const currentUser = useAuth();
     const user = currentUser.getValue();
 
     useEffect(() => {
+        if (currentUser.isLoading) return;
+
         if (blockIfAuthenticated && user) {
             router.push(redirectTo);
             return;
@@ -42,19 +44,35 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
                 return;
             }
         }
-    }, [user, requireAuth, allowedRoles, blockIfAuthenticated, redirectTo, router]);
+    }, [
+        user,
+        requireAuth,
+        allowedRoles,
+        blockIfAuthenticated,
+        redirectTo,
+        router,
+        currentUser.isLoading,
+    ]);
 
     return {
         currentUser,
         isAuthenticated: !!user,
         isAuthorized: !allowedRoles || (user && allowedRoles.includes(user.role)),
         shouldRender: (() => {
+            if (currentUser.isLoading) return false;
             if (blockIfAuthenticated) return !user;
             if (requireAuth) return !!user;
             return true;
         })(),
-        loading: false,
+        loading: currentUser.isLoading,
     };
+};
+
+export const useOptionalAuth = () => {
+    return useAuthGuard({
+        requireAuth: false,
+        blockIfAuthenticated: false,
+    });
 };
 
 export const useRequireAuth = (redirectTo: string = ROUTES.AUTH.LOGIN) => {

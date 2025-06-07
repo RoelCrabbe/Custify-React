@@ -20,7 +20,7 @@ const AdminLandingPage: React.FC = () => {
 
     return (
         <>
-            <MainPageLayout pageName={'Admin Panel'}>
+            <MainPageLayout pageName={'Admin Panel'} isLoading={!shouldRender}>
                 <div className="flex flex-col gap-16">
                     <FormContainer.Card>
                         <FormContainer

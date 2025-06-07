@@ -1,7 +1,7 @@
 import Button from '@components/ui/Button';
 import { isAuthPage, ROUTES } from '@config/routes';
 import { getUserNavItems } from '@config/userConfig';
-import { useCurrentUser } from '@provider/UserProvider';
+import { useAuth } from '@provider/AuthProvider';
 import { isAdmin } from '@types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ const userNavItems = getUserNavItems();
 
 const Navigation: React.FC = () => {
     const router = useRouter();
-    const currentUser = useCurrentUser();
+    const currentUser = useAuth();
 
     const handleLogout = () => {
         router.push(ROUTES.AUTH.LOGOUT);
@@ -31,7 +31,7 @@ const Navigation: React.FC = () => {
                             <h1>Custify</h1>
                         </Link>
 
-                        {currentUser.isLoggedIn && (
+                        {currentUser.isAuthenticated && (
                             <nav>
                                 <ul>
                                     {userNavItems.map((feature) => (
@@ -62,7 +62,7 @@ const Navigation: React.FC = () => {
                         )}
 
                         <div className="navigation__actions">
-                            {currentUser.isLoggedIn ? (
+                            {currentUser.isAuthenticated ? (
                                 <Button.Danger onClick={handleLogout}>Logout</Button.Danger>
                             ) : (
                                 <>

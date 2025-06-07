@@ -3,7 +3,7 @@ import AuthPageLayout from '@components/layout/AuthPageLayout';
 import StatusMessage from '@components/ui/StatusMessage';
 import { ROUTES } from '@config/routes';
 import { useBlockAuthenticated } from '@hooks/useAuthGuard';
-import { handleErrorLabel } from '@lib';
+import { handleErrorLabel, setAuthToken } from '@lib';
 import { authService } from '@services/index';
 import { LabelMessage } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 const Login: React.FC = () => {
     const router = useRouter();
-    const { shouldRender, currentUser } = useBlockAuthenticated('/');
+    const { shouldRender, currentUser } = useBlockAuthenticated(ROUTES.HOME);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleLogin = async (data: any) => {
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
                 return;
             }
 
-            localStorage.setItem('authToken', userJson.token);
+            setAuthToken(userJson.token);
 
             setLabelMessage({
                 label: 'Login Successful!',

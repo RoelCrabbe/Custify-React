@@ -1,5 +1,5 @@
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { UserProvider } from '@provider/UserProvider';
+import { AuthProvider } from '@provider/AuthProvider';
 import '@styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { appWithTranslation } from 'next-i18next';
@@ -11,9 +11,9 @@ function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <UserProvider>
+                <AuthProvider>
                     <Component {...pageProps} />
-                </UserProvider>
+                </AuthProvider>
             </QueryClientProvider>
         </>
     );

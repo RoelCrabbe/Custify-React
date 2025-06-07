@@ -2,7 +2,7 @@ import UserRegisterForm from '@components/auth/UserRegisterForm';
 import AuthPageLayout from '@components/layout/AuthPageLayout';
 import StatusMessage from '@components/ui/StatusMessage';
 import { ROUTES } from '@config/routes';
-import { handleErrorLabel } from '@lib';
+import { handleErrorLabel, setAuthToken } from '@lib';
 import { authService } from '@services/index';
 import { LabelMessage } from '@types';
 import { useBlockAuthenticated } from 'context/hooks/useAuthGuard';
@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 
 const Register: React.FC = () => {
     const router = useRouter();
-    const { shouldRender, currentUser } = useBlockAuthenticated('/');
+    const { shouldRender, currentUser } = useBlockAuthenticated(ROUTES.HOME);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const handleRegister = async (data: any) => {
@@ -27,7 +27,7 @@ const Register: React.FC = () => {
                 return;
             }
 
-            localStorage.setItem('authToken', userJson.token);
+            setAuthToken(userJson.token);
 
             setLabelMessage({
                 label: 'Registered Successful!',
