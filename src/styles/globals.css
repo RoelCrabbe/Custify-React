@@ -313,16 +313,12 @@
         overflow: hidden;
     }
 
-    .auth-layout > header:first-of-type,
-    .main-layout > header:first-of-type,
-    .admin-layout > header:first-of-type {
+    .page-loader__header {
         @apply border-b border-gray-400 pb-6;
         flex-shrink: 0;
     }
 
-    .auth-layout > header:first-of-type > h1:first-of-type,
-    .main-layout > header:first-of-type > h1:first-of-type,
-    .admin-layout > header:first-of-type > h1:first-of-type {
+    .page-loader__header h1 {
         @apply text-2xl font-semibold text-blue-600 px-8;
         font-weight: 600;
         letter-spacing: -0.025em;

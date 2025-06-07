@@ -15,7 +15,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({
 }) => {
     return (
         <>
-            <header>
+            <header className="page-loader__header">
                 <h1>{pageName}</h1>
             </header>
 
