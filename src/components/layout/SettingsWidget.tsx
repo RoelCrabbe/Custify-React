@@ -1,7 +1,7 @@
 import { faCog, faMoon, faSun, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuth } from '@provider/AuthProvider';
-import { getUserRole, isAdmin } from '@types';
+import { isAdmin } from '@types';
 import { useEffect, useState } from 'react';
 
 const SettingsWidget: React.FC = () => {
@@ -11,16 +11,21 @@ const SettingsWidget: React.FC = () => {
     const [userMode, setUserMode] = useState(false);
 
     useEffect(() => {
-        const saved = localStorage.getItem('darkMode') === 'true';
-        setDarkMode(saved);
-        if (saved) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
+        const savedDark = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(savedDark);
 
         if (isAdmin(currentUser.getValue())) {
-            const savedUserMode = localStorage.getItem('userMode') === 'true';
-            setUserMode(savedUserMode);
+            const savedUser = localStorage.getItem('userMode') === 'true';
+            setUserMode(savedUser);
         }
-    }, [getUserRole(currentUser.getValue())]);
+    }, [currentUser]);
+
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', darkMode);
+        localStorage.setItem('darkMode', darkMode.toString());
+    }, [darkMode]);
+
+    const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
     const toggleUserMode = () => {
         setUserMode((prev) => {
@@ -30,19 +35,7 @@ const SettingsWidget: React.FC = () => {
         });
     };
 
-    const toggleDarkMode = () => {
-        setDarkMode((prev) => {
-            const next = !prev;
-            localStorage.setItem('darkMode', next.toString());
-            if (next) document.documentElement.classList.add('dark');
-            else document.documentElement.classList.remove('dark');
-            return next;
-        });
-    };
-
-    const handleToggle = () => {
-        setIsOpen(!isOpen);
-    };
+    const handleToggle = () => setIsOpen((prev) => !prev);
 
     return (
         <>
