@@ -1,6 +1,6 @@
-export * from './user/index';
 export * from './user/role';
 export * from './user/status';
+export * from './user/user';
 
 export type LabelMessage = {
     label: string;

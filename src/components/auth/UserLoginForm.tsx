@@ -1,6 +1,7 @@
 import Button from '@components/ui/Button';
 import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
+import { ROUTES } from '@config/routes';
 import { handleErrorLabel } from '@lib';
 import { LabelMessage } from '@types';
 import { validatePassWord, validateUserName } from '@validators/user';
@@ -95,7 +96,7 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
 
                 <div className="login-form-footer">
                     <span className="login-form-divider">Don't have an account?</span>
-                    <Link href="/register" className="login-form-register-link">
+                    <Link href={ROUTES.AUTH.REGISTER} className="login-form-register-link">
                         Create your Custify account
                     </Link>
                 </div>

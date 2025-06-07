@@ -1,3 +1,4 @@
+import { ROUTES } from '@config/routes';
 import { useCurrentUser } from '@provider/UserProvider';
 import { Role } from '@types';
 import { useRouter } from 'next/router';
@@ -12,7 +13,7 @@ interface AuthGuardConfig {
 
 export const useAuthGuard = (config: AuthGuardConfig = {}) => {
     const {
-        redirectTo = '/',
+        redirectTo = ROUTES.HOME,
         requireAuth = false,
         allowedRoles,
         blockIfAuthenticated = false,
@@ -29,7 +30,7 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
         }
 
         if (requireAuth && !user) {
-            router.push('/login');
+            router.push(ROUTES.AUTH.LOGIN);
             return;
         }
 
@@ -37,7 +38,7 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
             const hasRequiredRole = allowedRoles.includes(user.role);
 
             if (!hasRequiredRole) {
-                router.push('/401');
+                router.push(ROUTES.ERRORS.UNAUTHORIZED);
                 return;
             }
         }
@@ -56,14 +57,17 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
     };
 };
 
-export const useRequireAuth = (redirectTo: string = '/users/login') => {
+export const useRequireAuth = (redirectTo: string = ROUTES.AUTH.LOGIN) => {
     return useAuthGuard({
         requireAuth: true,
         redirectTo,
     });
 };
 
-export const useRequireRole = (roles: string[], redirectTo: string = '/401') => {
+export const useRequireRole = (
+    roles: string[],
+    redirectTo: string = ROUTES.ERRORS.UNAUTHORIZED,
+) => {
     return useAuthGuard({
         requireAuth: true,
         allowedRoles: roles,
@@ -71,14 +75,14 @@ export const useRequireRole = (roles: string[], redirectTo: string = '/401') => 
     });
 };
 
-export const useBlockAuthenticated = (redirectTo: string = '/403') => {
+export const useBlockAuthenticated = (redirectTo: string = ROUTES.ERRORS.FORBIDDEN) => {
     return useAuthGuard({
         blockIfAuthenticated: true,
         redirectTo,
     });
 };
 
-export const useRequireAdmin = (redirectTo: string = '/403') => {
+export const useRequireAdmin = (redirectTo: string = ROUTES.ERRORS.FORBIDDEN) => {
     return useAuthGuard({
         requireAuth: true,
         allowedRoles: [Role.Admin],

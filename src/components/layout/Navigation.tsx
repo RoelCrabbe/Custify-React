@@ -1,6 +1,6 @@
 import Button from '@components/ui/Button';
+import { isAuthPage, ROUTES } from '@config/routes';
 import { getUserNavItems } from '@config/userConfig';
-import { isAuthPage } from '@lib/utils/auth';
 import { useCurrentUser } from '@provider/UserProvider';
 import { isAdmin } from '@types';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
     const currentUser = useCurrentUser();
 
     const handleLogout = () => {
-        router.push('/logout');
+        router.push(ROUTES.AUTH.LOGOUT);
     };
 
     const getLinkClassName = (isCurrent: boolean) => {
@@ -27,7 +27,7 @@ const Navigation: React.FC = () => {
             <header className="navigation">
                 <div className="navigation__wrapper">
                     <div className="navigation__content">
-                        <Link href="/">
+                        <Link href={ROUTES.HOME}>
                             <h1>Custify</h1>
                         </Link>
 
@@ -49,9 +49,9 @@ const Navigation: React.FC = () => {
                                     {isAdmin(currentUser.getValue()) && (
                                         <li key={'admin'}>
                                             <Link
-                                                href="/admin"
+                                                href={ROUTES.ADMIN.DASHBOARD}
                                                 className={getLinkClassName(
-                                                    router.pathname === '/admin',
+                                                    router.pathname === ROUTES.ADMIN.DASHBOARD,
                                                 )}>
                                                 Admin Panel
                                             </Link>
@@ -69,22 +69,24 @@ const Navigation: React.FC = () => {
                                     {isAuthPage(router.pathname) ? (
                                         <Link
                                             href={
-                                                router.pathname === '/login'
-                                                    ? '/register'
-                                                    : '/login'
+                                                router.pathname === ROUTES.AUTH.LOGIN
+                                                    ? ROUTES.AUTH.REGISTER
+                                                    : ROUTES.AUTH.LOGIN
                                             }
                                             className="button-base button-primary button-md">
-                                            {router.pathname === '/login' ? 'Sign Up' : 'Login'}
+                                            {router.pathname === ROUTES.AUTH.LOGIN
+                                                ? 'Sign Up'
+                                                : 'Login'}
                                         </Link>
                                     ) : (
                                         <>
                                             <Link
-                                                href="/login"
+                                                href={ROUTES.AUTH.LOGIN}
                                                 className="button-base button-secondary button-md">
                                                 Login
                                             </Link>
                                             <Link
-                                                href="/register"
+                                                href={ROUTES.AUTH.REGISTER}
                                                 className="button-base button-primary button-md">
                                                 Sign Up
                                             </Link>

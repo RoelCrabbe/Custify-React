@@ -1,6 +1,6 @@
-import { isAuthPage } from '@lib/utils/auth';
+import { isAuthPage, ROUTES } from '@config/routes';
 import { jwtDecode } from 'jwt-decode';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 export type DecodedToken = {
     exp: number;
@@ -18,10 +18,11 @@ export const isTokenExpired = (token: string): boolean => {
 };
 
 export const handleExpiredToken = () => {
+    const router = useRouter();
     localStorage.removeItem('authToken');
 
     if (!isAuthPage(router.asPath)) {
-        router.push('/login');
+        router.push(ROUTES.AUTH.LOGIN);
     }
 };
 

@@ -122,7 +122,10 @@ function InputSelect<T extends string>({
     return (
         <>
             <FormContainer.Column gap="2">
-                <label className="input-field-label" id={`${label}-label`}>
+                <label
+                    className="input-field-label"
+                    htmlFor={`${label}-trigger`}
+                    id={`${label}-label`}>
                     {label} {required && <span className="input-field-required">*</span>}
                 </label>
 
@@ -132,7 +135,7 @@ function InputSelect<T extends string>({
                     <button
                         ref={buttonRef}
                         type="button"
-                        id={label}
+                        id={`${label}-trigger`}
                         onClick={() => !disabled && setIsOpen(!isOpen)}
                         onKeyDown={handleKeyDown}
                         disabled={disabled}

@@ -1,5 +1,6 @@
 import AuthPageLayout from '@components/layout/AuthPageLayout';
 import Button from '@components/ui/Button';
+import { ROUTES } from '@config/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -36,7 +37,7 @@ const Custom404: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <Link href="/" className="button-base button-primary button-md">
+                        <Link href={ROUTES.HOME} className="button-base button-primary button-md">
                             Go to Home
                         </Link>
                         <Button.Secondary onClick={handleGoBack}>Go Back</Button.Secondary>

@@ -1,3 +1,4 @@
+import { ROUTES } from '@config/routes';
 import {
     faBell,
     faBolt,
@@ -16,7 +17,7 @@ export const userFeatures = [
         icon: faChartBar,
         label: 'Dashboard',
         title: 'Dashboard Overview',
-        href: '/dashboard',
+        href: ROUTES.HOME,
         description:
             'Get a personalized snapshot of your activity, including recent orders, performance trends, and key updates.',
         showInNav: true,

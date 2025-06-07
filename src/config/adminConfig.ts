@@ -1,3 +1,4 @@
+import { ROUTES } from '@config/routes';
 import {
     faBell,
     faBoxes,
@@ -18,7 +19,7 @@ export const adminNavigation = [
         icon: faChartBar,
         label: 'Dashboard',
         title: 'Admin Dashboard',
-        href: '/admin',
+        href: ROUTES.ADMIN.DASHBOARD,
         description: 'Overview of system status and quick access to admin tools.',
         showInNav: true,
         showInFeatures: false,
@@ -28,7 +29,7 @@ export const adminNavigation = [
         icon: faUsers,
         label: 'User Management',
         title: 'User Management',
-        href: '/admin/user-management',
+        href: ROUTES.ADMIN.USER_MANAGEMENT,
         description: 'Manage user accounts, permissions, and access levels across your platform.',
         showInNav: true,
         showInFeatures: true,

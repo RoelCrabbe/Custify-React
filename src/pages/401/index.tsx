@@ -1,4 +1,5 @@
 import AuthPageLayout from '@components/layout/AuthPageLayout';
+import { ROUTES } from '@config/routes';
 import Link from 'next/link';
 
 const Custom401: React.FC = () => {
@@ -27,10 +28,12 @@ const Custom401: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <Link href="/" className="button-base button-primary button-md">
+                        <Link href={ROUTES.HOME} className="button-base button-primary button-md">
                             Go to Home
                         </Link>
-                        <Link href="/login" className="button-base button-secondary button-md">
+                        <Link
+                            href={ROUTES.AUTH.LOGIN}
+                            className="button-base button-secondary button-md">
                             Log In
                         </Link>
                     </div>

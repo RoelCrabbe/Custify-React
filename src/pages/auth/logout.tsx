@@ -1,5 +1,6 @@
 import AuthPageLayout from '@components/layout/AuthPageLayout';
 import Button from '@components/ui/Button';
+import { ROUTES } from '@config/routes';
 import { useRequireAuth } from '@hooks/useAuthGuard';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -9,7 +10,7 @@ const LogoutPage: React.FC = () => {
     const { currentUser } = useRequireAuth();
     const [countdown, setCountdown] = useState(5);
 
-    const redirectTo = '/';
+    const redirectTo = ROUTES.HOME;
     const delay = 5000;
 
     useEffect(() => {

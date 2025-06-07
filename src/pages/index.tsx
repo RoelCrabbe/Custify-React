@@ -1,6 +1,7 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
+import { ROUTES } from '@config/routes';
 import { getUserFeatures } from '@config/userConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCurrentUser } from '@provider/UserProvider';
@@ -37,7 +38,7 @@ const Home: React.FC = () => {
                                 </p>
                                 {!currentUser.isLoggedIn && (
                                     <Button.Primary
-                                        onClick={() => router.push('/register')}
+                                        onClick={() => router.push(ROUTES.AUTH.REGISTER)}
                                         size="lg">
                                         Get Started
                                     </Button.Primary>
