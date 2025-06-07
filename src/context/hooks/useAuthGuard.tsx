@@ -22,9 +22,23 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
     const router = useRouter();
     const currentUser = useAuth();
     const user = currentUser.getValue();
+    const isLoading = currentUser.isLoading;
+
+    const hasRequiredRole = (): boolean => {
+        if (!allowedRoles?.length) return true;
+        return user ? allowedRoles.includes(user.role) : false;
+    };
+
+    const shouldRender = (): boolean => {
+        if (isLoading) return false;
+        if (blockIfAuthenticated) return !user;
+        if (requireAuth && !user) return false;
+        if (allowedRoles?.length) return hasRequiredRole();
+        return requireAuth ? !!user : true;
+    };
 
     useEffect(() => {
-        if (currentUser.isLoading) return;
+        if (isLoading) return;
 
         if (blockIfAuthenticated && user) {
             router.push(redirectTo);
@@ -36,35 +50,18 @@ export const useAuthGuard = (config: AuthGuardConfig = {}) => {
             return;
         }
 
-        if (user && allowedRoles && allowedRoles.length > 0) {
-            const hasRequiredRole = allowedRoles.includes(user.role);
-
-            if (!hasRequiredRole) {
-                router.push(ROUTES.ERRORS.UNAUTHORIZED);
-                return;
-            }
+        if (user && allowedRoles?.length && !hasRequiredRole()) {
+            router.push(ROUTES.ERRORS.UNAUTHORIZED);
+            return;
         }
-    }, [
-        user,
-        requireAuth,
-        allowedRoles,
-        blockIfAuthenticated,
-        redirectTo,
-        router,
-        currentUser.isLoading,
-    ]);
+    }, [user, isLoading, requireAuth, allowedRoles, blockIfAuthenticated, redirectTo, router]);
 
     return {
         currentUser,
+        loading: isLoading,
         isAuthenticated: !!user,
-        isAuthorized: !allowedRoles || (user && allowedRoles.includes(user.role)),
-        shouldRender: (() => {
-            if (currentUser.isLoading) return false;
-            if (blockIfAuthenticated) return !user;
-            if (requireAuth) return !!user;
-            return true;
-        })(),
-        loading: currentUser.isLoading,
+        isAuthorized: hasRequiredRole(),
+        shouldRender: shouldRender(),
     };
 };
 

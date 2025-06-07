@@ -313,6 +313,22 @@
         overflow: hidden;
     }
 
+    .auth-layout > header:first-of-type,
+    .main-layout > header:first-of-type,
+    .admin-layout > header:first-of-type {
+        @apply border-b border-gray-400 pb-6;
+        flex-shrink: 0;
+    }
+
+    .auth-layout > header:first-of-type > h1:first-of-type,
+    .main-layout > header:first-of-type > h1:first-of-type,
+    .admin-layout > header:first-of-type > h1:first-of-type {
+        @apply text-2xl font-semibold text-blue-600 px-8;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        line-height: 1.2;
+    }
+
     .auth-layout__loading,
     .auth-layout__content,
     .main-layout__loading,
@@ -320,22 +336,6 @@
         @apply flex items-center justify-center;
         flex: 1;
         width: 100%;
-    }
-
-    .auth-layout__loading header,
-    .main-layout__loading header,
-    .admin-layout__loading header {
-        @apply border-b border-gray-400 pb-6;
-        flex-shrink: 0;
-    }
-
-    .auth-layout__loading header h1,
-    .main-layout__loading header h1,
-    .layout__loading-layout header h1 {
-        @apply text-2xl font-semibold text-blue-600 px-8;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        line-height: 1.2;
     }
 
     .main-layout__content {
