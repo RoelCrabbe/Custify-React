@@ -2,6 +2,11 @@ export * from './user/role';
 export * from './user/status';
 export * from './user/user';
 
+export * from './errorLog/errorLog';
+export * from './errorLog/method';
+export * from './errorLog/severity';
+export * from './errorLog/type';
+
 export type LabelMessage = {
     label: string;
     message: string;

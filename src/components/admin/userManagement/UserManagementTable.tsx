@@ -1,5 +1,5 @@
-import UserDetailsModal from '@components/admin/UserDetailsModal';
-import UserEditModal from '@components/admin/UserEditModal';
+import UserDetailsModal from '@components/admin/userManagement/UserDetailsModal';
+import UserEditModal from '@components/admin/userManagement/UserEditModal';
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
@@ -104,7 +104,7 @@ const UserManagementTable: React.FC<Props> = ({
                                             firstName={user.firstName}
                                             lastName={user.lastName}
                                         />
-                                        <section className="flex flex-col gap-1 text-sm text-gray-600">
+                                        <section className="flex flex-col gap-2 text-sm text-gray-600">
                                             <span className="font-medium text-gray-900">
                                                 {user.firstName} {user.lastName}
                                             </span>
@@ -114,7 +114,7 @@ const UserManagementTable: React.FC<Props> = ({
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex flex-col gap-1">
+                                    <div className="flex flex-col gap-2">
                                         <section className="flex items-center gap-2 text-sm text-gray-600">
                                             <FontAwesomeIcon
                                                 icon={faEnvelope}
@@ -136,7 +136,7 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
                                         <FontAwesomeIcon
                                             icon={faShieldAlt}
                                             className="user-management__icon"
@@ -147,7 +147,7 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
                                         <FontAwesomeIcon
                                             icon={getStatusIcon(user.status)}
                                             className="user-management__icon"

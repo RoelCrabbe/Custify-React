@@ -1,7 +1,5 @@
-import { isAuthPage, ROUTES } from '@config/routes';
 import { jwtDecode } from 'jwt-decode';
 import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
 
 // ========================================
 // TYPES & CONFIGURATION
@@ -148,23 +146,4 @@ export const removeAuthToken = () => {
  */
 export const getValidToken = (context?: GetServerSidePropsContext): string | null => {
     return getToken(context);
-};
-
-// ========================================
-// AUTH FLOW HELPERS
-// ========================================
-
-/**
- * Handle expired token by removing it and redirecting to login
- * Only works client-side
- */
-export const handleExpiredToken = () => {
-    if (typeof window === 'undefined') return;
-
-    const router = useRouter();
-    removeAuthToken();
-
-    if (!isAuthPage(router.asPath)) {
-        router.push(ROUTES.AUTH.LOGIN);
-    }
 };

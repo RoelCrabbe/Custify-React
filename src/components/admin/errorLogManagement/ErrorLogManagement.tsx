@@ -1,20 +1,20 @@
-import UserManagementTable from '@components/admin/UserManagementTable';
+import ErrorLogManagementTable from '@components/admin/errorLogManagement/ErrorLogManagementTable';
 import FormContainer from '@components/ui/FormContainer';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { User } from '@types';
+import { ErrorLog } from '@types';
 
 interface Props {
-    users: User[];
+    errorLogs: ErrorLog[];
     isError: boolean;
     isLoading: boolean;
     error: unknown;
     onRetry: () => void;
-    onUpdate: (updatedUser: User) => void;
+    onUpdate: (updatedErrorLog: ErrorLog) => void;
 }
 
-const UserManagement: React.FC<Props> = ({
-    users,
+const ErrorLogManagement: React.FC<Props> = ({
+    errorLogs,
     isError,
     isLoading,
     error,
@@ -28,14 +28,16 @@ const UserManagement: React.FC<Props> = ({
                     <header className="user-management-header">
                         <div className="flex items-center gap-4">
                             <FontAwesomeIcon icon={faUsers} />
-                            <h2>User Management</h2>
+                            <h2>Error Logs</h2>
                         </div>
-                        <p className="text-sm text-gray-600">Manage and monitor user accounts</p>
+                        <p className="text-sm text-gray-600">
+                            Manage and monitor stack trace errors
+                        </p>
                     </header>
 
                     <div className="flex-1 flex flex-col min-h-0">
-                        <UserManagementTable
-                            users={users}
+                        <ErrorLogManagementTable
+                            errorLogs={errorLogs}
                             isError={isError}
                             isLoading={isLoading}
                             error={error}
@@ -49,4 +51,4 @@ const UserManagement: React.FC<Props> = ({
     );
 };
 
-export default UserManagement;
+export default ErrorLogManagement;

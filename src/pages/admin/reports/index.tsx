@@ -1,29 +1,29 @@
-import UserManagement from '@components/admin/userManagement/UserManagement';
+import ErrorLogManagement from '@components/admin/errorLogManagement/ErrorLogManagement';
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
-import { userService } from '@services/index';
+import { errorLogService } from '@services/index';
 import { QueryClient, useQuery } from '@tanstack/react-query';
-import { User } from '@types';
+import { ErrorLog } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
 
-const UserManagementPage: React.FC = () => {
+const ReportsPage: React.FC = () => {
     const { shouldRender, currentUser } = useRequireAdmin();
-    const [users, setUsers] = useState<User[]>([]);
+    const [errorLogs, setErrorLogs] = useState<ErrorLog[]>([]);
 
     const {
-        data: usersData,
-        error: usersError,
-        isError: usersIsError,
-        isLoading: usersIsLoading,
+        data: errorLogsData,
+        error: errorLogsError,
+        isError: errorLogsIsError,
+        isLoading: errorLogsIsLoading,
     } = useQuery({
-        queryKey: ['user-management'],
-        staleTime: 10 * 60 * 1000,
+        queryKey: ['error-logs'],
+        staleTime: (10 / 3) * 60 * 1000,
         enabled: shouldRender,
         queryFn: async () => {
-            const response = await userService.getAllUsers();
+            const response = await errorLogService.getAllErrorLogs();
             return response.ok ? await response.json() : [];
         },
     });
@@ -32,29 +32,31 @@ const UserManagementPage: React.FC = () => {
         queryClient.invalidateQueries({ queryKey: ['user-management'] });
     };
 
-    const handleUserUpdate = (updatedUser: User) => {
-        setUsers((prevUsers) =>
-            prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
+    const handleUserUpdate = (updatedErrorLog: ErrorLog) => {
+        setErrorLogs((prevErrorLogs) =>
+            prevErrorLogs.map((errorLog) =>
+                errorLog.id === updatedErrorLog.id ? updatedErrorLog : errorLog,
+            ),
         );
     };
 
     useEffect(() => {
-        if (usersData && Array.isArray(usersData)) {
-            setUsers(usersData);
+        if (errorLogsData && Array.isArray(errorLogsData)) {
+            setErrorLogs(errorLogsData);
         }
-    }, [usersData]);
+    }, [errorLogsData]);
 
     return (
         <>
             <AdminPageLayout
                 pageName={'User Management'}
                 description={'Manage and monitor user accounts'}
-                isLoading={usersIsLoading || !shouldRender}>
-                <UserManagement
-                    users={users}
-                    error={usersError}
-                    isError={usersIsError}
-                    isLoading={usersIsLoading}
+                isLoading={errorLogsIsLoading || !shouldRender}>
+                <ErrorLogManagement
+                    errorLogs={errorLogs}
+                    error={errorLogsError}
+                    isError={errorLogsIsError}
+                    isLoading={errorLogsIsLoading}
                     onUpdate={handleUserUpdate}
                     onRetry={handleRetry}
                 />
@@ -73,4 +75,4 @@ export const getServerSideProps = async (context: any) => {
     };
 };
 
-export default UserManagementPage;
+export default ReportsPage;
