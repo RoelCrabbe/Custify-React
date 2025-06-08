@@ -20,7 +20,7 @@ const ReportsPage: React.FC = () => {
         isLoading: errorLogsIsLoading,
     } = useQuery({
         queryKey: ['error-logs'],
-        staleTime: (10 / 3) * 60 * 1000,
+        staleTime: 3 * 60 * 1000,
         enabled: shouldRender,
         queryFn: async () => {
             const response = await errorLogService.getAllErrorLogs();

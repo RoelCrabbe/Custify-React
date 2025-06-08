@@ -1,3 +1,4 @@
+import ErrorLogDetailsModal from '@components/admin/errorLogManagement/ErrorLogDetailsModal';
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
@@ -150,26 +151,26 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                 </table>
             </div>
 
-            {/* {selectedErrorLog && (
+            {selectedErrorLog && (
                 <>
                     {showDetailsModal && (
-                        <UserDetailsModal
-                            errorLog={selectedUser}
+                        <ErrorLogDetailsModal
+                            errorLog={selectedErrorLog}
                             onClose={handleCloseAllModal}
                             onEdit={handleOpenEditModal}
                         />
                     )}
 
-                    {showEditModal && (
+                    {/* {showEditModal && (
                         <UserEditModal
                             errorLog={selectedUser}
                             onCancel={handleCloseEditModal}
                             onClose={handleCloseAllModal}
                             onUpdate={onUpdate}
                         />
-                    )}
+                    )} */}
                 </>
-            )} */}
+            )}
         </>
     );
 };

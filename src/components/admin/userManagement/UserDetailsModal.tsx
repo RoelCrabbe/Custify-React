@@ -58,7 +58,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
                         <section className="flex flex-col text-sm text-gray-600">
                             <label className="font-medium">Role</label>
                             <span
-                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
+                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
                                 <FontAwesomeIcon
                                     icon={faShieldAlt}
                                     className="user-management__icon"
@@ -70,7 +70,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
                         <section className="flex flex-col text-sm text-gray-600">
                             <label className="font-medium">Status</label>
                             <span
-                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
+                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
                                 <FontAwesomeIcon
                                     icon={getStatusIcon(user.status)}
                                     className="user-management__icon"

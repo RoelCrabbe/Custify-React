@@ -6,7 +6,7 @@ interface Props {
 }
 
 const StatusMessage: React.FC<Props> = ({ labelMessage }: Props) => {
-    const getBaseClasses = () => 'border-2 rounded-xl p-4 text-center';
+    const getBaseClasses = () => 'border-2 rounded-lg p-4 text-center';
 
     const getTypeClasses = () => {
         switch (labelMessage.type) {

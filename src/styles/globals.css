@@ -822,3 +822,21 @@
         @apply pointer-events-none;
     }
 }
+
+@layer components {
+    .error-log-details-info {
+        @apply flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-lg;
+    }
+
+    .error-log-details-info section {
+        @apply flex items-center flex-col gap-2;
+    }
+
+    .error-log-details-info label {
+        @apply text-sm text-gray-600;
+    }
+    /*
+    .error-log-details-info span {
+        @apply font-mono;
+    } */
+}
