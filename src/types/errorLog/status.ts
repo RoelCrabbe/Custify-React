@@ -15,11 +15,11 @@ export const isValidErrorStatus = (status: unknown): status is ErrorStatus => {
 export const getErrorStatusColor = (status: ErrorStatus): string => {
     switch (status) {
         case ErrorStatus.New:
-            return 'bg-sky-100 text-sky-800';
+            return 'bg-teal-100 text-teal-800';
         case ErrorStatus.Reviewed:
-            return 'bg-green-100 text-green-800';
+            return 'bg-green-200 text-green-900';
         case ErrorStatus.Resolved:
-            return 'bg-yellow-100 text-yellow-800';
+            return 'bg-zinc-100 text-zinc-800';
         default:
             return 'bg-gray-100 text-gray-800';
     }

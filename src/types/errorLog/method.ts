@@ -27,15 +27,15 @@ export const isValidErrorHttpMethod = (method: unknown): method is ErrorHttpMeth
 export const getErrorHttpMethodColor = (type: ErrorHttpMethod): string => {
     switch (type) {
         case ErrorHttpMethod.Get:
-            return 'bg-sky-100 text-sky-800';
+            return 'bg-cyan-100 text-cyan-800';
         case ErrorHttpMethod.Post:
-            return 'bg-green-100 text-green-800';
+            return 'bg-lime-100 text-lime-800';
         case ErrorHttpMethod.Put:
-            return 'bg-yellow-100 text-yellow-800';
+            return 'bg-amber-100 text-amber-800';
         case ErrorHttpMethod.Patch:
-            return 'bg-orange-100 text-orange-800';
+            return 'bg-orange-200 text-orange-900';
         case ErrorHttpMethod.Delete:
-            return 'bg-rose-100 text-rose-800';
+            return 'bg-rose-200 text-rose-900';
         default:
             return 'bg-gray-100 text-gray-800';
     }

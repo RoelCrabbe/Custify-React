@@ -27,15 +27,15 @@ export const isValidErrorSeverity = (severity: unknown): severity is ErrorSeveri
 export const getErrorSeverityColor = (type: ErrorSeverity): string => {
     switch (type) {
         case ErrorSeverity.Handled:
-            return 'bg-green-100 text-green-800';
+            return 'bg-emerald-100 text-emerald-800';
         case ErrorSeverity.Unhandled:
-            return 'bg-red-100 text-red-800';
+            return 'bg-red-200 text-red-900';
         case ErrorSeverity.InputError:
-            return 'bg-yellow-100 text-yellow-800';
+            return 'bg-yellow-200 text-yellow-900';
         case ErrorSeverity.SystemError:
-            return 'bg-blue-100 text-blue-800';
+            return 'bg-blue-200 text-blue-900';
         case ErrorSeverity.SecurityError:
-            return 'bg-fuchsia-100 text-fuchsia-800';
+            return 'bg-purple-200 text-purple-900';
         default:
             return 'bg-gray-100 text-gray-800';
     }

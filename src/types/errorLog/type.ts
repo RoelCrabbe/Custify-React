@@ -15,11 +15,11 @@ export const isValidErrorType = (type: unknown): type is ErrorType => {
 export const getErrorTypeColor = (type: ErrorType): string => {
     switch (type) {
         case ErrorType.NotFoundError:
-            return 'bg-orange-100 text-orange-800';
+            return 'bg-orange-300 text-orange-900';
         case ErrorType.ValidationError:
-            return 'bg-rose-100 text-rose-800';
+            return 'bg-pink-200 text-pink-900';
         case ErrorType.AuthenticationError:
-            return 'bg-indigo-100 text-indigo-800';
+            return 'bg-indigo-200 text-indigo-900';
         default:
             return 'bg-gray-100 text-gray-800';
     }
