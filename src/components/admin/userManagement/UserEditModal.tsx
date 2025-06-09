@@ -124,7 +124,7 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     return (
         <>
             <FormContainer.Modal className="z-[60]">
-                <FormContainer.Card className="relative flex flex-col gap-4 mx-auto p-5 w-1/3 max-h-[90vh]">
+                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[800px] max-h-[90vh]">
                     <header className="user-details-header">
                         <h3>Edit User</h3>
                         <button type="button" onClick={onClose}>
@@ -132,86 +132,107 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                         </button>
                     </header>
 
-                    <form className="flex flex-col gap-4 px-2">
-                        <div className="grid grid-cols-2 gap-4">
+                    <form className="flex flex-col gap-6">
+                        <FormContainer.Column>
+                            <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                                Personal Information
+                            </h5>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <InputField
+                                    type="text"
+                                    label="First Name"
+                                    value={firstName}
+                                    onChange={setFirstName}
+                                    validate={validateFirstName}
+                                    placeholder={'Enter your first name'}
+                                    required
+                                />
+
+                                <InputField
+                                    type="text"
+                                    label="Last Name"
+                                    value={lastName}
+                                    onChange={setLastName}
+                                    validate={validateLastName}
+                                    placeholder={'Enter your last name'}
+                                    required
+                                />
+                            </div>
+
                             <InputField
                                 type="text"
-                                label="First Name"
-                                value={firstName}
-                                onChange={setFirstName}
-                                validate={validateFirstName}
-                                placeholder={'Enter your first name'}
+                                label={'Username'}
+                                value={userName}
+                                onChange={setUserName}
+                                validate={validateUserName}
+                                placeholder={'Enter your username'}
                                 required
                             />
-                            <InputField
-                                type="text"
-                                label="Last Name"
-                                value={lastName}
-                                onChange={setLastName}
-                                validate={validateLastName}
-                                placeholder={'Enter your last name'}
-                                required
-                            />
-                        </div>
+                        </FormContainer.Column>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <InputField
-                                type="email"
-                                label="Email"
-                                value={email}
-                                onChange={setEmail}
-                                validate={validateEmail}
-                                placeholder={'Enter your email'}
-                                required
-                            />
-                            <InputField
-                                type="tel"
-                                label="Phone Number"
-                                value={phoneNumber}
-                                onChange={setPhoneNumber}
-                                validate={validatePhoneNumber}
-                                placeholder={'Enter your phone number'}
-                            />
-                        </div>
+                        <FormContainer.Column>
+                            <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                                Contact Information
+                            </h5>
 
-                        <InputField
-                            type="text"
-                            label={'Username'}
-                            value={userName}
-                            onChange={setUserName}
-                            validate={validateUserName}
-                            placeholder={'Enter your username'}
-                            required
-                        />
+                            <div className="grid grid-cols-2 gap-4">
+                                <InputField
+                                    type="email"
+                                    label="Email"
+                                    value={email}
+                                    onChange={setEmail}
+                                    validate={validateEmail}
+                                    placeholder={'Enter your email'}
+                                    required
+                                />
+                                <InputField
+                                    type="tel"
+                                    label="Phone Number"
+                                    value={phoneNumber}
+                                    onChange={setPhoneNumber}
+                                    validate={validatePhoneNumber}
+                                    placeholder={'Enter your phone number'}
+                                />
+                            </div>
+                        </FormContainer.Column>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <InputSelect<UserRole>
-                                label="Role"
-                                value={role}
-                                onChange={setRole}
-                                validate={validateRole}
-                                enumObject={UserRole}
-                                placeholder="Select a role"
-                                required
-                            />
+                        <FormContainer.Column>
+                            <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                                Account Settings
+                            </h5>
 
-                            <InputSelect<UserStatus>
-                                label="Status"
-                                value={status}
-                                onChange={setStatus}
-                                validate={validateStatus}
-                                enumObject={UserStatus}
-                                placeholder="Select a status"
-                                required
-                            />
-                        </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <InputSelect<UserRole>
+                                    label="Role"
+                                    value={role}
+                                    onChange={setRole}
+                                    validate={validateRole}
+                                    enumObject={UserRole}
+                                    placeholder="Select a role"
+                                    required
+                                />
 
-                        <section className="w-2/3 mx-auto">
-                            {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-                        </section>
+                                <InputSelect<UserStatus>
+                                    label="Status"
+                                    value={status}
+                                    onChange={setStatus}
+                                    validate={validateStatus}
+                                    enumObject={UserStatus}
+                                    placeholder="Select a status"
+                                    required
+                                />
+                            </div>
+                        </FormContainer.Column>
+
+                        {labelMessage && (
+                            <section className="mx-auto w-[500px]">
+                                <StatusMessage labelMessage={labelMessage} />
+                            </section>
+                        )}
                     </form>
 
-                    <div className="flex justify-end gap-4 pt-4 border-t">
+                    <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
                         <Button.Secondary onClick={onCancel}>Cancel</Button.Secondary>
                         <Button.Submit onClick={handleSubmit} isLoading={isButtonDisabled}>
                             Save Changes

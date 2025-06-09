@@ -16,7 +16,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
     return (
         <>
             <FormContainer.Modal>
-                <FormContainer.Card className="relative flex flex-col gap-4 mx-auto p-5 w-96">
+                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[600px] max-h-[90vh]">
                     <header className="user-details-header">
                         <h3>User Details</h3>
                         <button type="button" onClick={onClose}>
@@ -24,63 +24,79 @@ const UserDetailsModal: React.FC<Props> = ({ user, onEdit, onClose }) => {
                         </button>
                     </header>
 
-                    <div className="flex items-center justify-center">
+                    <div className="flex flex-col items-center gap-4 bg-gray-50 p-4 rounded-lg">
                         <UserAvatar
                             size={'lg'}
                             firstName={user.firstName}
                             lastName={user.lastName}
                         />
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-4 px-2">
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Full Name</label>
-                            <span>
+                        <div className="text-center">
+                            <h4 className="text-lg font-semibold text-gray-900">
                                 {user.firstName} {user.lastName}
-                            </span>
-                        </section>
-
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Username</label>
-                            <span>@{user.userName}</span>
-                        </section>
-
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Email</label>
-                            <span>{user.email}</span>
-                        </section>
-
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Phone Number</label>
-                            <span>{user.phoneNumber || 'Not provided'}</span>
-                        </section>
-
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Role</label>
-                            <span
-                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(user.role)}`}>
-                                <FontAwesomeIcon
-                                    icon={faShieldAlt}
-                                    className="user-management__icon"
-                                />
-                                {capitalizeFirstLetter(user.role)}
-                            </span>
-                        </section>
-
-                        <section className="flex flex-col text-sm text-gray-600">
-                            <label className="font-medium">Status</label>
-                            <span
-                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(user.status)}`}>
-                                <FontAwesomeIcon
-                                    icon={getUserStatusIcon(user.status)}
-                                    className="user-management__icon"
-                                />
-                                {capitalizeFirstLetter(user.status)}
-                            </span>
-                        </section>
+                            </h4>
+                            <p className="text-sm text-gray-600">@{user.userName}</p>
+                        </div>
                     </div>
 
-                    <div className="flex justify-end gap-4 pt-4 border-t">
+                    <FormContainer.Column>
+                        <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                            Contact Information
+                        </h5>
+
+                        <section className="flex flex-col gap-2">
+                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                Email
+                            </label>
+                            <span className="text-sm text-gray-800">{user.email}</span>
+                        </section>
+
+                        <section className="flex flex-col gap-2">
+                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                Phone Number
+                            </label>
+                            <span className="text-sm text-gray-800">
+                                {user.phoneNumber || 'Not provided'}
+                            </span>
+                        </section>
+                    </FormContainer.Column>
+
+                    <FormContainer.Column>
+                        <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                            Account Information
+                        </h5>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <section className="flex flex-col gap-2">
+                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                    Role
+                                </label>
+                                <span
+                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(user.role)}`}>
+                                    <FontAwesomeIcon
+                                        icon={faShieldAlt}
+                                        className="user-management__icon"
+                                    />
+                                    {capitalizeFirstLetter(user.role)}
+                                </span>
+                            </section>
+
+                            <section className="flex flex-col gap-2">
+                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                    Status
+                                </label>
+                                <span
+                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(user.status)}`}>
+                                    <FontAwesomeIcon
+                                        icon={getUserStatusIcon(user.status)}
+                                        className="user-management__icon"
+                                    />
+                                    {capitalizeFirstLetter(user.status)}
+                                </span>
+                            </section>
+                        </div>
+                    </FormContainer.Column>
+
+                    <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
                         <Button.Primary onClick={onEdit}>
                             <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
                             Edit User

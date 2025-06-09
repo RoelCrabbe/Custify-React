@@ -825,7 +825,7 @@
 
 @layer components {
     .error-log-details-info {
-        @apply flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-lg;
+        @apply flex items-start justify-center gap-4 bg-gray-100 rounded-lg;
     }
 
     .error-log-details-info section {

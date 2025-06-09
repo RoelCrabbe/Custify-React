@@ -1,4 +1,4 @@
-import { ErrorHttpMethod, ErrorSeverity, ErrorType } from '@types';
+import { ErrorHttpMethod, ErrorSeverity, ErrorStatus, ErrorType } from '@types';
 
 export type ErrorLog = {
     id?: number;
@@ -8,4 +8,8 @@ export type ErrorLog = {
     errorMessage: string;
     stackTrace: string;
     requestPath: string;
+    status: ErrorStatus;
+    isArchived?: boolean;
+    archivedBy?: number;
+    archivedDate?: Date;
 };
