@@ -1,6 +1,6 @@
 import { ROUTES } from '@config/routes';
 import { useAuth } from '@provider/AuthProvider';
-import { Role } from '@types';
+import { UserRole } from '@types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -100,7 +100,7 @@ export const useBlockAuthenticated = (redirectTo: string = ROUTES.ERRORS.FORBIDD
 export const useRequireAdmin = (redirectTo: string = ROUTES.ERRORS.FORBIDDEN) => {
     return useAuthGuard({
         requireAuth: true,
-        allowedRoles: [Role.Admin],
+        allowedRoles: [UserRole.Admin],
         redirectTo,
     });
 };

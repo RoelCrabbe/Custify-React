@@ -17,7 +17,7 @@ export const ErrorSeverity = {
 
 export type ErrorSeverity = (typeof ErrorSeverity)[keyof typeof ErrorSeverity];
 
-export const isValidSeverity = (severity: unknown): severity is ErrorSeverity => {
+export const isValidErrorSeverity = (severity: unknown): severity is ErrorSeverity => {
     return (
         typeof severity === 'string' &&
         Object.values(ErrorSeverity).includes(severity as ErrorSeverity)

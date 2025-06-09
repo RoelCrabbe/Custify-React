@@ -7,7 +7,7 @@ import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
-import { LabelMessage, Role, Status, User } from '@types';
+import { LabelMessage, User, UserRole, UserStatus } from '@types';
 import {
     validateEmail,
     validateFirstName,
@@ -31,8 +31,8 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
     const [email, setEmail] = useState<string | null>(user.email);
     const [phoneNumber, setPhoneNumber] = useState<string | null>(user.phoneNumber || '');
     const [userName, setUserName] = useState<string | null>(user.userName);
-    const [role, setRole] = useState<Role | null>(user.role);
-    const [status, setStatus] = useState<Status | null>(user.status);
+    const [role, setRole] = useState<UserRole | null>(user.role);
+    const [status, setStatus] = useState<UserStatus | null>(user.status);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
@@ -185,22 +185,22 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                         />
 
                         <div className="grid grid-cols-2 gap-4">
-                            <InputSelect<Role>
+                            <InputSelect<UserRole>
                                 label="Role"
                                 value={role}
                                 onChange={setRole}
                                 validate={validateRole}
-                                enumObject={Role}
+                                enumObject={UserRole}
                                 placeholder="Select a role"
                                 required
                             />
 
-                            <InputSelect<Status>
+                            <InputSelect<UserStatus>
                                 label="Status"
                                 value={status}
                                 onChange={setStatus}
                                 validate={validateStatus}
-                                enumObject={Status}
+                                enumObject={UserStatus}
                                 placeholder="Select a status"
                                 required
                             />

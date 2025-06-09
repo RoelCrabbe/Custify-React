@@ -1,10 +1,10 @@
-import { ErrorSeverity, ErrorType, HttpMethod } from '@types';
+import { ErrorHttpMethod, ErrorSeverity, ErrorType } from '@types';
 
 export type ErrorLog = {
     id?: number;
     type: ErrorType;
     severity: ErrorSeverity;
-    httpMethod: HttpMethod;
+    httpMethod: ErrorHttpMethod;
     errorMessage: string;
     stackTrace: string;
     requestPath: string;

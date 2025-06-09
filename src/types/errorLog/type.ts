@@ -8,7 +8,7 @@ export const ErrorType = {
 
 export type ErrorType = (typeof ErrorType)[keyof typeof ErrorType];
 
-export const isValidType = (type: unknown): type is ErrorType => {
+export const isValidErrorType = (type: unknown): type is ErrorType => {
     return typeof type === 'string' && Object.values(ErrorType).includes(type as ErrorType);
 };
 

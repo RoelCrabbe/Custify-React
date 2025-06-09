@@ -7,7 +7,7 @@ import {
     faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
-export const HttpMethod = {
+export const ErrorHttpMethod = {
     Get: 'Get',
     Post: 'Post',
     Put: 'Put',
@@ -15,40 +15,43 @@ export const HttpMethod = {
     Delete: 'Delete',
 } as const;
 
-export type HttpMethod = (typeof HttpMethod)[keyof typeof HttpMethod];
+export type ErrorHttpMethod = (typeof ErrorHttpMethod)[keyof typeof ErrorHttpMethod];
 
-export const isValidMethod = (method: unknown): method is HttpMethod => {
-    return typeof method === 'string' && Object.values(HttpMethod).includes(method as HttpMethod);
+export const isValidErrorHttpMethod = (method: unknown): method is ErrorHttpMethod => {
+    return (
+        typeof method === 'string' &&
+        Object.values(ErrorHttpMethod).includes(method as ErrorHttpMethod)
+    );
 };
 
-export const getHttpMethodColor = (type: HttpMethod): string => {
+export const getErrorHttpMethodColor = (type: ErrorHttpMethod): string => {
     switch (type) {
-        case HttpMethod.Get:
+        case ErrorHttpMethod.Get:
             return 'bg-sky-100 text-sky-800';
-        case HttpMethod.Post:
+        case ErrorHttpMethod.Post:
             return 'bg-green-100 text-green-800';
-        case HttpMethod.Put:
+        case ErrorHttpMethod.Put:
             return 'bg-yellow-100 text-yellow-800';
-        case HttpMethod.Patch:
+        case ErrorHttpMethod.Patch:
             return 'bg-orange-100 text-orange-800';
-        case HttpMethod.Delete:
+        case ErrorHttpMethod.Delete:
             return 'bg-rose-100 text-rose-800';
         default:
             return 'bg-gray-100 text-gray-800';
     }
 };
 
-export const getHttpMethodIcon = (type: HttpMethod) => {
+export const getErrorHttpMethodIcon = (type: ErrorHttpMethod) => {
     switch (type) {
-        case HttpMethod.Get:
+        case ErrorHttpMethod.Get:
             return faArrowDown;
-        case HttpMethod.Post:
+        case ErrorHttpMethod.Post:
             return faPlusCircle;
-        case HttpMethod.Put:
+        case ErrorHttpMethod.Put:
             return faArrowUpRightFromSquare;
-        case HttpMethod.Patch:
+        case ErrorHttpMethod.Patch:
             return faPen;
-        case HttpMethod.Delete:
+        case ErrorHttpMethod.Delete:
             return faTrashAlt;
         default:
             return faCode;

@@ -5,6 +5,7 @@ export * from './user/user';
 export * from './errorLog/errorLog';
 export * from './errorLog/method';
 export * from './errorLog/severity';
+export * from './errorLog/status';
 export * from './errorLog/type';
 
 export type LabelMessage = {

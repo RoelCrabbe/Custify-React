@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
 import {
     ErrorLog,
+    getErrorHttpMethodColor,
+    getErrorHttpMethodIcon,
     getErrorSeverityColor,
     getErrorSeverityIcon,
     getErrorTypeColor,
     getErrorTypeIcon,
-    getHttpMethodColor,
-    getHttpMethodIcon,
     LabelMessage,
 } from '@types';
 import { useEffect, useState } from 'react';
@@ -54,9 +54,9 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) =>
                         <section>
                             <label>HTTP Method</label>
                             <span
-                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getHttpMethodColor(errorLog.httpMethod)}`}>
+                                className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
                                 <FontAwesomeIcon
-                                    icon={getHttpMethodIcon(errorLog.httpMethod)}
+                                    icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
                                     className="user-management__icon"
                                 />
                                 {capitalizeFirstLetter(errorLog.httpMethod)}

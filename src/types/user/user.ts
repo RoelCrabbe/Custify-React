@@ -1,12 +1,12 @@
-import { Role, Status } from '@types';
+import { UserRole, UserStatus } from '@types';
 
 export type User = {
     id?: number;
+    role: UserRole;
+    status: UserStatus;
     userName: string;
     firstName: string;
     lastName: string;
     email: string;
-    role: Role;
-    status: Status;
     phoneNumber?: string;
 };

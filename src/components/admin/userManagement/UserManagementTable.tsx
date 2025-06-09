@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
-import { getRoleColor, getStatusColor, getStatusIcon, User } from '@types';
+import { getUserRoleColor, getUserStatusColor, getUserStatusIcon, User } from '@types';
 import { useState } from 'react';
 
 interface Props {
@@ -136,7 +136,7 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getRoleColor(user.role)}`}>
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(user.role)}`}>
                                         <FontAwesomeIcon
                                             icon={faShieldAlt}
                                             className="user-management__icon"
@@ -147,9 +147,9 @@ const UserManagementTable: React.FC<Props> = ({
 
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(user.status)}`}>
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(user.status)}`}>
                                         <FontAwesomeIcon
-                                            icon={getStatusIcon(user.status)}
+                                            icon={getUserStatusIcon(user.status)}
                                             className="user-management__icon"
                                         />
                                         {capitalizeFirstLetter(user.status)}
