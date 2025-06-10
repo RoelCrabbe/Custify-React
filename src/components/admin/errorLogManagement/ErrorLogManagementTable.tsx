@@ -5,6 +5,7 @@ import Button from '@components/ui/Button';
 import { faArrowsUpDown, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
+import { errorLogService } from '@services/index';
 import {
     ErrorLog,
     getErrorHttpMethodColor,
@@ -51,9 +52,10 @@ const ErrorLogManagementTable: React.FC<Props> = ({
         );
     }
 
-    const handleViewDetails = (errorLog: ErrorLog) => {
+    const handleViewDetails = async (errorLog: ErrorLog) => {
         setSelectedErrorLog(errorLog);
         setShowDetailsModal(true);
+        await handleReview(errorLog);
     };
 
     const handleOpenEditModal = () => {
@@ -70,6 +72,18 @@ const ErrorLogManagementTable: React.FC<Props> = ({
         setShowDetailsModal(false);
         setShowEditModal(false);
         setSelectedErrorLog(null);
+    };
+
+    const handleReview = async (errorLog: ErrorLog) => {
+        const formData: any = {
+            id: errorLog.id,
+        };
+
+        try {
+            errorLogService.updateErrorLog(formData);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

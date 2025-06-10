@@ -33,7 +33,7 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) =>
             message: errorLog.errorMessage,
             type: 'error',
         });
-    }, [errorLog]);
+    }, []);
 
     return (
         <>
