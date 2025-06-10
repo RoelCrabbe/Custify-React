@@ -2,14 +2,13 @@ import ErrorLogManagement from '@components/admin/errorLogManagement/ErrorLogMan
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { errorLogService } from '@services/index';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ErrorLog, ErrorStatus } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
-const queryClient = new QueryClient();
-
 const ReportsPage: React.FC = () => {
+    const queryClient = useQueryClient();
     const { shouldRender, currentUser } = useRequireAdmin();
     const [selectedStatus, setSelectedStatus] = useState<ErrorStatus>(ErrorStatus.New);
     const [errorLogs, setErrorLogs] = useState<ErrorLog[]>([]);
@@ -48,12 +47,35 @@ const ReportsPage: React.FC = () => {
         return response.ok ? await response.json() : [];
     };
 
-    const handleUserUpdate = (updatedErrorLog: ErrorLog) => {
-        setErrorLogs((prevErrorLogs) =>
-            prevErrorLogs.map((errorLog) =>
-                errorLog.id === updatedErrorLog.id ? updatedErrorLog : errorLog,
-            ),
+    const handleErrorLogUpdate = (updatedErrorLog: ErrorLog) => {
+        const { id, status } = updatedErrorLog;
+        const statusChanged = status !== selectedStatus;
+
+        setErrorLogs((prev) => {
+            const existing = prev.find((log) => log.id === id);
+            if (!existing) return prev;
+
+            return statusChanged
+                ? prev.filter((log) => log.id !== id)
+                : prev.map((log) => (log.id === id ? updatedErrorLog : log));
+        });
+
+        queryClient.setQueryData(
+            ['error-logs', selectedStatus],
+            (oldCache: ErrorLog[] | undefined) => {
+                oldCache?.filter((log) => log.id !== id);
+            },
         );
+
+        if (statusChanged && queryClient.getQueryData(['error-logs', status])) {
+            queryClient.setQueryData(['error-logs', status], (oldCache: ErrorLog[] | undefined) => {
+                if (!oldCache) return [updatedErrorLog];
+                const existingIndex = oldCache.findIndex((log) => log.id === id);
+                return existingIndex === -1
+                    ? [...oldCache, updatedErrorLog]
+                    : oldCache.map((log) => (log.id === id ? updatedErrorLog : log));
+            });
+        }
     };
 
     const handleStatusChange = (status: ErrorStatus) => {
@@ -78,7 +100,7 @@ const ReportsPage: React.FC = () => {
                     error={errorLogsError}
                     isError={errorLogsIsError}
                     isLoading={errorLogsIsLoading}
-                    onUpdate={handleUserUpdate}
+                    onUpdate={handleErrorLogUpdate}
                     onRetry={handleRetry}
                     onStatusChange={handleStatusChange}
                 />

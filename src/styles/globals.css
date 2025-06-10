@@ -884,4 +884,14 @@
     .status-tab.status-resolved.active .status-count {
         @apply bg-green-100 text-green-600;
     }
+
+    .report-archived-info {
+        @apply flex items-center gap-2;
+    }
+
+    .report-archived-info span {
+        @apply text-sm text-gray-600;
+        font-weight: 500;
+        letter-spacing: -0.011em;
+    }
 }

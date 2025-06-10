@@ -2,14 +2,13 @@ import UserManagement from '@components/admin/userManagement/UserManagement';
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { userService } from '@services/index';
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
-const queryClient = new QueryClient();
-
 const UserManagementPage: React.FC = () => {
+    const queryClient = useQueryClient();
     const { shouldRender, currentUser } = useRequireAdmin();
     const [users, setUsers] = useState<User[]>([]);
 

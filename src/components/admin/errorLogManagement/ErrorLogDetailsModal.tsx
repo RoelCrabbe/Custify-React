@@ -1,11 +1,13 @@
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import StatusMessage from '@components/ui/StatusMessage';
-import { faDownload, faEdit, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faEdit, faInfoCircle, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
+import { errorLogService } from '@services/index';
 import {
     ErrorLog,
+    ErrorStatus,
     getErrorHttpMethodColor,
     getErrorHttpMethodIcon,
     getErrorSeverityColor,
@@ -20,11 +22,11 @@ import { useEffect, useState } from 'react';
 
 interface Props {
     errorLog: ErrorLog;
-    onEdit: () => void;
     onClose: () => void;
+    onUpdate: (updatedErrorLog: ErrorLog) => void;
 }
 
-const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) => {
+const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) => {
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     useEffect(() => {
@@ -34,6 +36,32 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) =>
             type: 'error',
         });
     }, []);
+
+    const handleResolved = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLabelMessage(undefined);
+
+        const formData: any = {
+            id: errorLog.id,
+            status: ErrorStatus.Resolved,
+        };
+
+        try {
+            const errorLogResponse = await errorLogService.updateErrorLog(formData);
+            const errorLogJson = await errorLogResponse.json();
+
+            if (!errorLogResponse.ok) {
+                return;
+            }
+
+            setTimeout(() => {
+                onUpdate(errorLogJson);
+                onClose();
+            }, 2000);
+        } catch (error) {
+            console.error('Error updating error log:', error);
+        }
+    };
 
     return (
         <>
@@ -129,8 +157,15 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) =>
                             </section>
 
                             <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                <label className="flex gap-2 items-center text-xs font-medium text-gray-500 uppercase tracking-wide">
                                     Is Archived
+                                    <span>
+                                        <FontAwesomeIcon
+                                            icon={faInfoCircle}
+                                            className="h-4 w-4 text-blue-500 hover:text-blue-600 flex"
+                                            title="By marking this error log as resolved it will be archived. And deleted after 90days."
+                                        />
+                                    </span>
                                 </label>
                                 <span className="text-sm text-gray-800">
                                     {errorLog.isArchived ? 'Yes' : 'No'}
@@ -192,9 +227,9 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onEdit, onClose }) =>
                             Export Log
                         </Button.Secondary>
 
-                        <Button.Primary onClick={onEdit}>
+                        <Button.Primary onClick={handleResolved}>
                             <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
-                            Edit Log
+                            Mark Resolved
                         </Button.Primary>
                     </div>
                 </FormContainer.Card>

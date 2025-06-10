@@ -41,11 +41,11 @@ const ErrorLogManagementTable: React.FC<Props> = ({
 }) => {
     const [selectedErrorLog, setSelectedErrorLog] = useState<ErrorLog | null>(null);
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
+    const [pendingUpdate, setPendingUpdate] = useState<ErrorLog | null>(null);
+    const [hasModalUpdated, setHasModalUpdated] = useState<boolean>(false);
 
     if (isLoading) {
-        return <TableLoading text={'Loading user management info...'} />;
+        return <TableLoading text={'Loading reports management info...'} />;
     }
 
     if (isError) {
@@ -61,30 +61,29 @@ const ErrorLogManagementTable: React.FC<Props> = ({
 
     const handleViewDetails = async (errorLog: ErrorLog) => {
         setSelectedErrorLog(errorLog);
+        setHasModalUpdated(false);
         await handleReview(errorLog);
-        setShowDetailsModal(true);
-    };
-
-    const handleOpenEditModal = () => {
-        setShowDetailsModal(false);
-        setShowEditModal(true);
-    };
-
-    const handleCloseEditModal = () => {
-        setShowEditModal(false);
-        setShowDetailsModal(true);
     };
 
     const handleCloseAllModal = () => {
+        if (pendingUpdate && !hasModalUpdated) {
+            onUpdate(pendingUpdate);
+        }
+
+        setPendingUpdate(null);
+        setHasModalUpdated(false);
         setSelectedErrorLog(null);
         setSelectedUserId(null);
-        setShowDetailsModal(false);
-        setShowEditModal(false);
     };
 
     const handleShowUserDetails = (userId: number) => {
         handleCloseAllModal();
         setSelectedUserId(userId);
+    };
+
+    const handleModalUpdate = (updatedErrorLog: ErrorLog) => {
+        setHasModalUpdated(true);
+        onUpdate(updatedErrorLog);
     };
 
     const handleReview = async (errorLog: ErrorLog) => {
@@ -94,9 +93,16 @@ const ErrorLogManagementTable: React.FC<Props> = ({
         };
 
         try {
-            errorLogService.updateErrorLog(formData);
+            const response = await errorLogService.updateErrorLog(formData);
+            const updatedErrorLog = await response.json();
+
+            if (!response.ok) {
+                return;
+            }
+
+            setPendingUpdate(updatedErrorLog);
         } catch (error) {
-            console.error(error);
+            console.error('Error updating error log:', error);
         }
     };
 
@@ -191,8 +197,8 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                     </td>
                                 ) : (
                                     <>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-600 flex items-center gap-2">
+                                        <td className="p-6 whitespace-nowrap">
+                                            <div className="report-archived-info">
                                                 {errorLog.archivedDate && errorLog.archivedBy ? (
                                                     <span>
                                                         Archived on{' '}
@@ -233,24 +239,11 @@ const ErrorLogManagementTable: React.FC<Props> = ({
             </div>
 
             {selectedErrorLog && (
-                <>
-                    {showDetailsModal && (
-                        <ErrorLogDetailsModal
-                            errorLog={selectedErrorLog}
-                            onClose={handleCloseAllModal}
-                            onEdit={handleOpenEditModal}
-                        />
-                    )}
-
-                    {/* {showEditModal && (
-                        <UserEditModal
-                            errorLog={selectedUser}
-                            onCancel={handleCloseEditModal}
-                            onClose={handleCloseAllModal}
-                            onUpdate={onUpdate}
-                        />
-                    )} */}
-                </>
+                <ErrorLogDetailsModal
+                    errorLog={selectedErrorLog}
+                    onClose={handleCloseAllModal}
+                    onUpdate={handleModalUpdate}
+                />
             )}
 
             {selectedUserId && (
