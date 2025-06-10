@@ -31,3 +31,13 @@ export const updateUser = (user: User) => {
         body: JSON.stringify(user),
     });
 };
+
+export const getUserById = async (userId: number) => {
+    return fetch(processEnv.getApiUrl() + `/users/${userId.toString()}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+};

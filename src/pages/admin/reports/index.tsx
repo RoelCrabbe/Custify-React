@@ -3,7 +3,7 @@ import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
 import { errorLogService } from '@services/index';
 import { QueryClient, useQuery } from '@tanstack/react-query';
-import { ErrorLog } from '@types';
+import { ErrorLog, ErrorStatus } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +11,7 @@ const queryClient = new QueryClient();
 
 const ReportsPage: React.FC = () => {
     const { shouldRender, currentUser } = useRequireAdmin();
+    const [selectedStatus, setSelectedStatus] = useState<ErrorStatus>(ErrorStatus.New);
     const [errorLogs, setErrorLogs] = useState<ErrorLog[]>([]);
 
     const {
@@ -19,17 +20,32 @@ const ReportsPage: React.FC = () => {
         isError: errorLogsIsError,
         isLoading: errorLogsIsLoading,
     } = useQuery({
-        queryKey: ['error-logs'],
+        queryKey: ['error-logs', selectedStatus],
         staleTime: 3 * 60 * 1000,
         enabled: shouldRender,
-        queryFn: async () => {
-            const response = await errorLogService.getAllErrorLogs();
-            return response.ok ? await response.json() : [];
-        },
+        queryFn: () => getErrorLogsByStatus(selectedStatus),
     });
 
     const handleRetry = () => {
         queryClient.invalidateQueries({ queryKey: ['user-management'] });
+    };
+
+    const getErrorLogsByStatus = async (status: ErrorStatus) => {
+        let response;
+        switch (status) {
+            case ErrorStatus.New:
+                response = await errorLogService.getAllNewErrorLogs();
+                break;
+            case ErrorStatus.Reviewed:
+                response = await errorLogService.getAllReviewedErrorLogs();
+                break;
+            case ErrorStatus.Resolved:
+                response = await errorLogService.getAllResolvedErrorLogs();
+                break;
+            default:
+                response = await errorLogService.getAllNewErrorLogs();
+        }
+        return response.ok ? await response.json() : [];
     };
 
     const handleUserUpdate = (updatedErrorLog: ErrorLog) => {
@@ -38,6 +54,10 @@ const ReportsPage: React.FC = () => {
                 errorLog.id === updatedErrorLog.id ? updatedErrorLog : errorLog,
             ),
         );
+    };
+
+    const handleStatusChange = (status: ErrorStatus) => {
+        setSelectedStatus(status);
     };
 
     useEffect(() => {
@@ -53,12 +73,14 @@ const ReportsPage: React.FC = () => {
                 description={'Manage and monitor user accounts'}
                 isLoading={errorLogsIsLoading || !shouldRender}>
                 <ErrorLogManagement
+                    selectedStatus={selectedStatus}
                     errorLogs={errorLogs}
                     error={errorLogsError}
                     isError={errorLogsIsError}
                     isLoading={errorLogsIsLoading}
                     onUpdate={handleUserUpdate}
                     onRetry={handleRetry}
+                    onStatusChange={handleStatusChange}
                 />
             </AdminPageLayout>
         </>

@@ -1,13 +1,15 @@
 import ErrorLogDetailsModal from '@components/admin/errorLogManagement/ErrorLogDetailsModal';
+import UserDetailsModal from '@components/admin/userManagement/UserDetailsModal';
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
-import { faArrowsUpDown, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsUpDown, faEye, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
 import { errorLogService } from '@services/index';
 import {
     ErrorLog,
+    ErrorStatus,
     getErrorHttpMethodColor,
     getErrorHttpMethodIcon,
     getErrorSeverityColor,
@@ -19,6 +21,7 @@ import {
 import { useState } from 'react';
 
 interface Props {
+    selectedStatus: ErrorStatus;
     errorLogs: ErrorLog[];
     isError: boolean;
     isLoading: boolean;
@@ -28,6 +31,7 @@ interface Props {
 }
 
 const ErrorLogManagementTable: React.FC<Props> = ({
+    selectedStatus,
     errorLogs,
     isError,
     isLoading,
@@ -36,6 +40,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
     onUpdate,
 }) => {
     const [selectedErrorLog, setSelectedErrorLog] = useState<ErrorLog | null>(null);
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
 
@@ -52,10 +57,12 @@ const ErrorLogManagementTable: React.FC<Props> = ({
         );
     }
 
+    const isNotResolved = selectedStatus !== ErrorStatus.Resolved;
+
     const handleViewDetails = async (errorLog: ErrorLog) => {
         setSelectedErrorLog(errorLog);
-        setShowDetailsModal(true);
         await handleReview(errorLog);
+        setShowDetailsModal(true);
     };
 
     const handleOpenEditModal = () => {
@@ -69,14 +76,21 @@ const ErrorLogManagementTable: React.FC<Props> = ({
     };
 
     const handleCloseAllModal = () => {
+        setSelectedErrorLog(null);
+        setSelectedUserId(null);
         setShowDetailsModal(false);
         setShowEditModal(false);
-        setSelectedErrorLog(null);
+    };
+
+    const handleShowUserDetails = (userId: number) => {
+        handleCloseAllModal();
+        setSelectedUserId(userId);
     };
 
     const handleReview = async (errorLog: ErrorLog) => {
         const formData: any = {
             id: errorLog.id,
+            status: ErrorStatus.Reviewed,
         };
 
         try {
@@ -96,15 +110,29 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                             <th>Error Type</th>
                             <th>Request Path</th>
                             <th>Method</th>
-                            <th className="flex items-center justify-between">
-                                Actions
-                                <span>
-                                    <FontAwesomeIcon
-                                        icon={faArrowsUpDown}
-                                        className="text-gray-400"
-                                    />
-                                </span>
-                            </th>
+                            {isNotResolved ? (
+                                <>
+                                    <th className="flex items-center justify-between">
+                                        Actions
+                                        <span>
+                                            <FontAwesomeIcon
+                                                icon={faArrowsUpDown}
+                                                className="text-gray-400"
+                                            />
+                                        </span>
+                                    </th>
+                                </>
+                            ) : (
+                                <th className="flex items-center justify-between">
+                                    Archived Details
+                                    <span>
+                                        <FontAwesomeIcon
+                                            icon={faArrowsUpDown}
+                                            className="text-gray-400"
+                                        />
+                                    </span>
+                                </th>
+                            )}
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
@@ -151,15 +179,53 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                     </span>
                                 </td>
 
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Button.Primary onClick={() => handleViewDetails(errorLog)}>
-                                        <FontAwesomeIcon
-                                            icon={faEye}
-                                            className="user-management__icon"
-                                        />
-                                        <span>View Details</span>
-                                    </Button.Primary>
-                                </td>
+                                {isNotResolved ? (
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <Button.Primary onClick={() => handleViewDetails(errorLog)}>
+                                            <FontAwesomeIcon
+                                                icon={faEye}
+                                                className="user-management__icon"
+                                            />
+                                            <span>View Details</span>
+                                        </Button.Primary>
+                                    </td>
+                                ) : (
+                                    <>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-600 flex items-center gap-2">
+                                                {errorLog.archivedDate && errorLog.archivedBy ? (
+                                                    <span>
+                                                        Archived on{' '}
+                                                        {new Date(
+                                                            errorLog.archivedDate,
+                                                        ).toLocaleDateString()}{' '}
+                                                        by user #{errorLog.archivedBy}
+                                                    </span>
+                                                ) : (
+                                                    <span>Not archived</span>
+                                                )}
+
+                                                {errorLog.archivedBy && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            handleShowUserDetails(
+                                                                errorLog.archivedBy as number,
+                                                            )
+                                                        }
+                                                        className="text-blue-500 hover:text-blue-600 flex"
+                                                        title="View user details"
+                                                        aria-label="View user details">
+                                                        <FontAwesomeIcon
+                                                            icon={faInfoCircle}
+                                                            className="h-4 w-4"
+                                                        />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </>
+                                )}
                             </tr>
                         ))}
                     </tbody>
@@ -185,6 +251,10 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                         />
                     )} */}
                 </>
+            )}
+
+            {selectedUserId && (
+                <UserDetailsModal userId={selectedUserId} onClose={handleCloseAllModal} />
             )}
         </>
     );
