@@ -197,7 +197,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                     </td>
                                 ) : (
                                     <>
-                                        <td className="p-6 whitespace-nowrap">
+                                        <td className="p-[1.625rem] whitespace-nowrap">
                                             <div className="report-archived-info">
                                                 {errorLog.archivedDate && errorLog.archivedBy ? (
                                                     <span>
