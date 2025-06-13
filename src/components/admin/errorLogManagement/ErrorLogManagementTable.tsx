@@ -5,7 +5,7 @@ import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
 import { faArrowsUpDown, faEye, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { capitalizeFirstLetter } from '@lib';
+import { capitalizeFirstLetter, formatDateOnly } from '@lib';
 import { errorLogService } from '@services/index';
 import {
     ErrorLog,
@@ -199,24 +199,22 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                     <>
                                         <td className="p-[1.625rem] whitespace-nowrap">
                                             <div className="report-archived-info">
-                                                {errorLog.archivedDate && errorLog.archivedBy ? (
+                                                {errorLog.resolvedDate && errorLog.resolvedById ? (
                                                     <span>
                                                         Archived on{' '}
-                                                        {new Date(
-                                                            errorLog.archivedDate,
-                                                        ).toLocaleDateString()}{' '}
-                                                        by user #{errorLog.archivedBy}
+                                                        {formatDateOnly(errorLog.resolvedDate)} by
+                                                        user #{errorLog.resolvedById}
                                                     </span>
                                                 ) : (
-                                                    <span>Not archived</span>
+                                                    <span>Not Resolved</span>
                                                 )}
 
-                                                {errorLog.archivedBy && (
+                                                {errorLog.resolvedById && (
                                                     <button
                                                         type="button"
                                                         onClick={() =>
                                                             handleShowUserDetails(
-                                                                errorLog.archivedBy as number,
+                                                                errorLog.resolvedById as number,
                                                             )
                                                         }
                                                         className="text-blue-500 hover:text-blue-600 flex"

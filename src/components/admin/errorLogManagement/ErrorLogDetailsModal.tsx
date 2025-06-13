@@ -1,9 +1,9 @@
 import Button from '@components/ui/Button';
 import FormContainer from '@components/ui/FormContainer';
 import StatusMessage from '@components/ui/StatusMessage';
-import { faDownload, faEdit, faInfoCircle, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faEdit, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { capitalizeFirstLetter } from '@lib';
+import { capitalizeFirstLetter, formatDateOnly } from '@lib';
 import { errorLogService } from '@services/index';
 import {
     ErrorLog,
@@ -155,42 +155,24 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
                                     {errorLog.status}
                                 </span>
                             </section>
-
-                            <section className="flex flex-col gap-2">
-                                <label className="flex gap-2 items-center text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Is Archived
-                                    <span>
-                                        <FontAwesomeIcon
-                                            icon={faInfoCircle}
-                                            className="h-4 w-4 text-blue-500 hover:text-blue-600 flex"
-                                            title="By marking this error log as resolved it will be archived. And deleted after 90days."
-                                        />
-                                    </span>
-                                </label>
-                                <span className="text-sm text-gray-800">
-                                    {errorLog.isArchived ? 'Yes' : 'No'}
-                                </span>
-                            </section>
                         </FormContainer.Column>
 
                         <FormContainer.Column className="space-y-4">
                             <section className="flex flex-col gap-2">
                                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Archived By
+                                    Resolved By
                                 </label>
                                 <span className="text-sm text-gray-800">
-                                    {errorLog.archivedBy ? errorLog.archivedBy : 'N/A'}
+                                    {errorLog.resolvedById ? errorLog.resolvedById : 'N/A'}
                                 </span>
                             </section>
 
                             <section className="flex flex-col gap-2">
                                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Archived Date
+                                    Resolved Date
                                 </label>
                                 <span className="text-sm text-gray-800">
-                                    {errorLog.archivedDate
-                                        ? new Date(errorLog.archivedDate).toLocaleString()
-                                        : 'N/A'}
+                                    {formatDateOnly(errorLog.resolvedDate)}
                                 </span>
                             </section>
                         </FormContainer.Column>
