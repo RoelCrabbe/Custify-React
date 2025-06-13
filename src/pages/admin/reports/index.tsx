@@ -60,22 +60,7 @@ const ReportsPage: React.FC = () => {
                 : prev.map((log) => (log.id === id ? updatedErrorLog : log));
         });
 
-        queryClient.setQueryData(
-            ['error-logs', selectedStatus],
-            (oldCache: ErrorLog[] | undefined) => {
-                oldCache?.filter((log) => log.id !== id);
-            },
-        );
-
-        if (statusChanged && queryClient.getQueryData(['error-logs', status])) {
-            queryClient.setQueryData(['error-logs', status], (oldCache: ErrorLog[] | undefined) => {
-                if (!oldCache) return [updatedErrorLog];
-                const existingIndex = oldCache.findIndex((log) => log.id === id);
-                return existingIndex === -1
-                    ? [...oldCache, updatedErrorLog]
-                    : oldCache.map((log) => (log.id === id ? updatedErrorLog : log));
-            });
-        }
+        queryClient.invalidateQueries({ queryKey: ['error-logs'] });
     };
 
     const handleStatusChange = (status: ErrorStatus) => {
