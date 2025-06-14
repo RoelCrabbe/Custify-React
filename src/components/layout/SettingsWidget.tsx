@@ -44,7 +44,7 @@ const SettingsWidget: React.FC = () => {
                     onClick={handleToggle}
                     aria-label={isOpen ? 'Close Settings' : 'Open Settings'}
                     className="settings-button">
-                    <FontAwesomeIcon icon={isOpen ? faTimes : faCog} className="settings-icon" />
+                    <FontAwesomeIcon icon={isOpen ? faTimes : faCog} className={'settings-icon'} />
                 </button>
 
                 {isOpen && (
@@ -91,7 +91,7 @@ const SettingsWidget: React.FC = () => {
                                             <div className="settings-option-icon">
                                                 <FontAwesomeIcon
                                                     icon={faUser}
-                                                    className="settings-option-icon-size"
+                                                    className={'settings-option-icon-size'}
                                                 />
                                             </div>
                                             <span className="settings-option-label">User Mode</span>

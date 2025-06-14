@@ -3,6 +3,7 @@ import UserEditModal from '@components/admin/userManagement/UserEditModal';
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
+import Column from '@components/ui/container/Column';
 import UserAvatar from '@components/ui/UserAvatar';
 import {
     faArrowsUpDown,
@@ -86,7 +87,7 @@ const UserManagementTable: React.FC<Props> = ({
                                 <span>
                                     <FontAwesomeIcon
                                         icon={faArrowsUpDown}
-                                        className="text-gray-400"
+                                        className={'text-gray-400'}
                                     />
                                 </span>
                             </th>
@@ -100,21 +101,21 @@ const UserManagementTable: React.FC<Props> = ({
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center gap-4">
                                         <UserAvatar user={user} size={'sm'} />
-                                        <section className="flex flex-col gap-2 text-sm text-gray-600">
+                                        <Column gap={'2'} className={'text-sm text-gray-600'}>
                                             <span className="font-medium text-gray-900">
                                                 {user.firstName} {user.lastName}
                                             </span>
                                             <span>@{user.userName}</span>
-                                        </section>
+                                        </Column>
                                     </div>
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex flex-col gap-2">
+                                    <Column gap={'2'}>
                                         <section className="flex items-center gap-2 text-sm text-gray-600">
                                             <FontAwesomeIcon
                                                 icon={faEnvelope}
-                                                className="user-management__icon text-gray-400"
+                                                className={'user-management__icon text-gray-400'}
                                             />
                                             <span>{user.email}</span>
                                         </section>
@@ -122,12 +123,14 @@ const UserManagementTable: React.FC<Props> = ({
                                             <section className="flex items-center gap-2 text-sm text-gray-600">
                                                 <FontAwesomeIcon
                                                     icon={faPhone}
-                                                    className="user-management__icon text-gray-400"
+                                                    className={
+                                                        'user-management__icon text-gray-400'
+                                                    }
                                                 />
                                                 <span>{user.phoneNumber}</span>
                                             </section>
                                         )}
-                                    </div>
+                                    </Column>
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -135,7 +138,7 @@ const UserManagementTable: React.FC<Props> = ({
                                         className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(user.role)}`}>
                                         <FontAwesomeIcon
                                             icon={faShieldAlt}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         {capitalizeFirstLetter(user.role)}
                                     </span>
@@ -146,7 +149,7 @@ const UserManagementTable: React.FC<Props> = ({
                                         className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(user.status)}`}>
                                         <FontAwesomeIcon
                                             icon={getUserStatusIcon(user.status)}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         {capitalizeFirstLetter(user.status)}
                                     </span>
@@ -156,7 +159,7 @@ const UserManagementTable: React.FC<Props> = ({
                                     <Button.Primary onClick={() => handleViewDetails(user)}>
                                         <FontAwesomeIcon
                                             icon={faEye}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         <span>View Details</span>
                                     </Button.Primary>

@@ -96,7 +96,7 @@ const UserLoginForm: React.FC<Props> = ({ onSubmit, onClearError, children }: Pr
 
                 <div className="login-form-footer">
                     <span className="login-form-divider">Don't have an account?</span>
-                    <Link href={ROUTES.AUTH.REGISTER} className="login-form-register-link">
+                    <Link href={ROUTES.AUTH.REGISTER} className={'login-form-register-link'}>
                         Create your Custify account
                     </Link>
                 </div>

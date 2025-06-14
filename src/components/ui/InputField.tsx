@@ -1,4 +1,4 @@
-import FormContainer from '@components/ui/FormContainer';
+import Column from '@components/ui/container/Column';
 import React, { memo, useState } from 'react';
 
 interface Props {
@@ -41,7 +41,7 @@ const InputField: React.FC<Props> = ({
 
     return (
         <>
-            <FormContainer.Column gap="2">
+            <Column gap={'2'}>
                 <label className="input-field-label" htmlFor={label}>
                     {label} {required && <span className="input-field-required">*</span>}
                 </label>
@@ -61,7 +61,7 @@ const InputField: React.FC<Props> = ({
                     />
                     {error && <span className="input-field-error-text">{error}</span>}
                 </div>
-            </FormContainer.Column>
+            </Column>
         </>
     );
 };

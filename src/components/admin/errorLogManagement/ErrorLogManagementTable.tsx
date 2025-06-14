@@ -123,7 +123,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         <span>
                                             <FontAwesomeIcon
                                                 icon={faArrowsUpDown}
-                                                className="text-gray-400"
+                                                className={'text-gray-400'}
                                             />
                                         </span>
                                     </th>
@@ -134,7 +134,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                     <span>
                                         <FontAwesomeIcon
                                             icon={faArrowsUpDown}
-                                            className="text-gray-400"
+                                            className={'text-gray-400'}
                                         />
                                     </span>
                                 </th>
@@ -151,7 +151,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorSeverityColor(errorLog.severity)}`}>
                                         <FontAwesomeIcon
                                             icon={getErrorSeverityIcon(errorLog.severity)}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         {errorLog.severity}
                                     </span>
@@ -162,7 +162,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorTypeColor(errorLog.type)}`}>
                                         <FontAwesomeIcon
                                             icon={getErrorTypeIcon(errorLog.type)}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         {errorLog.type}
                                     </span>
@@ -179,7 +179,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
                                         <FontAwesomeIcon
                                             icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
-                                            className="user-management__icon"
+                                            className={'user-management__icon'}
                                         />
                                         {capitalizeFirstLetter(errorLog.httpMethod)}
                                     </span>
@@ -190,7 +190,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         <Button.Primary onClick={() => handleViewDetails(errorLog)}>
                                             <FontAwesomeIcon
                                                 icon={faEye}
-                                                className="user-management__icon"
+                                                className={'user-management__icon'}
                                             />
                                             <span>View Details</span>
                                         </Button.Primary>
@@ -222,7 +222,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                                         aria-label="View user details">
                                                         <FontAwesomeIcon
                                                             icon={faInfoCircle}
-                                                            className="h-4 w-4"
+                                                            className={'h-4 w-4'}
                                                         />
                                                     </button>
                                                 )}

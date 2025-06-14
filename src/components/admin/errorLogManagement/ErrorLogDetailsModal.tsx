@@ -1,5 +1,7 @@
 import Button from '@components/ui/Button';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
+import Modal from '@components/ui/container/Modal';
 import StatusMessage from '@components/ui/StatusMessage';
 import { faDownload, faEdit, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -65,157 +67,159 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
 
     return (
         <>
-            <FormContainer.Modal>
-                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[800px] max-h-[90vh]">
-                    <header className="user-details-header">
-                        <h3>Error Log Details</h3>
-                        <button type="button" onClick={onClose}>
-                            <FontAwesomeIcon icon={faXmarkCircle} className="h-5 w-5" />
-                        </button>
-                    </header>
+            <Modal>
+                <Card className={'relative mx-auto p-6 w-[800px] max-h-[90vh]'}>
+                    <Column gap={'6'}>
+                        <header className="user-details-header">
+                            <h3>Error Log Details</h3>
+                            <button type="button" onClick={onClose}>
+                                <FontAwesomeIcon icon={faXmarkCircle} className={'h-5 w-5'} />
+                            </button>
+                        </header>
 
-                    <div className="bg-gray-50 p-4 rounded-lg border">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-6">
-                                <section className="flex flex-col gap-1">
+                        <div className="bg-gray-50 p-4 rounded-lg border">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-6">
+                                    <Column gap={'1'}>
+                                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                            Error ID
+                                        </label>
+                                        <span className="font-mono font-bold text-lg text-gray-900">
+                                            #{errorLog.id || 'N/A'}
+                                        </span>
+                                    </Column>
+                                    <Column gap={'1'}>
+                                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                            HTTP Method
+                                        </label>
+                                        <span
+                                            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
+                                            <FontAwesomeIcon
+                                                icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
+                                                className={'user-management__icon'}
+                                            />
+                                            {capitalizeFirstLetter(errorLog.httpMethod)}
+                                        </span>
+                                    </Column>
+                                </div>
+                                <Column gap={'1'} className={'text-right'}>
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                        Error ID
+                                        Request Path
                                     </label>
-                                    <span className="font-mono font-bold text-lg text-gray-900">
-                                        #{errorLog.id || 'N/A'}
+                                    <span className="text-sm font-mono text-gray-800 bg-white border border-gray-300 px-3 py-2 rounded-md">
+                                        {errorLog.requestPath}
                                     </span>
-                                </section>
-                                <section className="flex flex-col gap-1">
+                                </Column>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-6 mb-6">
+                            <Column className={'space-y-4'}>
+                                <Column gap={'2'}>
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                        HTTP Method
+                                        Error Type
                                     </label>
                                     <span
-                                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorTypeColor(errorLog.type)}`}>
                                         <FontAwesomeIcon
-                                            icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
-                                            className="user-management__icon"
+                                            icon={getErrorTypeIcon(errorLog.type)}
+                                            className={'user-management__icon'}
                                         />
-                                        {capitalizeFirstLetter(errorLog.httpMethod)}
+                                        {errorLog.type}
                                     </span>
-                                </section>
-                            </div>
-                            <section className="flex flex-col gap-1 text-right">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Request Path
-                                </label>
-                                <span className="text-sm font-mono text-gray-800 bg-white border border-gray-300 px-3 py-2 rounded-md">
-                                    {errorLog.requestPath}
-                                </span>
-                            </section>
+                                </Column>
+
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Severity
+                                    </label>
+                                    <span
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorSeverityColor(errorLog.severity)}`}>
+                                        <FontAwesomeIcon
+                                            icon={getErrorSeverityIcon(errorLog.severity)}
+                                            className={'user-management__icon'}
+                                        />
+                                        {errorLog.severity}
+                                    </span>
+                                </Column>
+                            </Column>
+
+                            <Column className={'space-y-4'}>
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Status
+                                    </label>
+                                    <span
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorStatusColor(errorLog.status)}`}>
+                                        <FontAwesomeIcon
+                                            icon={getErrorStatusIcon(errorLog.status)}
+                                            className={'user-management__icon'}
+                                        />
+                                        {errorLog.status}
+                                    </span>
+                                </Column>
+                            </Column>
+
+                            <Column className={'space-y-4'}>
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Resolved By
+                                    </label>
+                                    <span className="text-sm text-gray-800">
+                                        {errorLog.resolvedById ? errorLog.resolvedById : 'N/A'}
+                                    </span>
+                                </Column>
+
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Resolved Date
+                                    </label>
+                                    <span className="text-sm text-gray-800">
+                                        {formatDateOnly(errorLog.resolvedDate)}
+                                    </span>
+                                </Column>
+                            </Column>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-3 gap-6 mb-6">
-                        <FormContainer.Column className="space-y-4">
-                            <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Error Type
-                                </label>
-                                <span
-                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorTypeColor(errorLog.type)}`}>
-                                    <FontAwesomeIcon
-                                        icon={getErrorTypeIcon(errorLog.type)}
-                                        className="user-management__icon"
-                                    />
-                                    {errorLog.type}
-                                </span>
-                            </section>
+                        <Column gap={'2'}>
+                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                Error Message
+                            </label>
+                            {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+                        </Column>
 
-                            <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Severity
-                                </label>
-                                <span
-                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorSeverityColor(errorLog.severity)}`}>
-                                    <FontAwesomeIcon
-                                        icon={getErrorSeverityIcon(errorLog.severity)}
-                                        className="user-management__icon"
-                                    />
-                                    {errorLog.severity}
-                                </span>
-                            </section>
-                        </FormContainer.Column>
-
-                        <FormContainer.Column className="space-y-4">
-                            <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Status
-                                </label>
-                                <span
-                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorStatusColor(errorLog.status)}`}>
-                                    <FontAwesomeIcon
-                                        icon={getErrorStatusIcon(errorLog.status)}
-                                        className="user-management__icon"
-                                    />
-                                    {errorLog.status}
-                                </span>
-                            </section>
-                        </FormContainer.Column>
-
-                        <FormContainer.Column className="space-y-4">
-                            <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Resolved By
-                                </label>
-                                <span className="text-sm text-gray-800">
-                                    {errorLog.resolvedById ? errorLog.resolvedById : 'N/A'}
-                                </span>
-                            </section>
-
-                            <section className="flex flex-col gap-2">
-                                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Resolved Date
-                                </label>
-                                <span className="text-sm text-gray-800">
-                                    {formatDateOnly(errorLog.resolvedDate)}
-                                </span>
-                            </section>
-                        </FormContainer.Column>
-                    </div>
-
-                    <section className="flex flex-col gap-2">
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                            Error Message
-                        </label>
-                        {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-                    </section>
-
-                    <section className="flex flex-col gap-2">
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                            Stack Trace
-                        </label>
-                        <div className="bg-gray-900 text-gray-100 rounded-lg border shadow-inner">
-                            <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700">
-                                <span className="text-xs font-medium text-gray-300">
-                                    Stack Trace Output
-                                </span>
+                        <Column gap={'2'}>
+                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                Stack Trace
+                            </label>
+                            <div className="bg-gray-900 text-gray-100 rounded-lg border shadow-inner">
+                                <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700">
+                                    <span className="text-xs font-medium text-gray-300">
+                                        Stack Trace Output
+                                    </span>
+                                </div>
+                                <div className="p-4 max-h-60 overflow-auto">
+                                    <pre className="text-xs font-mono whitespace-pre-wrap break-words leading-relaxed">
+                                        {errorLog.stackTrace}
+                                    </pre>
+                                </div>
                             </div>
-                            <div className="p-4 max-h-60 overflow-auto">
-                                <pre className="text-xs font-mono whitespace-pre-wrap break-words leading-relaxed">
-                                    {errorLog.stackTrace}
-                                </pre>
-                            </div>
+                        </Column>
+
+                        <div className="flex justify-between gap-4 pt-4 border-t border-gray-200">
+                            <Button.Secondary onClick={() => {}}>
+                                <FontAwesomeIcon icon={faDownload} className={'h-4 w-4'} />
+                                Export Log
+                            </Button.Secondary>
+
+                            <Button.Primary onClick={handleResolved}>
+                                <FontAwesomeIcon icon={faEdit} className={'h-4 w-4'} />
+                                Mark Resolved
+                            </Button.Primary>
                         </div>
-                    </section>
-
-                    <div className="flex justify-between gap-4 pt-4 border-t border-gray-200">
-                        <Button.Secondary onClick={() => {}}>
-                            <FontAwesomeIcon icon={faDownload} className="h-4 w-4" />
-                            Export Log
-                        </Button.Secondary>
-
-                        <Button.Primary onClick={handleResolved}>
-                            <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
-                            Mark Resolved
-                        </Button.Primary>
-                    </div>
-                </FormContainer.Card>
-            </FormContainer.Modal>
+                    </Column>
+                </Card>
+            </Modal>
         </>
     );
 };

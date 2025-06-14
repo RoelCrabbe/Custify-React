@@ -77,19 +77,19 @@ const Navigation: React.FC = () => {
                             ) : isOnAuthPage ? (
                                 <Link
                                     href={isOnLoginPage ? ROUTES.AUTH.REGISTER : ROUTES.AUTH.LOGIN}
-                                    className="button-base button-primary button-md">
+                                    className={'button-base button-primary button-md'}>
                                     {isOnLoginPage ? 'Sign Up' : 'Login'}
                                 </Link>
                             ) : (
                                 <>
                                     <Link
                                         href={ROUTES.AUTH.LOGIN}
-                                        className="button-base button-secondary button-md">
+                                        className={'button-base button-secondary button-md'}>
                                         Login
                                     </Link>
                                     <Link
                                         href={ROUTES.AUTH.REGISTER}
-                                        className="button-base button-primary button-md">
+                                        className={'button-base button-primary button-md'}>
                                         Sign Up
                                     </Link>
                                 </>

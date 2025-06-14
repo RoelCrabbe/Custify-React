@@ -1,5 +1,9 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
+import Container from '@components/ui/container/Container';
+import FeatureCard from '@components/ui/container/FeatureCard';
+import StatCard from '@components/ui/container/StatCard';
 import { adminQuickStats, getAdminFeatures } from '@config/adminConfig';
 import { faChartLine, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,39 +25,39 @@ const AdminLandingPage: React.FC = () => {
     return (
         <>
             <MainPageLayout pageName={'Admin Panel'} isLoading={!shouldRender}>
-                <div className="flex flex-col gap-16">
-                    <FormContainer.Card>
-                        <FormContainer
+                <Column gap={'16'}>
+                    <Card>
+                        <Container
                             easeIn
                             isVisible={isVisible}
                             className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
-                            <FormContainer.Column className="items-center">
-                                <div className="flex items-center gap-4">
+                            <Column className={'items-center'}>
+                                <Column className={'items-center'}>
                                     <FontAwesomeIcon
                                         icon={faUserShield}
-                                        className="text-blue-600"
-                                        size="3x"
+                                        className={'text-blue-600'}
+                                        size={'3x'}
                                     />
                                     <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
                                         Admin <span className="text-blue-600">Dashboard</span>
                                     </h1>
-                                </div>
+                                </Column>
                                 <p className="text-lg text-gray-600 mb-4 max-w-2xl mx-auto text-center">
                                     Comprehensive platform administration and management tools.
                                     Monitor, configure, and optimize your Custify instance.
                                 </p>
-                            </FormContainer.Column>
-                        </FormContainer>
-                    </FormContainer.Card>
+                            </Column>
+                        </Container>
+                    </Card>
 
-                    <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <Column gap={'8'} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                         <h2 className="text-3xl font-semibold text-gray-900 text-center">
                             System Overview
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {adminQuickStats.map((quickStat) => (
-                                <FormContainer.StatCard isVisible={isVisible} key={quickStat.value}>
+                                <StatCard key={quickStat.value} easeIn isVisible={isVisible}>
                                     <h3 className="text-2xl font-semibold text-gray-900">
                                         {quickStat.value}
                                     </h3>
@@ -70,13 +74,13 @@ const AdminLandingPage: React.FC = () => {
                                         }`}>
                                         {quickStat.change}
                                     </div>
-                                </FormContainer.StatCard>
+                                </StatCard>
                             ))}
                         </div>
-                    </div>
+                    </Column>
 
-                    <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col items-center gap-4 text-center">
+                    <Column gap={'8'} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                        <Column className={'items-center text-center'}>
                             <h2 className="text-3xl font-semibold text-gray-900">
                                 Administration Tools
                             </h2>
@@ -84,11 +88,13 @@ const AdminLandingPage: React.FC = () => {
                                 Access powerful administrative features to manage users, monitor
                                 system performance, and configure platform settings.
                             </p>
-                        </div>
+                        </Column>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {adminFeatures.map((feature) => (
-                                <FormContainer.FeatureCard
+                                <FeatureCard
+                                    key={feature.id}
+                                    easeIn
                                     isVisible={isVisible}
                                     onClick={() => router.push(feature.href)}>
                                     <span className="text-blue-600">
@@ -102,11 +108,11 @@ const AdminLandingPage: React.FC = () => {
                                         Access Tool
                                         <FontAwesomeIcon icon={faChartLine} size={'sm'} />
                                     </div>
-                                </FormContainer.FeatureCard>
+                                </FeatureCard>
                             ))}
                         </div>
-                    </div>
-                </div>
+                    </Column>
+                </Column>
             </MainPageLayout>
         </>
     );
