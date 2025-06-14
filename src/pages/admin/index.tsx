@@ -30,7 +30,7 @@ const AdminLandingPage: React.FC = () => {
                         <Container
                             easeIn
                             isVisible={isVisible}
-                            className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
+                            className={`max-w-6xl mx-auto py-16`}>
                             <Column className={'items-center'}>
                                 <Column className={'items-center'}>
                                     <FontAwesomeIcon
@@ -50,7 +50,7 @@ const AdminLandingPage: React.FC = () => {
                         </Container>
                     </Card>
 
-                    <Column gap={'8'} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <Column gap={'8'} className="max-w-6xl mx-auto w-full">
                         <h2 className="text-3xl font-semibold text-gray-900 text-center">
                             System Overview
                         </h2>

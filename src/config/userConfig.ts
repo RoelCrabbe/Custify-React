@@ -79,13 +79,13 @@ export const userFeatures = [
         showInFeatures: true,
     },
     {
-        id: 'settings',
+        id: 'profile',
         icon: faCogs,
-        label: 'Settings',
-        title: 'Customizable Settings',
-        href: '/settings',
+        label: 'Profile',
+        title: 'Profile Page',
+        href: '/user/profile',
         description:
-            'Adjust preferences, configure workflows, and personalize your experience to match your needs.',
+            'Adjust your account settings, preferences, and manage your personal information.',
         showInNav: true,
         showInFeatures: true,
     },
