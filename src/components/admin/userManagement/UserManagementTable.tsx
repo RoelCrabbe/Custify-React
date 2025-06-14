@@ -99,11 +99,7 @@ const UserManagementTable: React.FC<Props> = ({
                                 className="hover:bg-gray-100 transition-colors duration-150">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center gap-4">
-                                        <UserAvatar
-                                            size={'sm'}
-                                            firstName={user.firstName}
-                                            lastName={user.lastName}
-                                        />
+                                        <UserAvatar user={user} size={'sm'} />
                                         <section className="flex flex-col gap-2 text-sm text-gray-600">
                                             <span className="font-medium text-gray-900">
                                                 {user.firstName} {user.lastName}

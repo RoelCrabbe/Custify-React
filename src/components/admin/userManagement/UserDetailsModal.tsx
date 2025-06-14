@@ -94,11 +94,7 @@ const UserDetailsModal: React.FC<Props> = ({ user, userId, onEdit, onClose }) =>
                     </header>
 
                     <div className="flex flex-col items-center gap-4 bg-gray-50 p-4 rounded-lg">
-                        <UserAvatar
-                            size={'lg'}
-                            firstName={resolvedUser.firstName}
-                            lastName={resolvedUser.lastName}
-                        />
+                        <UserAvatar user={resolvedUser} size={'lg'} />
                         <div className="text-center">
                             <h4 className="text-lg font-semibold text-gray-900">
                                 {resolvedUser.firstName} {resolvedUser.lastName}
