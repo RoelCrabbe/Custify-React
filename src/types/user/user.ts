@@ -9,4 +9,14 @@ export type User = {
     lastName: string;
     email: string;
     phoneNumber?: string;
+    profileImage?: UserImage;
+};
+
+export type UserImage = {
+    id?: number;
+    url: string;
+    altText: string;
+    fileName: string;
+    mimeType: string;
+    fileSize: number;
 };
