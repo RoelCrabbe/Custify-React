@@ -20,11 +20,11 @@ type Props = BaseProps & (EaseInProps | NoEaseInProps);
 
 const Container: React.FC<Props> = ({ children, className, onClick, easeIn, isVisible }) => {
     const getContainerClasses = () => {
-        let classes = 'bg-white transition-all duration-800 ease-in-out';
+        let baseClasses = 'transition-all duration-800 ease-in-out';
+
         if (easeIn)
-            classes += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
-        if (className) classes += ` ${className}`;
-        return classes.trim();
+            baseClasses += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
+        return `${baseClasses} ${className || ''}`.trim();
     };
 
     return (

@@ -26,7 +26,7 @@ const UserAvatar: React.FC<Props> = ({ user, size = 'md' }: Props) => {
                     <img
                         src={user.profileImage.url}
                         alt={user.profileImage.altText}
-                        className={`${container} rounded-full object-cover border border-gray-200`}
+                        className={`${container} rounded-full object-cover border border-gray-200 bg-white`}
                     />
                 ) : (
                     <div

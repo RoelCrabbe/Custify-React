@@ -20,13 +20,15 @@ type Props = BaseProps & (EaseInProps | NoEaseInProps);
 
 const Card: React.FC<Props> = ({ children, className, onClick, easeIn, isVisible }) => {
     const getContainerClasses = () => {
-        let classes = 'bg-white transition-all duration-800 ease-in-out';
-        classes += ' border border-gray-200 hover:border-gray-300 rounded-lg';
+        let baseClasses =
+            'transition-all duration-800 ease-in-out border border-gray-200 hover:border-gray-300 rounded-lg';
 
         if (easeIn)
-            classes += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
-        if (className) classes += ` ${className}`;
-        return classes.trim();
+            baseClasses += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
+
+        const hasBgClass = className?.match(/(?:^|\s)(?:\S+:)*bg-[^\s]+/);
+        const bgClass = hasBgClass ? '' : ' bg-white';
+        return `${baseClasses}${bgClass} ${className || ''}`.trim();
     };
 
     return (
