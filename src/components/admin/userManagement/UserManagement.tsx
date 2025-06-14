@@ -1,5 +1,6 @@
 import UserManagementTable from '@components/admin/userManagement/UserManagementTable';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { User } from '@types';
@@ -23,8 +24,8 @@ const UserManagement: React.FC<Props> = ({
 }) => {
     return (
         <>
-            <FormContainer.Card className="overflow-hidden h-full">
-                <FormContainer className="flex flex-col h-full">
+            <Card className={'overflow-hidden h-full'}>
+                <Column gap={'0'} className={'h-full'}>
                     <header className="user-management-header">
                         <div className="flex items-center gap-4">
                             <FontAwesomeIcon icon={faUsers} />
@@ -43,8 +44,8 @@ const UserManagement: React.FC<Props> = ({
                             onUpdate={onUpdate}
                         />
                     </div>
-                </FormContainer>
-            </FormContainer.Card>
+                </Column>
+            </Card>
         </>
     );
 };

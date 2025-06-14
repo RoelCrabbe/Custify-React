@@ -28,12 +28,12 @@ const Custom401: React.FC = () => {
                     </section>
 
                     <div className="error-page__actions">
-                        <Link href={ROUTES.HOME} className="button-base button-primary button-md">
+                        <Link href={ROUTES.HOME} className={'button-base button-primary button-md'}>
                             Go to Home
                         </Link>
                         <Link
                             href={ROUTES.AUTH.LOGIN}
-                            className="button-base button-secondary button-md">
+                            className={'button-base button-secondary button-md'}>
                             Log In
                         </Link>
                     </div>

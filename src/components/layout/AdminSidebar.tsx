@@ -1,5 +1,5 @@
 import Button from '@components/ui/Button';
-import FormContainer from '@components/ui/FormContainer';
+import SideBar from '@components/ui/container/SideBar';
 import { getAdminNavItems } from '@config/adminConfig';
 import { faChevronRight, faTools } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,7 +44,7 @@ const AdminSidebar: React.FC = () => {
 
     return (
         <>
-            <FormContainer.Sidebar className={getBarClassName()}>
+            <SideBar className={getBarClassName()}>
                 <header className={getHeaderClassName()}>
                     <div className="admin-sidebar__header-icon">
                         <FontAwesomeIcon icon={faTools} />
@@ -68,11 +68,13 @@ const AdminSidebar: React.FC = () => {
                 </nav>
 
                 <div className={getFooterClassName()}>
-                    <Button.Primary onClick={() => setIsCollapsed(!isCollapsed)} className="w-full">
+                    <Button.Primary
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        className={'w-full'}>
                         {isCollapsed ? <FontAwesomeIcon icon={faChevronRight} /> : 'Hide'}
                     </Button.Primary>
                 </div>
-            </FormContainer.Sidebar>
+            </SideBar>
         </>
     );
 };

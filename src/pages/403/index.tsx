@@ -39,7 +39,7 @@ const Custom403: React.FC = () => {
                     <div className="error-page__actions">
                         <Link
                             href={ROUTES.AUTH.LOGIN}
-                            className="button-base button-primary button-md">
+                            className={'button-base button-primary button-md'}>
                             Go to Login
                         </Link>
                         <Button.Secondary onClick={handleGoBack}>Go Back</Button.Secondary>

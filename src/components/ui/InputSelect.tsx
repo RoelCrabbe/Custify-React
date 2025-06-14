@@ -1,4 +1,5 @@
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
@@ -121,7 +122,7 @@ function InputSelect<T extends string>({
 
     return (
         <>
-            <FormContainer.Column gap="2">
+            <Column gap={'2'}>
                 <label
                     className="input-field-label"
                     htmlFor={`${label}-trigger`}
@@ -153,7 +154,7 @@ function InputSelect<T extends string>({
                     </button>
 
                     {isOpen && !disabled && (
-                        <FormContainer.Card className="select-dropdown">
+                        <Card className={'select-dropdown'}>
                             {generatedOptions.map((option, index) => (
                                 <button
                                     key={option.value}
@@ -165,12 +166,12 @@ function InputSelect<T extends string>({
                                     {option.label}
                                 </button>
                             ))}
-                        </FormContainer.Card>
+                        </Card>
                     )}
 
                     {error && <span className="input-field-error-text">{error}</span>}
                 </div>
-            </FormContainer.Column>
+            </Column>
         </>
     );
 }

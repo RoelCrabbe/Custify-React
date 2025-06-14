@@ -1,5 +1,7 @@
 import Button from '@components/ui/Button';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
+import Modal from '@components/ui/container/Modal';
 import UserAvatar from '@components/ui/UserAvatar';
 import { faEdit, faShieldAlt, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,129 +50,141 @@ const UserDetailsModal: React.FC<Props> = ({ user, userId, onEdit, onClose }) =>
 
     if (isLoading && shouldFetch) {
         return (
-            <FormContainer.Modal>
-                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[600px] max-h-[90vh]">
-                    <header className="user-details-header">
-                        <h3>User Details</h3>
-                        <button type="button" onClick={onClose}>
-                            <FontAwesomeIcon icon={faXmarkCircle} />
-                        </button>
-                    </header>
+            <>
+                <Modal>
+                    <Card className={'relative mx-auto p-6 w-[600px] max-h-[90vh]'}>
+                        <Column gap={'6'}>
+                            <header className="user-details-header">
+                                <h3>User Details</h3>
+                                <button type="button" onClick={onClose}>
+                                    <FontAwesomeIcon icon={faXmarkCircle} />
+                                </button>
+                            </header>
 
-                    <span className="text-center text-gray-500 text-sm">Loading user data...</span>
-                </FormContainer.Card>
-            </FormContainer.Modal>
+                            <span className="text-center text-gray-500 text-sm">
+                                Loading user data...
+                            </span>
+                        </Column>
+                    </Card>
+                </Modal>
+            </>
         );
     }
 
     if (isError || !resolvedUser) {
         return (
-            <FormContainer.Modal>
-                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[600px] max-h-[90vh]">
-                    <header className="user-details-header">
-                        <h3>User Details</h3>
-                        <button type="button" onClick={onClose}>
-                            <FontAwesomeIcon icon={faXmarkCircle} />
-                        </button>
-                    </header>
+            <>
+                <Modal>
+                    <Card className={'relative mx-auto p-6 w-[600px] max-h-[90vh]'}>
+                        <Column gap={'6'}>
+                            <header className="user-details-header">
+                                <h3>User Details</h3>
+                                <button type="button" onClick={onClose}>
+                                    <FontAwesomeIcon icon={faXmarkCircle} />
+                                </button>
+                            </header>
 
-                    <span className="text-center text-red-500 text-sm">
-                        Failed to load user data. Please try again.
-                    </span>
-                </FormContainer.Card>
-            </FormContainer.Modal>
+                            <span className="text-center text-red-500 text-sm">
+                                Failed to load user data. Please try again.
+                            </span>
+                        </Column>
+                    </Card>
+                </Modal>
+            </>
         );
     }
 
     return (
         <>
-            <FormContainer.Modal>
-                <FormContainer.Card className="relative flex flex-col gap-6 mx-auto p-6 w-[600px] max-h-[90vh]">
-                    <header className="user-details-header">
-                        <h3>User Details</h3>
-                        <button type="button" onClick={onClose}>
-                            <FontAwesomeIcon icon={faXmarkCircle} />
-                        </button>
-                    </header>
+            <Modal>
+                <Card className={'relative mx-auto p-6 w-[600px] max-h-[90vh]'}>
+                    <Column gap={'6'}>
+                        <header className="user-details-header">
+                            <h3>User Details</h3>
+                            <button type="button" onClick={onClose}>
+                                <FontAwesomeIcon icon={faXmarkCircle} />
+                            </button>
+                        </header>
 
-                    <div className="flex flex-col items-center gap-4 bg-gray-50 p-4 rounded-lg">
-                        <UserAvatar user={resolvedUser} size={'lg'} />
-                        <div className="text-center">
-                            <h4 className="text-lg font-semibold text-gray-900">
-                                {resolvedUser.firstName} {resolvedUser.lastName}
-                            </h4>
-                            <p className="text-sm text-gray-600">@{resolvedUser.userName}</p>
-                        </div>
-                    </div>
+                        <Column className={'items-center bg-gray-50 p-4 rounded-lg'}>
+                            <UserAvatar user={resolvedUser} size={'lg'} />
+                            <div className="text-center">
+                                <h4 className="text-lg font-semibold text-gray-900">
+                                    {resolvedUser.firstName} {resolvedUser.lastName}
+                                </h4>
+                                <p className="text-sm text-gray-600">@{resolvedUser.userName}</p>
+                            </div>
+                        </Column>
 
-                    <FormContainer.Column>
-                        <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                            Contact Information
-                        </h5>
+                        <Column>
+                            <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                                Contact Information
+                            </h5>
 
-                        <section className="flex flex-col gap-2">
-                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                Email
-                            </label>
-                            <span className="text-sm text-gray-800">{resolvedUser.email}</span>
-                        </section>
-
-                        <section className="flex flex-col gap-2">
-                            <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                Phone Number
-                            </label>
-                            <span className="text-sm text-gray-800">
-                                {resolvedUser.phoneNumber || 'Not provided'}
-                            </span>
-                        </section>
-                    </FormContainer.Column>
-
-                    <FormContainer.Column>
-                        <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                            Account Information
-                        </h5>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <section className="flex flex-col gap-2">
+                            <Column gap={'2'}>
                                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Role
+                                    Email
                                 </label>
-                                <span
-                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(resolvedUser.role)}`}>
-                                    <FontAwesomeIcon
-                                        icon={faShieldAlt}
-                                        className="user-management__icon"
-                                    />
-                                    {capitalizeFirstLetter(resolvedUser.role)}
-                                </span>
-                            </section>
+                                <span className="text-sm text-gray-800">{resolvedUser.email}</span>
+                            </Column>
 
-                            <section className="flex flex-col gap-2">
+                            <Column gap={'2'}>
                                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                    Status
+                                    Phone Number
                                 </label>
-                                <span
-                                    className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(resolvedUser.status)}`}>
-                                    <FontAwesomeIcon
-                                        icon={getUserStatusIcon(resolvedUser.status)}
-                                        className="user-management__icon"
-                                    />
-                                    {capitalizeFirstLetter(resolvedUser.status)}
+                                <span className="text-sm text-gray-800">
+                                    {resolvedUser.phoneNumber || 'Not provided'}
                                 </span>
-                            </section>
-                        </div>
-                    </FormContainer.Column>
+                            </Column>
+                        </Column>
 
-                    {onEdit && (
-                        <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
-                            <Button.Primary onClick={onEdit}>
-                                <FontAwesomeIcon icon={faEdit} className="h-4 w-4" />
-                                Edit User
-                            </Button.Primary>
-                        </div>
-                    )}
-                </FormContainer.Card>
-            </FormContainer.Modal>
+                        <Column>
+                            <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                                Account Information
+                            </h5>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Role
+                                    </label>
+                                    <span
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(resolvedUser.role)}`}>
+                                        <FontAwesomeIcon
+                                            icon={faShieldAlt}
+                                            className="user-management__icon"
+                                        />
+                                        {capitalizeFirstLetter(resolvedUser.role)}
+                                    </span>
+                                </Column>
+
+                                <Column gap={'2'}>
+                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                                        Status
+                                    </label>
+                                    <span
+                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(resolvedUser.status)}`}>
+                                        <FontAwesomeIcon
+                                            icon={getUserStatusIcon(resolvedUser.status)}
+                                            className="user-management__icon"
+                                        />
+                                        {capitalizeFirstLetter(resolvedUser.status)}
+                                    </span>
+                                </Column>
+                            </div>
+                        </Column>
+
+                        {onEdit && (
+                            <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
+                                <Button.Primary onClick={onEdit}>
+                                    <FontAwesomeIcon icon={faEdit} className={'h-4 w-4'} />
+                                    Edit User
+                                </Button.Primary>
+                            </div>
+                        )}
+                    </Column>
+                </Card>
+            </Modal>
         </>
     );
 };

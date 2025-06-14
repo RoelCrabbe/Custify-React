@@ -1,5 +1,6 @@
 import ErrorLogManagementTable from '@components/admin/errorLogManagement/ErrorLogManagementTable';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQueryClient } from '@tanstack/react-query';
@@ -47,8 +48,8 @@ const ErrorLogManagement: React.FC<Props> = ({
 
     return (
         <>
-            <FormContainer.Card className="overflow-hidden h-full">
-                <FormContainer className="flex flex-col h-full">
+            <Card className={'overflow-hidden h-full'}>
+                <Column gap={'0'} className={'h-full'}>
                     <header className="report-management-header">
                         <div className="flex items-center gap-4 p-2">
                             <FontAwesomeIcon icon={faUsers} />
@@ -93,8 +94,8 @@ const ErrorLogManagement: React.FC<Props> = ({
                             onUpdate={onUpdate}
                         />
                     </div>
-                </FormContainer>
-            </FormContainer.Card>
+                </Column>
+            </Card>
         </>
     );
 };

@@ -1,6 +1,9 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
 import Button from '@components/ui/Button';
-import FormContainer from '@components/ui/FormContainer';
+import Card from '@components/ui/container/Card';
+import Column from '@components/ui/container/Column';
+import Container from '@components/ui/container/Container';
+import FeatureCard from '@components/ui/container/FeatureCard';
 import { ROUTES } from '@config/routes';
 import { getUserFeatures } from '@config/userConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,13 +25,13 @@ const Home: React.FC = () => {
     return (
         <>
             <MainPageLayout pageName={'Home'}>
-                <div className="flex flex-col gap-16">
-                    <FormContainer.Card>
-                        <FormContainer
+                <Column gap={'16'}>
+                    <Card>
+                        <Container
                             easeIn
                             isVisible={isVisible}
                             className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
-                            <FormContainer.Column className="items-center">
+                            <Column className={'items-center text-center'}>
                                 <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 tracking-tight">
                                     Welcome to <span className="text-blue-600">Custify</span>
                                 </h1>
@@ -43,12 +46,12 @@ const Home: React.FC = () => {
                                         Get Started
                                     </Button.Primary>
                                 )}
-                            </FormContainer.Column>
-                        </FormContainer>
-                    </FormContainer.Card>
+                            </Column>
+                        </Container>
+                    </Card>
 
-                    <div className="flex flex-col gap-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col items-center gap-4 text-center">
+                    <Column gap={'8'} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                        <Column className={'items-center text-center'}>
                             <h2 className="text-3xl font-semibold text-gray-900">
                                 Everything you need to manage customers
                             </h2>
@@ -56,12 +59,13 @@ const Home: React.FC = () => {
                                 Custify provides all the tools and features necessary to build
                                 stronger customer relationships and grow your business.
                             </p>
-                        </div>
+                        </Column>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {userFeatures.map((feature) => (
-                                <FormContainer.FeatureCard
+                                <FeatureCard
                                     key={feature.id}
+                                    easeIn
                                     isVisible={isVisible}
                                     className={'!cursor-default'}>
                                     <span className="text-blue-600">
@@ -71,11 +75,11 @@ const Home: React.FC = () => {
                                         {feature.title}
                                     </h3>
                                     <p className="text-gray-600 text-sm">{feature.description}</p>
-                                </FormContainer.FeatureCard>
+                                </FeatureCard>
                             ))}
                         </div>
-                    </div>
-                </div>
+                    </Column>
+                </Column>
             </MainPageLayout>
         </>
     );
