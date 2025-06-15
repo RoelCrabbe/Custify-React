@@ -24,7 +24,7 @@ export type UserImage = {
 
 export type UpdatePassWord = {
     id?: number;
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
+    currentPassWord: string;
+    newPassWord: string;
+    confirmPassWord: string;
 };

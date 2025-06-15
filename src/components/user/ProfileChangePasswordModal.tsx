@@ -18,14 +18,14 @@ interface Props {
 }
 
 const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }) => {
-    const [currentPassword, setCurrentPassword] = useState<string | null>(null);
-    const [newPassword, setNewPassword] = useState<string | null>(null);
-    const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
+    const [currentPassWord, setCurrentPassWord] = useState<string | null>(null);
+    const [newPassWord, setNewPassWord] = useState<string | null>(null);
+    const [confirmPassWord, setConfirmPassWord] = useState<string | null>(null);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
 
     const validate = (): boolean => {
-        if (!currentPassword?.trim()) {
+        if (!currentPassWord?.trim()) {
             setLabelMessage({
                 label: 'Current Password Required',
                 message: 'Please enter your current password to verify your identity.',
@@ -34,13 +34,13 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
             return false;
         }
 
-        const passwordError = validatePassWord(newPassword);
+        const passwordError = validatePassWord(newPassWord);
         if (passwordError) {
             handleErrorLabel(passwordError, setLabelMessage);
             return false;
         }
 
-        if (newPassword !== confirmPassword) {
+        if (newPassWord !== confirmPassWord) {
             setLabelMessage({
                 label: 'Password Mismatch',
                 message: 'New password and confirmation password do not match.',
@@ -49,7 +49,7 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
             return false;
         }
 
-        if (currentPassword === newPassword) {
+        if (currentPassWord === newPassWord) {
             setLabelMessage({
                 label: 'Same Password',
                 message: 'New password must be different from your current password.',
@@ -74,9 +74,9 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
 
         const formData: any = {
             id: user.id,
-            currentPassword,
-            newPassword,
-            confirmPassword,
+            currentPassWord,
+            newPassWord,
+            confirmPassWord,
         };
 
         try {
@@ -128,8 +128,8 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
                                 <InputField
                                     type="password"
                                     label="Current Password"
-                                    value={currentPassword}
-                                    onChange={setCurrentPassword}
+                                    value={currentPassWord}
+                                    onChange={setCurrentPassWord}
                                     placeholder="Enter your current password for verification"
                                     required
                                 />
@@ -137,8 +137,8 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
                                 <InputField
                                     type="password"
                                     label="New Password"
-                                    value={newPassword}
-                                    onChange={setNewPassword}
+                                    value={newPassWord}
+                                    onChange={setNewPassWord}
                                     validate={validatePassWord}
                                     placeholder="Enter your new password"
                                     required
@@ -147,18 +147,18 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
                                 <InputField
                                     type="password"
                                     label="Confirm New Password"
-                                    value={confirmPassword}
-                                    onChange={setConfirmPassword}
+                                    value={confirmPassWord}
+                                    onChange={setConfirmPassWord}
                                     placeholder="Re-enter your new password"
                                     required
                                 />
-                            </Column>
 
-                            {labelMessage && (
-                                <section className="mx-auto w-[500px]">
-                                    <StatusMessage labelMessage={labelMessage} />
-                                </section>
-                            )}
+                                {labelMessage && (
+                                    <section className="mx-auto w-[500px]">
+                                        <StatusMessage labelMessage={labelMessage} />
+                                    </section>
+                                )}
+                            </Column>
                         </form>
 
                         <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">

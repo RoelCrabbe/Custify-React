@@ -15,10 +15,10 @@ export const useNavigationState = () => {
         [router.pathname],
     );
 
-    const handleLogout = useCallback(() => {
+    const handleLogout = () => {
         logout();
         router.push(ROUTES.HOME);
-    }, [logout, router]);
+    };
 
     return useMemo(() => {
         const currentPath = router.pathname;

@@ -48,5 +48,6 @@ export const updatePassWord = async (updatePassWord: UpdatePassWord) => {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getToken(),
         },
+        body: JSON.stringify(updatePassWord),
     });
 };
