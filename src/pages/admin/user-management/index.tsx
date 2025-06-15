@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 const UserManagementPage: React.FC = () => {
     const queryClient = useQueryClient();
-    const { shouldRender, currentUser } = useRequireAdmin();
+    const { shouldRender } = useRequireAdmin();
     const [users, setUsers] = useState<User[]>([]);
 
     const {

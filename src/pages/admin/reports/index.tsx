@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 const ReportsPage: React.FC = () => {
     const queryClient = useQueryClient();
-    const { shouldRender, currentUser } = useRequireAdmin();
+    const { shouldRender } = useRequireAdmin();
     const [selectedStatus, setSelectedStatus] = useState<ErrorStatus>(ErrorStatus.New);
     const [errorLogs, setErrorLogs] = useState<ErrorLog[]>([]);
 

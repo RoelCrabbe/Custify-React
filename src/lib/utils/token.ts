@@ -48,7 +48,7 @@ export const getCookie = (name: string): string | null => {
     if (typeof window === 'undefined') return null;
 
     const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
+    for (const cookie of cookies) {
         const [cookieName, cookieValue] = cookie.trim().split('=');
         if (cookieName === name) {
             return decodeURIComponent(cookieValue);
@@ -88,13 +88,13 @@ export const getServerSideCookie = (
 /**
  * Check if a JWT token is expired (with 30 second buffer)
  */
-export const isTokenExpired = (token: string): boolean => {
+export const isTokenExpired = (token: string) => {
     try {
         const decoded: DecodedToken = jwtDecode(token);
         const currentTime = Date.now() / 1000;
         return decoded.exp < currentTime + 30;
     } catch (error) {
-        return true;
+        console.error('Error decoding token:', error);
     }
 };
 

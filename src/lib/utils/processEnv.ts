@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export const getApiUrl = (): string => {
     const url = process.env.NEXT_PUBLIC_API_URL;
     return url?.trim() || 'http://localhost:3000';

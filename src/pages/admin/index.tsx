@@ -15,7 +15,7 @@ const adminFeatures = getAdminFeatures();
 
 const AdminLandingPage: React.FC = () => {
     const router = useRouter();
-    const { shouldRender, currentUser } = useRequireAdmin();
+    const { shouldRender } = useRequireAdmin();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
