@@ -8,7 +8,7 @@ import Row from '@components/ui/container/Row';
 import Label from '@components/ui/content/Label';
 import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
-import UserAvatar from '@components/ui/UserAvatar';
+import ProfileImageUploader from '@components/user/ProfileImageUploader';
 import {
     faAddressCard,
     faCamera,
@@ -35,7 +35,7 @@ import {
     validatePhoneNumber,
     validateUserName,
 } from '@validators/user';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
     user: User;
@@ -53,57 +53,20 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
     const [isVisible, setIsVisible] = useState(false);
-
-    // Avatar upload states
     const [profileImage, setProfileImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(user.profileImage?.url || null);
-    const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            // Validate file type
-            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-            if (!allowedTypes.includes(file.type)) {
-                setLabelMessage({
-                    label: 'Invalid file type',
-                    message: 'Please select a JPEG, PNG, or WebP image.',
-                    type: 'error',
-                });
-                return;
-            }
-
-            // Validate file size (5MB limit)
-            if (file.size > 5 * 1024 * 1024) {
-                setLabelMessage({
-                    label: 'File too large',
-                    message: 'Please select an image smaller than 5MB.',
-                    type: 'error',
-                });
-                return;
-            }
-
-            setProfileImage(file);
-
-            // Create preview
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setImagePreview(e.target?.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
+    const handleImageChange = (file: File | null, preview: string | null) => {
+        setProfileImage(file);
+        setImagePreview(preview);
     };
 
-    const handleImageRemove = () => {
-        setProfileImage(null);
-        setImagePreview(user.profileImage?.url || null);
-        if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-        }
+    const handleImageError = (labelMessage: LabelMessage) => {
+        setLabelMessage(labelMessage);
     };
 
-    const handleImageClick = () => {
-        fileInputRef.current?.click();
+    const handleImageProcessing = (labelMessage: LabelMessage) => {
+        setLabelMessage(labelMessage);
     };
 
     const hasChanges = (): boolean => {
@@ -183,7 +146,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
 
             setLabelMessage({
                 label: 'Updated User Successfully!',
-                message: 'Closing the form...',
+                message: 'Processing update...',
                 type: 'success',
             });
 
@@ -231,58 +194,15 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                     <Container
                         easeIn
                         isVisible={isVisible}
-                        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative`}>
+                        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
                         <Column className={'items-center'}>
-                            {/* Avatar with Upload Functionality */}
-                            <div className="relative group">
-                                {imagePreview ? (
-                                    <div className="relative">
-                                        <img
-                                            src={imagePreview}
-                                            alt={`${user.firstName} ${user.lastName}`}
-                                            className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={handleImageClick}
-                                            className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            <FontAwesomeIcon
-                                                icon={faCamera}
-                                                className="text-white text-xl"
-                                            />
-                                        </button>
-                                        {profileImage && (
-                                            <button
-                                                type="button"
-                                                onClick={handleImageRemove}
-                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-colors shadow-md">
-                                                <FontAwesomeIcon icon={faTimes} />
-                                            </button>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="relative">
-                                        <UserAvatar user={user} size={'xxl'} />
-                                        <button
-                                            type="button"
-                                            onClick={handleImageClick}
-                                            className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                            <FontAwesomeIcon
-                                                icon={faCamera}
-                                                className="text-white text-xl"
-                                            />
-                                        </button>
-                                    </div>
-                                )}
-                                <input
-                                    ref={fileInputRef}
-                                    type="file"
-                                    accept="image/jpeg,image/jpg,image/png,image/webp"
-                                    onChange={handleImageSelect}
-                                    className="hidden"
-                                />
-                            </div>
-
+                            <ProfileImageUploader
+                                user={user}
+                                onClearError={() => setLabelMessage(undefined)}
+                                onImageChange={handleImageChange}
+                                onError={handleImageError}
+                                onProcessing={handleImageProcessing}
+                            />
                             <Column className={'items-center'}>
                                 <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
                                     {user.firstName} {user.lastName}
@@ -340,7 +260,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your first name'}
                                             required
                                         />
-
                                         <InputField
                                             type="text"
                                             label="Last Name"
@@ -350,7 +269,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your last name'}
                                             required
                                         />
-
                                         <Container className={'sm:col-span-2'}>
                                             <InputField
                                                 type="text"
@@ -365,7 +283,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                     </Container>
                                 </Column>
                             </Card>
-
                             <Card
                                 className={
                                     'bg-gradient-to-br from-green-100 to-emerald-100 p-6 border-green-200'
@@ -382,7 +299,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             Contact Information
                                         </h3>
                                     </Row>
-
                                     <Container className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                                         <InputField
                                             type="email"
@@ -393,7 +309,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your email'}
                                             required
                                         />
-
                                         <InputField
                                             type="tel"
                                             label="Phone Number"
@@ -446,8 +361,6 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                     </Column>
                                 </Column>
                             </Card>
-
-                            {/* Avatar Upload Instructions Card */}
                             <Card
                                 className={
                                     'bg-gradient-to-br from-orange-100 to-yellow-100 p-6 border-orange-200'
