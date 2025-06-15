@@ -8,6 +8,7 @@ export type User = {
     firstName: string;
     lastName: string;
     email: string;
+    passWord: string;
     phoneNumber?: string;
     profileImage?: UserImage;
 };

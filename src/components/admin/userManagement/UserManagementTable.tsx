@@ -3,6 +3,7 @@ import UserEditModal from '@components/admin/userManagement/UserEditModal';
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
+import Badge from '@components/ui/container/Badge';
 import Column from '@components/ui/container/Column';
 import UserAvatar from '@components/ui/UserAvatar';
 import {
@@ -134,25 +135,21 @@ const UserManagementTable: React.FC<Props> = ({
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(user.role)}`}>
-                                        <FontAwesomeIcon
-                                            icon={faShieldAlt}
-                                            className={'user-management__icon'}
-                                        />
-                                        {capitalizeFirstLetter(user.role)}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={capitalizeFirstLetter(user.role)}
+                                        icon={faShieldAlt}
+                                        color={getUserRoleColor(user.role)}
+                                    />
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(user.status)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getUserStatusIcon(user.status)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {capitalizeFirstLetter(user.status)}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={capitalizeFirstLetter(user.status)}
+                                        icon={getUserStatusIcon(user.status)}
+                                        color={getUserStatusColor(user.status)}
+                                    />
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">

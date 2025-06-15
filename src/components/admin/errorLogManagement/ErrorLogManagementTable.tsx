@@ -3,6 +3,7 @@ import UserDetailsModal from '@components/admin/userManagement/UserDetailsModal'
 import TableError from '@components/table/TableError';
 import TableLoading from '@components/table/TableLoading';
 import Button from '@components/ui/Button';
+import Badge from '@components/ui/container/Badge';
 import { faArrowsUpDown, faEye, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter, formatDateOnly } from '@lib';
@@ -147,25 +148,21 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                 key={errorLog.id}
                                 className="hover:bg-gray-100 transition-colors duration-150">
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorSeverityColor(errorLog.severity)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorSeverityIcon(errorLog.severity)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {errorLog.severity}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={errorLog.severity}
+                                        icon={getErrorSeverityIcon(errorLog.severity)}
+                                        color={getErrorSeverityColor(errorLog.severity)}
+                                    />
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorTypeColor(errorLog.type)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorTypeIcon(errorLog.type)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {errorLog.type}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={errorLog.type}
+                                        icon={getErrorTypeIcon(errorLog.type)}
+                                        color={getErrorTypeColor(errorLog.type)}
+                                    />
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -175,14 +172,12 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                 </td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {capitalizeFirstLetter(errorLog.httpMethod)}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={capitalizeFirstLetter(errorLog.httpMethod)}
+                                        icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
+                                        color={getErrorHttpMethodColor(errorLog.httpMethod)}
+                                    />
                                 </td>
 
                                 {isNotResolved ? (

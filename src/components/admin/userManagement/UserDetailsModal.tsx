@@ -1,4 +1,5 @@
 import Button from '@components/ui/Button';
+import Badge from '@components/ui/container/Badge';
 import Card from '@components/ui/container/Card';
 import Column from '@components/ui/container/Column';
 import Modal from '@components/ui/container/Modal';
@@ -148,28 +149,24 @@ const UserDetailsModal: React.FC<Props> = ({ user, userId, onEdit, onClose }) =>
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                         Role
                                     </label>
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserRoleColor(resolvedUser.role)}`}>
-                                        <FontAwesomeIcon
-                                            icon={faShieldAlt}
-                                            className="user-management__icon"
-                                        />
-                                        {capitalizeFirstLetter(resolvedUser.role)}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={capitalizeFirstLetter(resolvedUser.role)}
+                                        icon={faShieldAlt}
+                                        color={getUserRoleColor(resolvedUser.role)}
+                                    />
                                 </Column>
 
                                 <Column gap={'2'}>
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                         Status
                                     </label>
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getUserStatusColor(resolvedUser.status)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getUserStatusIcon(resolvedUser.status)}
-                                            className="user-management__icon"
-                                        />
-                                        {capitalizeFirstLetter(resolvedUser.status)}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={capitalizeFirstLetter(resolvedUser.status)}
+                                        icon={getUserStatusIcon(resolvedUser.status)}
+                                        color={getUserStatusColor(resolvedUser.status)}
+                                    />
                                 </Column>
                             </div>
                         </Column>

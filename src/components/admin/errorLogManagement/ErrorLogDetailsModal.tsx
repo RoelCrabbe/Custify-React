@@ -1,4 +1,5 @@
 import Button from '@components/ui/Button';
+import Badge from '@components/ui/container/Badge';
 import Card from '@components/ui/container/Card';
 import Column from '@components/ui/container/Column';
 import Modal from '@components/ui/container/Modal';
@@ -92,14 +93,12 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
                                         <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                             HTTP Method
                                         </label>
-                                        <span
-                                            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium w-fit ${getErrorHttpMethodColor(errorLog.httpMethod)}`}>
-                                            <FontAwesomeIcon
-                                                icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
-                                                className={'user-management__icon'}
-                                            />
-                                            {capitalizeFirstLetter(errorLog.httpMethod)}
-                                        </span>
+                                        <Badge
+                                            size={'sm'}
+                                            text={capitalizeFirstLetter(errorLog.httpMethod)}
+                                            icon={getErrorHttpMethodIcon(errorLog.httpMethod)}
+                                            color={getErrorHttpMethodColor(errorLog.httpMethod)}
+                                        />
                                     </Column>
                                 </div>
                                 <Column gap={'1'} className={'text-right'}>
@@ -119,28 +118,24 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                         Error Type
                                     </label>
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorTypeColor(errorLog.type)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorTypeIcon(errorLog.type)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {errorLog.type}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={errorLog.type}
+                                        icon={getErrorTypeIcon(errorLog.type)}
+                                        color={getErrorTypeColor(errorLog.type)}
+                                    />
                                 </Column>
 
                                 <Column gap={'2'}>
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                         Severity
                                     </label>
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorSeverityColor(errorLog.severity)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorSeverityIcon(errorLog.severity)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {errorLog.severity}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={errorLog.severity}
+                                        icon={getErrorSeverityIcon(errorLog.severity)}
+                                        color={getErrorSeverityColor(errorLog.severity)}
+                                    />
                                 </Column>
                             </Column>
 
@@ -149,14 +144,12 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
                                     <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                                         Status
                                     </label>
-                                    <span
-                                        className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium w-fit ${getErrorStatusColor(errorLog.status)}`}>
-                                        <FontAwesomeIcon
-                                            icon={getErrorStatusIcon(errorLog.status)}
-                                            className={'user-management__icon'}
-                                        />
-                                        {errorLog.status}
-                                    </span>
+                                    <Badge
+                                        size={'sm'}
+                                        text={errorLog.status}
+                                        icon={getErrorStatusIcon(errorLog.status)}
+                                        color={getErrorStatusColor(errorLog.status)}
+                                    />
                                 </Column>
                             </Column>
 
