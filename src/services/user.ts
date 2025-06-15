@@ -1,5 +1,5 @@
 import { getToken, processEnv } from '@lib';
-import { User } from '@types';
+import { UpdatePassWord, User } from '@types';
 
 export const getCurrentUser = () => {
     return fetch(processEnv.getApiUrl() + `/users/current`, {
@@ -35,6 +35,15 @@ export const updateUser = (user: User) => {
 export const getUserById = async (userId: number) => {
     return fetch(processEnv.getApiUrl() + `/users/${userId.toString()}`, {
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+};
+export const updatePassWord = async (updatePassWord: UpdatePassWord) => {
+    return fetch(processEnv.getApiUrl() + `/users/change-password`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + getToken(),

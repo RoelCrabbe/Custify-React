@@ -21,3 +21,10 @@ export type UserImage = {
     mimeType: string;
     fileSize: number;
 };
+
+export type UpdatePassWord = {
+    id?: number;
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+};

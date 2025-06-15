@@ -8,6 +8,7 @@ import Row from '@components/ui/container/Row';
 import Label from '@components/ui/content/Label';
 import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
+import ProfileChangePasswordModal from '@components/user/ProfileChangePasswordModal';
 import ProfileImageUploader from '@components/user/ProfileImageUploader';
 import {
     faAddressCard,
@@ -49,10 +50,10 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
     const [email, setEmail] = useState<string>(user.email);
     const [phoneNumber, setPhoneNumber] = useState<string | null>(user.phoneNumber || '');
     const [userName, setUserName] = useState<string>(user.userName);
-    const [passWord, setPassWord] = useState<string | null>(null);
+    const [updatePassword, setUpdatePassword] = useState<boolean>(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
     const [profileImage, setProfileImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(user.profileImage?.url || null);
 
@@ -280,6 +281,11 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                                 required
                                             />
                                         </Container>
+                                        <Button.Secondary
+                                            onClick={() => setUpdatePassword(true)}
+                                            size={'md'}>
+                                            Update Password
+                                        </Button.Secondary>
                                     </Container>
                                 </Column>
                             </Card>
@@ -395,6 +401,14 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                     </Container>
                 </Column>
             </Column>
+
+            {updatePassword && (
+                <ProfileChangePasswordModal
+                    user={user}
+                    onClose={() => setUpdatePassword(false)}
+                    onUpdate={onUpdate}
+                />
+            )}
         </>
     );
 };

@@ -126,6 +126,15 @@ const ProfileOverview: React.FC<Props> = ({ user, onEdit }) => {
                                                 </p>
                                             </Container>
                                         </Column>
+
+                                        <Column gap={'2'} className={'sm:col-span-2'}>
+                                            <Label>Password</Label>
+                                            <Container bordered className={'bg-white px-4 py-3'}>
+                                                <p className="text-gray-900 font-medium">
+                                                    ***************
+                                                </p>
+                                            </Container>
+                                        </Column>
                                     </Container>
                                 </Column>
                             </Card>
