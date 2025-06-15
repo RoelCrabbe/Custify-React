@@ -33,7 +33,6 @@ const UserDetailsModal: React.FC<Props> = ({ user, userId, onEdit, onClose }) =>
 
     const {
         data: fetchedUser,
-        error,
         isError,
         isLoading,
     } = useQuery({

@@ -22,7 +22,7 @@ type Props = BaseProps & (EaseInProps | NoEaseInProps);
 const FeatureCard: React.FC<Props> = ({ children, className, onClick, easeIn, isVisible, gap }) => {
     const getContainerClasses = () => {
         const gapUsed = gap || '4';
-        let baseClasses = [
+        const baseClasses = [
             'transition-all duration-800 ease-in-out',
             'border border-gray-200 hover:border-gray-300 rounded-lg',
             `flex flex-col gap-${gapUsed}`,

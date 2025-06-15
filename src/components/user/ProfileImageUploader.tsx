@@ -93,6 +93,7 @@ const ProfileImageUploader: React.FC<Props> = ({
                 onClearError();
             }, 2000);
         } catch (error) {
+            console.error('Error processing image:', error);
             onError({
                 label: 'Error processing image',
                 message: 'Please try selecting a different image.',

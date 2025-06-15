@@ -1,0 +1,68 @@
+# ========================================
+# OS / Editor junk files
+# ========================================
+
+.DS_Store              # macOS Finder metadata
+Thumbs.db              # Windows thumbnail cache
+
+# ========================================
+# Dependency directories
+# ========================================
+
+node_modules           # Node.js packages
+
+# ========================================
+# Build outputs
+# ========================================
+
+dist/                  # General build output
+build/                 # Create React App, Vite, etc.
+out/                   # Next.js static export output
+
+# ========================================
+# Temporary / dev-related folders
+# ========================================
+
+coverage/              # Test coverage reports
+tmp/                   # Temporary directories
+temp/                  # Sometimes used for temp builds
+
+# ========================================
+# Environment files
+# ========================================
+
+.env                   # Default environment variables
+.env.*                 # Other environment configs (e.g. .env.production, .env.local)
+!.env.example          # Keep the example env file
+
+# ========================================
+# Lockfiles from different package managers
+# ========================================
+
+package-lock.json      # npm lockfile
+yarn.lock              # Yarn lockfile
+pnpm-lock.yaml         # pnpm lockfile
+
+# ========================================
+# Vite / Next / Svelte / etc. tool configs
+# ========================================
+
+.svelte-kit/           # SvelteKit
+.next/                 # Next.js build cache
+.vercel/               # Vercel deployment config
+.storybook-static/     # Storybook build output
+.eslintcache           # ESLint cache file
+
+# ========================================
+# Other optional exclusions
+# ========================================
+
+*.log                  # Log files
+*.tgz                  # Packed npm packages
+*.tsbuildinfo          # TypeScript incremental build info
+
+# ========================================
+# Git & release utilities
+# ========================================
+
+/.changeset            # Changeset (versioning tool) folder

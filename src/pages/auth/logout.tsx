@@ -33,7 +33,7 @@ const LogoutPage: React.FC = () => {
             clearInterval(countdownInterval);
             clearTimeout(redirectTimer);
         };
-    }, [router, currentUser]);
+    }, [router, currentUser, redirectTo]);
 
     const handleImmediateRedirect = () => {
         currentUser.logout();

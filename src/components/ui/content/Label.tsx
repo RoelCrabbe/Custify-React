@@ -8,7 +8,7 @@ type Props = {
 
 const Label: React.FC<Props> = ({ children, className, onClick }) => {
     const getContentClasses = () => {
-        let baseClasses = 'text-xs font-medium uppercase tracking-wide';
+        const baseClasses = 'text-xs font-medium uppercase tracking-wide';
 
         const hasTextColor = className?.match(/(?:^|\s)(?:\S+:)*text-[^\s]+/);
         const textClass = hasTextColor ? '' : ' text-gray-500';

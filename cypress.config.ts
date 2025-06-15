@@ -26,7 +26,7 @@ const performDatabaseReset = async () => {
         const json = await response.json();
         return json;
     } catch (error) {
-        return null;
+        console.error('Error resetting database:', error);
     }
 };
 
