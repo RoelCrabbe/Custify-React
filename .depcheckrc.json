@@ -1,0 +1,16 @@
+{
+    "ignoreMatches": [
+        "@components*",
+        "@hooks*",
+        "@provider*",
+        "@lib*",
+        "@handlers*",
+        "@utils*",
+        "@services*",
+        "@styles*",
+        "@types*",
+        "@pages*",
+        "@config*",
+        "@validators*"
+    ]
+}

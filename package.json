@@ -24,24 +24,18 @@
         "refresh": "npm cache verify && npm audit fix && npm outdated"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.7.2",
         "@fortawesome/free-solid-svg-icons": "^6.7.2",
         "@fortawesome/react-fontawesome": "^0.2.2",
         "@tanstack/react-query": "^5.79.0",
-        "@tanstack/react-table": "^8.21.3",
         "@types/react": "^19.1.6",
-        "bootstrap": "^5.3.6",
-        "classnames": "^2.5.1",
-        "dayjs": "^1.11.13",
         "i18next": "^25.2.1",
         "jwt-decode": "^4.0.0",
         "next": "^15.3.3",
         "next-i18next": "^15.4.2",
         "react": "^19.1.0",
-        "react-datepicker": "^8.4.0",
         "react-dom": "^19.1.0",
-        "react-select": "^5.10.1",
-        "react-spinners": "^0.17.0",
-        "use-interval": "^1.4.0"
+        "react-spinners": "^0.17.0"
     },
     "devDependencies": {
         "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
