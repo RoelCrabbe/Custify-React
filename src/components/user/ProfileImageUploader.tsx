@@ -65,15 +65,18 @@ const ProfileImageUploader: React.FC<Props> = ({
         });
 
         try {
-            const compressed = await compressImageUntilSize(file, 1 * 1024 * 1024, [
-                { maxWidth: 800, quality: 0.8 },
-                { maxWidth: 600, quality: 0.6 },
+            const MAX_IMAGE_SIZE = 256 * 1024;
+            const compressed = await compressImageUntilSize(file, MAX_IMAGE_SIZE, [
+                { maxWidth: 1080, quality: 1 },
+                { maxWidth: 810, quality: 0.8 },
+                { maxWidth: 540, quality: 0.6 },
             ]);
 
-            if (!compressed) {
+            if (!compressed || compressed.size > MAX_IMAGE_SIZE) {
                 onError({
-                    label: 'File still too large',
-                    message: 'Please select a smaller image or reduce the image size.',
+                    label: 'Compressed image too large',
+                    message:
+                        'Even after compression, the image exceeds 256 KB. Please choose a smaller image.',
                     type: 'error',
                 });
                 return;
@@ -86,12 +89,12 @@ const ProfileImageUploader: React.FC<Props> = ({
                 const preview = e.target?.result as string;
                 setImagePreview(preview);
                 onImageChange(compressed, preview);
+
+                setTimeout(() => {
+                    onClearError();
+                }, 1500);
             };
             reader.readAsDataURL(compressed);
-
-            setTimeout(() => {
-                onClearError();
-            }, 2000);
         } catch (error) {
             console.error('Error processing image:', error);
             onError({
@@ -132,7 +135,7 @@ const ProfileImageUploader: React.FC<Props> = ({
                             onClick={handleImageClick}
                             className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                             title="Change profile image">
-                            <FontAwesomeIcon icon={faCamera} className="text-white text-xl" />
+                            <FontAwesomeIcon icon={faCamera} className="text-white text-3xl" />
                         </button>
                         {profileImage && (
                             <button

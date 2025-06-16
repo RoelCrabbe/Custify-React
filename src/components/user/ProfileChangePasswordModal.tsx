@@ -105,7 +105,7 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
 
     return (
         <>
-            <Modal className={'z-[60]'}>
+            <Modal>
                 <Card className={'relative mx-auto p-6 w-[800px] max-h-[90vh]'}>
                     <Column gap={'6'}>
                         <header className="user-details-header">
