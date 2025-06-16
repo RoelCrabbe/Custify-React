@@ -16,6 +16,7 @@ const SideBar: React.FC<Props> = ({ children, className, onClick }) => {
 
         const hasBgClass = className?.match(/(?:^|\s)(?:\S+:)*bg-[^\s]+/);
         const bgClass = hasBgClass ? '' : ' bg-white';
+
         return [...baseClasses, bgClass, className || ''].join(' ').trim();
     };
 

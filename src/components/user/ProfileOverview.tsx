@@ -49,6 +49,7 @@ const ProfileOverview: React.FC<Props> = ({ user, onEdit }) => {
                             </Row>
                         </Button.Ghost>
                     </div>
+
                     <Container
                         easeIn
                         isVisible={isVisible}

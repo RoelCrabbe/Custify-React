@@ -8,9 +8,12 @@ type Props = {
 
 const Centered: React.FC<Props> = ({ children, className, onClick }) => {
     const getContainerClasses = () => {
-        let baseClasses = 'transition-all duration-800 ease-in-out';
-        baseClasses += ` flex items-center justify-center`;
-        return `${baseClasses} ${className || ''}`.trim();
+        const baseClasses = [
+            'transition-all duration-800 ease-in-out',
+            'flex items-center justify-center',
+        ];
+
+        return [...baseClasses, className || ''].join(' ').trim();
     };
 
     return (

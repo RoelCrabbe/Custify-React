@@ -1,10 +1,10 @@
 import Button from '@components/ui/Button';
 import Card from '@components/ui/container/Card';
 import Column from '@components/ui/container/Column';
-import Modal from '@components/ui/container/Modal';
+import ModalContainer from '@components/ui/container/ModalContainer';
 import InputField from '@components/ui/InputField';
 import StatusMessage from '@components/ui/StatusMessage';
-import { faSave, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
@@ -105,26 +105,38 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
 
     return (
         <>
-            <Modal>
-                <Card className={'relative mx-auto p-6 w-[800px] max-h-[90vh]'}>
-                    <Column gap={'6'}>
-                        <header className="user-details-header">
-                            <h3>Update Password</h3>
-                            <button type="button" onClick={onClose}>
-                                <FontAwesomeIcon icon={faXmarkCircle} />
-                            </button>
-                        </header>
+            <ModalContainer
+                onClose={onClose}
+                label={'Change Password'}
+                icon={faLock}
+                gap={'4'}
+                footer={
+                    <>
+                        <div className="flex justify-end gap-4">
+                            <Button.Primary onClick={handleSubmit} disabled={isButtonDisabled}>
+                                <FontAwesomeIcon icon={faSave} className={'h-4 w-4'} />
+                                Update Password
+                            </Button.Primary>
+                        </div>
+                    </>
+                }>
+                <form>
+                    <Column>
+                        <Card
+                            className={
+                                'bg-gradient-to-br from-yellow-100 to-yellow-200 border-yellow-200 px-6 py-3'
+                            }>
+                            <p className="text-sm text-yellow-800">
+                                <strong>Security Notice:</strong> You must enter your current
+                                password to verify your identity before setting a new password.
+                            </p>
+                        </Card>
 
-                        <form>
+                        <Card
+                            className={
+                                'bg-gradient-to-br from-gray-100 to-gray-200 px-6 pb-6 py-3'
+                            }>
                             <Column>
-                                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                                    <p className="text-sm text-yellow-800">
-                                        <strong>Security Notice:</strong> You must enter your
-                                        current password to verify your identity before setting a
-                                        new password.
-                                    </p>
-                                </div>
-
                                 <InputField
                                     type="password"
                                     label="Current Password"
@@ -159,17 +171,10 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
                                     </section>
                                 )}
                             </Column>
-                        </form>
-
-                        <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
-                            <Button.Primary onClick={handleSubmit} disabled={isButtonDisabled}>
-                                <FontAwesomeIcon icon={faSave} className={'h-4 w-4'} />
-                                Update Password
-                            </Button.Primary>
-                        </div>
+                        </Card>
                     </Column>
-                </Card>
-            </Modal>
+                </form>
+            </ModalContainer>
         </>
     );
 };

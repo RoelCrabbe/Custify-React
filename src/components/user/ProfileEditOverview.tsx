@@ -192,6 +192,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                             </Button.Ghost>
                         </Row>
                     </div>
+
                     <Container
                         easeIn
                         isVisible={isVisible}
@@ -261,6 +262,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your first name'}
                                             required
                                         />
+
                                         <InputField
                                             type="text"
                                             label="Last Name"
@@ -270,6 +272,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your last name'}
                                             required
                                         />
+
                                         <Container className={'sm:col-span-2'}>
                                             <InputField
                                                 type="text"
@@ -281,6 +284,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                                 required
                                             />
                                         </Container>
+
                                         <Button.Secondary
                                             onClick={() => setUpdatePassword(true)}
                                             size={'md'}>
@@ -305,6 +309,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             Contact Information
                                         </h3>
                                     </Row>
+
                                     <Container className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                                         <InputField
                                             type="email"
@@ -315,6 +320,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
                                             placeholder={'Enter your email'}
                                             required
                                         />
+
                                         <InputField
                                             type="tel"
                                             label="Phone Number"

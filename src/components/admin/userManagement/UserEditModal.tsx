@@ -1,15 +1,26 @@
 import Button from '@components/ui/Button';
+import Badge from '@components/ui/container/Badge';
 import Card from '@components/ui/container/Card';
 import Column from '@components/ui/container/Column';
-import Modal from '@components/ui/container/Modal';
+import Container from '@components/ui/container/Container';
+import ModalContainer from '@components/ui/container/ModalContainer';
+import Row from '@components/ui/container/Row';
 import InputField from '@components/ui/InputField';
 import InputSelect from '@components/ui/InputSelect';
 import StatusMessage from '@components/ui/StatusMessage';
-import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { handleErrorLabel } from '@lib';
+import UserAvatar from '@components/ui/UserAvatar';
+import { faShieldAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { capitalizeFirstLetter, handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
-import { LabelMessage, User, UserRole, UserStatus } from '@types';
+import {
+    getUserRoleColor,
+    getUserStatusColor,
+    getUserStatusIcon,
+    LabelMessage,
+    User,
+    UserRole,
+    UserStatus,
+} from '@types';
 import {
     validateEmail,
     validateFirstName,
@@ -125,125 +136,175 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
 
     return (
         <>
-            <Modal className={'z-[60]'}>
-                <Card className={'relative mx-auto p-6 w-[800px] max-h-[90vh]'}>
-                    <Column gap={'6'}>
-                        <header className="user-details-header">
-                            <h3>Edit User</h3>
-                            <button type="button" onClick={onClose}>
-                                <FontAwesomeIcon icon={faXmarkCircle} />
-                            </button>
-                        </header>
-
-                        <form className="flex flex-col gap-6">
-                            <Column>
-                                <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                                    Personal Information
-                                </h5>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <InputField
-                                        type="text"
-                                        label="First Name"
-                                        value={firstName}
-                                        onChange={setFirstName}
-                                        validate={validateFirstName}
-                                        placeholder={'Enter your first name'}
-                                        required
-                                    />
-
-                                    <InputField
-                                        type="text"
-                                        label="Last Name"
-                                        value={lastName}
-                                        onChange={setLastName}
-                                        validate={validateLastName}
-                                        placeholder={'Enter your last name'}
-                                        required
-                                    />
-                                </div>
-
-                                <InputField
-                                    type="text"
-                                    label={'Username'}
-                                    value={userName}
-                                    onChange={setUserName}
-                                    validate={validateUserName}
-                                    placeholder={'Enter your username'}
-                                    required
-                                />
-                            </Column>
-
-                            <Column>
-                                <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                                    Contact Information
-                                </h5>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <InputField
-                                        type="email"
-                                        label="Email"
-                                        value={email}
-                                        onChange={setEmail}
-                                        validate={validateEmail}
-                                        placeholder={'Enter your email'}
-                                        required
-                                    />
-                                    <InputField
-                                        type="tel"
-                                        label="Phone Number"
-                                        value={phoneNumber}
-                                        onChange={setPhoneNumber}
-                                        validate={validatePhoneNumber}
-                                        placeholder={'Enter your phone number'}
-                                    />
-                                </div>
-                            </Column>
-
-                            <Column>
-                                <h5 className="text-sm font-semibold text-gray-900 border-b border-gray-200 pb-2">
-                                    Account Settings
-                                </h5>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <InputSelect<UserRole>
-                                        label="Role"
-                                        value={role}
-                                        onChange={setRole}
-                                        validate={validateRole}
-                                        enumObject={UserRole}
-                                        placeholder="Select a role"
-                                        required
-                                    />
-
-                                    <InputSelect<UserStatus>
-                                        label="Status"
-                                        value={status}
-                                        onChange={setStatus}
-                                        validate={validateStatus}
-                                        enumObject={UserStatus}
-                                        placeholder="Select a status"
-                                        required
-                                    />
-                                </div>
-                            </Column>
-
-                            {labelMessage && (
-                                <section className="mx-auto w-[500px]">
-                                    <StatusMessage labelMessage={labelMessage} />
-                                </section>
-                            )}
-                        </form>
-
-                        <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
+            <ModalContainer
+                onClose={onClose}
+                label={'Edit Details'}
+                icon={faUser}
+                gap={'4'}
+                footer={
+                    <>
+                        <div className="flex justify-end gap-4">
                             <Button.Secondary onClick={onCancel}>Cancel</Button.Secondary>
                             <Button.Submit onClick={handleSubmit} isLoading={isButtonDisabled}>
                                 Save Changes
                             </Button.Submit>
                         </div>
+                    </>
+                }
+                className={'w-[960px]'}>
+                <form>
+                    <Column>
+                        <Card
+                            className={
+                                'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 relative'
+                            }>
+                            <Container className={`p-4`}>
+                                <Column className={'items-center'}>
+                                    <UserAvatar user={user} size={'lg'} />
+                                    <Column className={'items-center'} gap={'0'}>
+                                        <h4 className="text-lg font-semibold text-white tracking-tight">
+                                            {user.firstName} {user.lastName}
+                                        </h4>
+                                        <span className="text-sm text-blue-100">
+                                            @{user.userName}
+                                        </span>
+                                    </Column>
+                                    <Row>
+                                        <Badge
+                                            size={'sm'}
+                                            text={capitalizeFirstLetter(user.role)}
+                                            icon={faShieldAlt}
+                                            color={getUserRoleColor(user.role)}
+                                        />
+                                        <Badge
+                                            size={'sm'}
+                                            text={capitalizeFirstLetter(user.status)}
+                                            icon={getUserStatusIcon(user.status)}
+                                            color={getUserStatusColor(user.status)}
+                                        />
+                                    </Row>
+                                </Column>
+                            </Container>
+                        </Card>
+
+                        <Container className="grid grid-cols-3 gap-4">
+                            <Column className={'col-span-2'}>
+                                <Card
+                                    className={
+                                        'bg-gradient-to-br from-gray-100 to-gray-200 px-6 pb-6 py-3'
+                                    }>
+                                    <Column>
+                                        <h5 className="text-sm font-semibold text-gray-900">
+                                            Personal Information
+                                        </h5>
+
+                                        <Container className="grid grid-cols-2 gap-4">
+                                            <InputField
+                                                type={'text'}
+                                                label={'First Name'}
+                                                value={firstName}
+                                                onChange={setFirstName}
+                                                validate={validateFirstName}
+                                                placeholder={'Enter your first name'}
+                                                required
+                                            />
+
+                                            <InputField
+                                                type={'text'}
+                                                label={'Last Name'}
+                                                value={lastName}
+                                                onChange={setLastName}
+                                                validate={validateLastName}
+                                                placeholder={'Enter your last name'}
+                                                required
+                                            />
+
+                                            <Container className={'col-span-2'}>
+                                                <InputField
+                                                    type={'text'}
+                                                    label={'Username'}
+                                                    value={userName}
+                                                    onChange={setUserName}
+                                                    validate={validateUserName}
+                                                    placeholder={'Enter your username'}
+                                                    required
+                                                />
+                                            </Container>
+                                        </Container>
+                                    </Column>
+                                </Card>
+
+                                <Card
+                                    className={
+                                        'bg-gradient-to-br from-green-100 to-emerald-100 border-green-200 px-6 pb-6 py-3'
+                                    }>
+                                    <Column>
+                                        <h5 className="text-sm font-semibold text-gray-900">
+                                            Contact Information
+                                        </h5>
+
+                                        <Container className="grid grid-cols-2 gap-4">
+                                            <InputField
+                                                type={'email'}
+                                                label={'Email'}
+                                                value={email}
+                                                onChange={setEmail}
+                                                validate={validateEmail}
+                                                placeholder={'Enter your email'}
+                                                required
+                                            />
+
+                                            <InputField
+                                                type={'tel'}
+                                                label={'Phone Number'}
+                                                value={phoneNumber}
+                                                onChange={setPhoneNumber}
+                                                validate={validatePhoneNumber}
+                                                placeholder={'Enter your phone number'}
+                                            />
+                                        </Container>
+                                    </Column>
+                                </Card>
+                            </Column>
+
+                            <Column>
+                                <Card
+                                    className={
+                                        'bg-gradient-to-br from-purple-100 to-indigo-100 border-purple-200 px-6 pb-6 py-3 h-fit'
+                                    }>
+                                    <Column>
+                                        <h5 className="text-sm font-semibold text-gray-900">
+                                            Account Details
+                                        </h5>
+
+                                        <InputSelect<UserRole>
+                                            label="Role"
+                                            value={role}
+                                            onChange={setRole}
+                                            validate={validateRole}
+                                            enumObject={UserRole}
+                                            placeholder="Select a role"
+                                            required
+                                        />
+
+                                        <InputSelect<UserStatus>
+                                            label="Status"
+                                            value={status}
+                                            onChange={setStatus}
+                                            validate={validateStatus}
+                                            enumObject={UserStatus}
+                                            placeholder="Select a status"
+                                            required
+                                        />
+                                    </Column>
+                                </Card>
+
+                                {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+                            </Column>
+                        </Container>
                     </Column>
-                </Card>
-            </Modal>
+                </form>
+            </ModalContainer>
         </>
     );
 };

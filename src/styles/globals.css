@@ -628,25 +628,6 @@
     }
 }
 
-/* User Management */
-@layer components {
-    .user-details-header {
-        @apply flex items-center justify-between;
-    }
-
-    .user-details-header h3 {
-        @apply text-lg font-semibold text-gray-900;
-    }
-
-    .user-details-header button {
-        @apply text-gray-400 hover:text-gray-600 flex;
-    }
-
-    .user-details-header svg {
-        @apply h-6 w-6;
-    }
-}
-
 /* Button Components */
 @layer components {
     .button-base {
@@ -744,7 +725,7 @@
     }
 
     .input-field-label {
-        @apply block text-sm font-medium text-gray-700 w-fit;
+        @apply text-xs font-medium uppercase tracking-wide text-gray-700 w-fit;
         font-weight: 500;
     }
 

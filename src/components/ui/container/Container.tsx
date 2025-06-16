@@ -28,12 +28,14 @@ const Container: React.FC<Props> = ({
     bordered = false,
 }) => {
     const getContainerClasses = () => {
-        let baseClasses = 'transition-all duration-800 ease-in-out';
+        const baseClasses = ['transition-all duration-800 ease-in-out'];
 
-        if (bordered) baseClasses += ' border border-gray-200 hover:border-gray-300 rounded-lg';
+        if (bordered) baseClasses.push('border border-gray-200 hover:border-gray-300 rounded-lg');
+
         if (easeIn)
-            baseClasses += isVisible ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-8';
-        return `${baseClasses} ${className || ''}`.trim();
+            baseClasses.push(isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8');
+
+        return [...baseClasses, className || ''].join(' ').trim();
     };
 
     return (
