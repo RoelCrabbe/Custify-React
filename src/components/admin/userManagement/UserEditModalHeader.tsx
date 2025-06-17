@@ -26,8 +26,8 @@ interface Props {
 }
 
 const UserEditModalHeader: React.FC<Props> = ({ user }) => {
-    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const queryClient = useQueryClient();
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
     const { data: notificationsData, isLoading } = useQuery({
         queryKey: ['reported-profile-picture', user.id],

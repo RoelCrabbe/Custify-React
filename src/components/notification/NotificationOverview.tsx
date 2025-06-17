@@ -4,15 +4,22 @@ import Card from '@components/ui/container/Card';
 import Centered from '@components/ui/container/Centered';
 import Column from '@components/ui/container/Column';
 import Row from '@components/ui/container/Row';
-import { faBell, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faEnvelopeOpenText, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { notificationService } from '@services/index';
 import { Notification } from '@types';
 
 interface Props {
     notifications: Notification[];
+    onRetry: () => void;
 }
 
-const NotificationOverview: React.FC<Props> = ({ notifications }: Props) => {
+const NotificationOverview: React.FC<Props> = ({ notifications, onRetry }: Props) => {
+    const markAllAsRead = async () => {
+        const updatedNotifications = await notificationService.markAllAsRead();
+        if (updatedNotifications.ok) onRetry();
+    };
+
     return (
         <>
             <Card className={'px-6 py-4'}>
@@ -31,11 +38,16 @@ const NotificationOverview: React.FC<Props> = ({ notifications }: Props) => {
                         </div>
                     </Row>
 
-                    {notifications.length < 3 && (
-                        <Button.Secondary onClick={() => {}}>
+                    {notifications.length < 3 ? (
+                        <Button.Secondary onClick={onRetry}>
                             <FontAwesomeIcon icon={faSyncAlt} className={'w-4 h-4'} />
                             Refresh
                         </Button.Secondary>
+                    ) : (
+                        <Button.Primary onClick={markAllAsRead}>
+                            <FontAwesomeIcon icon={faEnvelopeOpenText} className={'w-4 h-4'} />
+                            Mark all as read
+                        </Button.Primary>
                     )}
                 </Row>
             </Card>

@@ -31,3 +31,13 @@ export const getUnreadProfilePictureReportsByUserId = async (userId: number) => 
         },
     });
 };
+
+export const markAllAsRead = () => {
+    return fetch(processEnv.getApiUrl() + `/notifications`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+};
