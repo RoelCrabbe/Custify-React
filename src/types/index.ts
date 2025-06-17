@@ -8,6 +8,11 @@ export * from './errorLog/severity';
 export * from './errorLog/status';
 export * from './errorLog/type';
 
+export * from './notification/category';
+export * from './notification/notification';
+export * from './notification/priority';
+export * from './notification/status';
+
 export type LabelMessage = {
     label: string;
     message: string;

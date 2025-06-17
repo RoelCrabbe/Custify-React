@@ -1,7 +1,7 @@
 import Navigation from '@components/layout/Navigation';
+import NotificationWidget from '@components/layout/NotificationWidget';
 import PageHead, { PageHeadProps } from '@components/layout/PageHead';
 import PageLoader from '@components/layout/PageLoader';
-import SettingsWidget from '@components/layout/SettingsWidget';
 import React, { ReactNode } from 'react';
 
 interface MainPageLayoutProps extends PageHeadProps {
@@ -30,7 +30,8 @@ const MainPageLayout: React.FC<MainPageLayoutProps> = ({
         <>
             <PageHead pageName={pageName} />
             <Navigation />
-            <SettingsWidget />
+            {/* <SettingsWidget /> */}
+            <NotificationWidget />
 
             <main className={getMainClassName()}>
                 {isLoading ? (

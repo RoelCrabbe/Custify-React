@@ -1,7 +1,6 @@
 import Navigation from '@components/layout/Navigation';
 import PageHead, { PageHeadProps } from '@components/layout/PageHead';
 import PageLoader from '@components/layout/PageLoader';
-import SettingsWidget from '@components/layout/SettingsWidget';
 import React, { ReactNode } from 'react';
 
 interface AuthPageLayoutProps extends PageHeadProps {
@@ -30,7 +29,7 @@ const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({
         <>
             <PageHead pageName={pageName} />
             <Navigation />
-            <SettingsWidget />
+            {/* <SettingsWidget /> */}
 
             <main className={getMainClassName()}>
                 {isLoading ? (
