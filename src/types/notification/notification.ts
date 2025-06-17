@@ -9,6 +9,8 @@ export type Notification = {
     priority: NotificationPriority;
     sentDate?: Date;
     readDate?: Date;
+    senderById?: number;
     sender?: User;
+    recipientById?: number;
     recipient: User;
 };

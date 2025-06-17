@@ -1,26 +1,16 @@
+import UserEditModalHeader from '@components/admin/userManagement/UserEditModalHeader';
 import Button from '@components/ui/Button';
-import Badge from '@components/ui/container/Badge';
 import Card from '@components/ui/container/Card';
 import Column from '@components/ui/container/Column';
 import Container from '@components/ui/container/Container';
 import ModalContainer from '@components/ui/container/ModalContainer';
-import Row from '@components/ui/container/Row';
 import InputField from '@components/ui/InputField';
 import InputSelect from '@components/ui/InputSelect';
 import StatusMessage from '@components/ui/StatusMessage';
-import UserAvatar from '@components/ui/UserAvatar';
-import { faShieldAlt, faUser } from '@fortawesome/free-solid-svg-icons';
-import { capitalizeFirstLetter, handleErrorLabel } from '@lib';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { handleErrorLabel } from '@lib';
 import { userService } from '@services/index';
-import {
-    getUserRoleColor,
-    getUserStatusColor,
-    getUserStatusIcon,
-    LabelMessage,
-    User,
-    UserRole,
-    UserStatus,
-} from '@types';
+import { LabelMessage, User, UserRole, UserStatus } from '@types';
 import {
     validateEmail,
     validateFirstName,
@@ -154,38 +144,7 @@ const UserEditModal: React.FC<Props> = ({ user, onCancel, onClose, onUpdate }) =
                 className={'w-[960px]'}>
                 <form>
                     <Column>
-                        <Card
-                            className={
-                                'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 relative'
-                            }>
-                            <Container className={`p-4`}>
-                                <Column className={'items-center'}>
-                                    <UserAvatar user={user} size={'lg'} />
-                                    <Column className={'items-center'} gap={'0'}>
-                                        <h4 className="text-lg font-semibold text-white tracking-tight">
-                                            {user.firstName} {user.lastName}
-                                        </h4>
-                                        <span className="text-sm text-blue-100">
-                                            @{user.userName}
-                                        </span>
-                                    </Column>
-                                    <Row>
-                                        <Badge
-                                            size={'sm'}
-                                            text={capitalizeFirstLetter(user.role)}
-                                            icon={faShieldAlt}
-                                            color={getUserRoleColor(user.role)}
-                                        />
-                                        <Badge
-                                            size={'sm'}
-                                            text={capitalizeFirstLetter(user.status)}
-                                            icon={getUserStatusIcon(user.status)}
-                                            color={getUserStatusColor(user.status)}
-                                        />
-                                    </Row>
-                                </Column>
-                            </Container>
-                        </Card>
+                        <UserEditModalHeader user={user} />
 
                         <Container className="grid grid-cols-3 gap-4">
                             <Column className={'col-span-2'}>
