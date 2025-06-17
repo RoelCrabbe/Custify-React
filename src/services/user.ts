@@ -41,6 +41,7 @@ export const getUserById = async (userId: number) => {
         },
     });
 };
+
 export const updatePassWord = async (updatePassWord: UpdatePassWord) => {
     return fetch(processEnv.getApiUrl() + `/users/change-password`, {
         method: 'PUT',

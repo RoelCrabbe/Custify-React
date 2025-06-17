@@ -9,6 +9,7 @@ import { faEdit, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter } from '@lib';
 import { notificationService } from '@services/index';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
     getUserRoleColor,
     getUserStatusColor,
@@ -26,6 +27,19 @@ interface Props {
 
 const UserEditModalHeader: React.FC<Props> = ({ user }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+    const queryClient = useQueryClient();
+
+    const { data: notificationsData, isLoading } = useQuery({
+        queryKey: ['reported-profile-picture', user.id],
+        staleTime: 10 * 60 * 1000,
+        enabled: user.id !== undefined,
+        queryFn: async () => {
+            const response = await notificationService.getUnreadProfilePictureReportsByUserId(
+                user.id as number,
+            );
+            return response.ok ? await response.json() : [];
+        },
+    });
 
     const handleReport = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,23 +57,26 @@ const UserEditModalHeader: React.FC<Props> = ({ user }) => {
         };
 
         await notificationService.createNotification(formData);
+        queryClient.invalidateQueries({ queryKey: ['reported-profile-picture', user.id] });
     };
 
     return (
         <>
             <Card className={'bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 relative'}>
-                <div className="absolute bottom-3 right-3">
-                    <Button.Ghost
-                        onClick={handleReport}
-                        size={'sm'}
-                        disabled={isButtonDisabled}
-                        className="text-white hover:text-blue-100 hover:bg-white/10 border-white/20 hover:border-white/30 active:bg-white/20 active:text-white focus:bg-white/10 focus:text-white focus:ring-white/20">
-                        <Row gap={'2'}>
-                            <FontAwesomeIcon icon={faEdit} />
-                            Report Photo
-                        </Row>
-                    </Button.Ghost>
-                </div>
+                {!isLoading && notificationsData?.length === 0 && (
+                    <div className="absolute bottom-3 right-3">
+                        <Button.Ghost
+                            onClick={handleReport}
+                            size={'sm'}
+                            disabled={isButtonDisabled}
+                            className="text-white hover:text-blue-100 hover:bg-white/10 border-white/20 hover:border-white/30 active:bg-white/20 active:text-white focus:bg-white/10 focus:text-white focus:ring-white/20">
+                            <Row gap={'2'}>
+                                <FontAwesomeIcon icon={faEdit} />
+                                Report Photo
+                            </Row>
+                        </Button.Ghost>
+                    </div>
+                )}
                 <Container className={`p-4`}>
                     <Column className={'items-center'}>
                         <UserAvatar user={user} size={'lg'} />

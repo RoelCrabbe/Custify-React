@@ -21,3 +21,13 @@ export const createNotification = (notification: Notification) => {
         body: JSON.stringify(notification),
     });
 };
+
+export const getUnreadProfilePictureReportsByUserId = async (userId: number) => {
+    return fetch(processEnv.getApiUrl() + `/notifications/${userId.toString()}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+};
