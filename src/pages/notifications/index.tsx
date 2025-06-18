@@ -42,6 +42,24 @@ const NotificationsPage: React.FC = () => {
                 notification.id === updatedNotification.id ? updatedNotification : notification,
             );
         });
+
+        queryClient.setQueryData(
+            ['user-notifications'],
+            (prevNotifications: Notification[] = []) => {
+                if (
+                    updatedNotification.readDate &&
+                    updatedNotification.status === NotificationStatus.Read
+                ) {
+                    return prevNotifications.filter(
+                        (notification) => notification.id !== updatedNotification.id,
+                    );
+                }
+
+                return prevNotifications.map((notification) =>
+                    notification.id === updatedNotification.id ? updatedNotification : notification,
+                );
+            },
+        );
     };
 
     useEffect(() => {
