@@ -27,38 +27,29 @@ const NotificationsPage: React.FC = () => {
         queryClient.invalidateQueries({ queryKey: ['user-notifications'] });
     };
 
-    const handleNotificationUpdate = (updatedNotification: Notification) => {
-        setNotifications((prevNotifications) => {
-            if (
-                updatedNotification.readDate &&
-                updatedNotification.status === NotificationStatus.Read
-            ) {
-                return prevNotifications.filter(
-                    (notification) => notification.id !== updatedNotification.id,
-                );
-            }
-
-            return prevNotifications.map((notification) =>
-                notification.id === updatedNotification.id ? updatedNotification : notification,
+    const updateNotifications = (
+        prevNotifications: Notification[],
+        updatedNotification: Notification,
+    ) => {
+        if (
+            updatedNotification.readDate &&
+            updatedNotification.status === NotificationStatus.Read
+        ) {
+            return prevNotifications.filter(
+                (notification) => notification.id !== updatedNotification.id,
             );
-        });
+        }
 
-        queryClient.setQueryData(
-            ['user-notifications'],
-            (prevNotifications: Notification[] = []) => {
-                if (
-                    updatedNotification.readDate &&
-                    updatedNotification.status === NotificationStatus.Read
-                ) {
-                    return prevNotifications.filter(
-                        (notification) => notification.id !== updatedNotification.id,
-                    );
-                }
+        return prevNotifications.map((notification) =>
+            notification.id === updatedNotification.id ? updatedNotification : notification,
+        );
+    };
 
-                return prevNotifications.map((notification) =>
-                    notification.id === updatedNotification.id ? updatedNotification : notification,
-                );
-            },
+    const handleNotificationUpdate = (updatedNotification: Notification) => {
+        setNotifications((prev) => updateNotifications(prev, updatedNotification));
+
+        queryClient.setQueryData(['user-notifications'], (prev: Notification[] = []) =>
+            updateNotifications(prev, updatedNotification),
         );
     };
 
