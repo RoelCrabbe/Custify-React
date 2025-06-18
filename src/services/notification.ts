@@ -41,3 +41,13 @@ export const markAllAsRead = () => {
         },
     });
 };
+
+export const markAsReadById = async (notificationId: number) => {
+    return fetch(processEnv.getApiUrl() + `/notifications/${notificationId.toString()}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+};

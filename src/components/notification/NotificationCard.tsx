@@ -7,6 +7,7 @@ import UserAvatar from '@components/ui/UserAvatar';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalizeFirstLetter, formatDateOnly } from '@lib';
+import { notificationService } from '@services/index';
 import {
     getNotificationCategoryColor,
     getNotificationCategoryIcon,
@@ -17,9 +18,20 @@ import {
 
 interface Props {
     notification: Notification;
+    onUpdate: (updatedNotification: Notification) => void;
 }
 
-const NotificationCard: React.FC<Props> = ({ notification }: Props) => {
+const NotificationCard: React.FC<Props> = ({ notification, onUpdate }: Props) => {
+    const markAsReadById = async (notificationId?: number) => {
+        if (!notificationId) return;
+
+        const updatedNotification = await notificationService.markAsReadById(notificationId);
+        if (updatedNotification.ok) {
+            const notificationJson = await updatedNotification.json();
+            onUpdate(notificationJson);
+        }
+    };
+
     return (
         <>
             <Card className={'px-6 py-4'}>
@@ -40,7 +52,7 @@ const NotificationCard: React.FC<Props> = ({ notification }: Props) => {
                             />
                         </Row>
                         <Button.Ghost
-                            onClick={() => {}}
+                            onClick={() => markAsReadById(notification.id)}
                             className={'text-blue-600 hover:text-blue-800'}>
                             Mark as read
                         </Button.Ghost>

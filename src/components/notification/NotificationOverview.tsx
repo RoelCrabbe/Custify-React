@@ -12,9 +12,10 @@ import { Notification } from '@types';
 interface Props {
     notifications: Notification[];
     onRetry: () => void;
+    onUpdate: (updatedNotification: Notification) => void;
 }
 
-const NotificationOverview: React.FC<Props> = ({ notifications, onRetry }: Props) => {
+const NotificationOverview: React.FC<Props> = ({ notifications, onRetry, onUpdate }: Props) => {
     const markAllAsRead = async () => {
         const updatedNotifications = await notificationService.markAllAsRead();
         if (updatedNotifications.ok) onRetry();
@@ -54,7 +55,11 @@ const NotificationOverview: React.FC<Props> = ({ notifications, onRetry }: Props
 
             <Column>
                 {notifications.map((notification) => (
-                    <NotificationCard key={notification.id} notification={notification} />
+                    <NotificationCard
+                        key={notification.id}
+                        notification={notification}
+                        onUpdate={onUpdate}
+                    />
                 ))}
             </Column>
         </>
