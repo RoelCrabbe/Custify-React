@@ -198,7 +198,7 @@ const ErrorLogDetailsModal: React.FC<Props> = ({ errorLog, onClose, onUpdate }) 
                                         Stack Trace Output
                                     </span>
                                 </div>
-                                <div className="p-4 max-h-60 overflow-auto">
+                                <div className="p-4 max-h-60 overflow-auto mr-2">
                                     <pre className="text-xs font-mono whitespace-pre-wrap break-words leading-relaxed">
                                         {errorLog.stackTrace}
                                     </pre>
