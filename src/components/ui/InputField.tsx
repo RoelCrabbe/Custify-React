@@ -40,29 +40,27 @@ const InputField: React.FC<Props> = ({
     };
 
     return (
-        <>
-            <Column gap={'2'}>
-                <label className="input-field-label" htmlFor={label}>
-                    {label} {required && <span className="input-field-required">*</span>}
-                </label>
-                <div className="relative">
-                    <input
-                        id={label}
-                        type={type}
-                        value={value || ''}
-                        onChange={(e) => handleChange({ value: e.target.value })}
-                        placeholder={placeholder}
-                        required={required}
-                        disabled={disabled}
-                        autoComplete={type === 'email' ? 'email' : undefined}
-                        className={`input-field-base appearance-none ${
-                            error ? 'input-field-error' : 'input-field-normal'
-                        } ${disabled ? 'input-field-disabled' : ''}`}
-                    />
-                    {error && <span className="input-field-error-text">{error}</span>}
-                </div>
-            </Column>
-        </>
+        <Column gap={'2'}>
+            <label className="input-field-label" htmlFor={label}>
+                {label} {required && <span className="input-field-required">*</span>}
+            </label>
+            <div className="relative">
+                <input
+                    id={label}
+                    type={type}
+                    value={value || ''}
+                    onChange={(e) => handleChange({ value: e.target.value })}
+                    placeholder={placeholder}
+                    required={required}
+                    disabled={disabled}
+                    autoComplete={type === 'email' ? 'email' : undefined}
+                    className={`input-field-base appearance-none ${
+                        error ? 'input-field-error' : 'input-field-normal'
+                    } ${disabled ? 'input-field-disabled' : ''}`}
+                />
+                {error && <span className="input-field-error-text">{error}</span>}
+            </div>
+        </Column>
     );
 };
 

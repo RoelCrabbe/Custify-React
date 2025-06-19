@@ -19,13 +19,11 @@ const Badge: React.FC<Props> = ({ text, icon, color, size = 'md', className = ''
     const paddingClass = badgeSizes[size] || badgeSizes.md;
 
     return (
-        <>
-            <span
-                className={`inline-flex items-center gap-2 ${paddingClass} rounded-full text-xs font-medium w-fit ${color} ${className}`}>
-                <FontAwesomeIcon icon={icon} className="user-management__icon" />
-                {text}
-            </span>
-        </>
+        <span
+            className={`inline-flex items-center gap-2 ${paddingClass} rounded-full text-xs font-medium w-fit ${color} ${className}`}>
+            <FontAwesomeIcon icon={icon} className="user-management__icon" />
+            {text}
+        </span>
     );
 };
 

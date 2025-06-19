@@ -39,11 +39,9 @@ const StatCard: React.FC<Props> = ({ children, className, onClick, easeIn, isVis
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

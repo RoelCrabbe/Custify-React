@@ -33,62 +33,60 @@ const NotificationCard: React.FC<Props> = ({ notification, onUpdate }: Props) =>
     };
 
     return (
-        <>
-            <Card className={'px-6 py-4'}>
-                <Column>
-                    <Row className={'justify-between'}>
-                        <Row>
-                            <Badge
-                                size={'md'}
-                                text={capitalizeFirstLetter(notification.priority)}
-                                icon={getNotificationPriorityIcon(notification.priority)}
-                                color={getNotificationPriorityColor(notification.priority)}
-                            />
-                            <Badge
-                                size={'md'}
-                                text={capitalizeFirstLetter(notification.category)}
-                                icon={getNotificationCategoryIcon(notification.category)}
-                                color={getNotificationCategoryColor(notification.category)}
-                            />
-                        </Row>
-                        <Button.Ghost
-                            onClick={() => markAsReadById(notification.id)}
-                            className={'text-blue-600 hover:text-blue-800'}>
-                            Mark as read
-                        </Button.Ghost>
+        <Card className={'px-6 py-4'}>
+            <Column>
+                <Row className={'justify-between'}>
+                    <Row>
+                        <Badge
+                            size={'md'}
+                            text={capitalizeFirstLetter(notification.priority)}
+                            icon={getNotificationPriorityIcon(notification.priority)}
+                            color={getNotificationPriorityColor(notification.priority)}
+                        />
+                        <Badge
+                            size={'md'}
+                            text={capitalizeFirstLetter(notification.category)}
+                            icon={getNotificationCategoryIcon(notification.category)}
+                            color={getNotificationCategoryColor(notification.category)}
+                        />
                     </Row>
+                    <Button.Ghost
+                        onClick={() => markAsReadById(notification.id)}
+                        className={'text-blue-600 hover:text-blue-800'}>
+                        Mark as read
+                    </Button.Ghost>
+                </Row>
 
-                    <h2 className="text-xl font-semibold text-gray-900">{notification.title}</h2>
+                <h2 className="text-xl font-semibold text-gray-900">{notification.title}</h2>
 
-                    <p className="text-md text-gray-600">{notification.body}</p>
+                <p className="text-md text-gray-600">{notification.body}</p>
 
-                    <footer className="pt-4 border-t border-gray-100">
-                        <Row className={'justify-between'}>
-                            <Row className={'className="text-gray-600 text-sm'}>
-                                {notification.sender ? (
-                                    <>
-                                        <UserAvatar size={'xs'} user={notification.sender} />
-                                        <span>
-                                            From:{' '}
-                                            <span className="font-semibold">
-                                                {notification.sender.firstName}{' '}
-                                                {notification.sender.lastName}
-                                            </span>
+                <footer className="pt-4 border-t border-gray-100">
+                    <Row className={'justify-between'}>
+                        <Row className={'className="text-gray-600 text-sm'}>
+                            {notification.sender ? (
+                                <>
+                                    <UserAvatar size={'xs'} user={notification.sender} />
+                                    <span>
+                                        From:{' '}
+                                        <span className="font-semibold">
+                                            {notification.sender.firstName}{' '}
+                                            {notification.sender.lastName}
                                         </span>
-                                    </>
-                                ) : (
-                                    <span className="font-semibold">System notification</span>
-                                )}
-                            </Row>
-                            <Row gap={'2'} className="text-sm text-gray-500">
-                                <FontAwesomeIcon icon={faClock} className="w-4 h-4" />
-                                <span>{formatDateOnly(notification.sentDate)}</span>
-                            </Row>
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="font-semibold">System notification</span>
+                            )}
                         </Row>
-                    </footer>
-                </Column>
-            </Card>
-        </>
+                        <Row gap={'2'} className="text-sm text-gray-500">
+                            <FontAwesomeIcon icon={faClock} className="w-4 h-4" />
+                            <span>{formatDateOnly(notification.sentDate)}</span>
+                        </Row>
+                    </Row>
+                </footer>
+            </Column>
+        </Card>
     );
 };
 

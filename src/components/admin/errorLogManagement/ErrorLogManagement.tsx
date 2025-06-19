@@ -11,7 +11,6 @@ interface Props {
     errorLogs: ErrorLog[];
     isError: boolean;
     isLoading: boolean;
-    error: unknown;
     onRetry: () => void;
     onUpdate: (updatedErrorLog: ErrorLog) => void;
     onStatusChange: (updatedStatus: ErrorStatus) => void;
@@ -22,7 +21,6 @@ const ErrorLogManagement: React.FC<Props> = ({
     errorLogs,
     isError,
     isLoading,
-    error,
     onRetry,
     onUpdate,
     onStatusChange,
@@ -47,56 +45,51 @@ const ErrorLogManagement: React.FC<Props> = ({
     const statusCounts = getStatusCounts();
 
     return (
-        <>
-            <Card className={'overflow-hidden h-full'}>
-                <Column gap={'0'} className={'h-full'}>
-                    <header className="report-management-header">
-                        <div className="flex items-center gap-4 p-2">
-                            <FontAwesomeIcon icon={faUsers} />
-                            <h2>Error Logs</h2>
-                        </div>
-                        <div className="report-management-status">
-                            <button
-                                className={`status-tab status-new first:rounded-l-md ${selectedStatus === ErrorStatus.New ? 'active' : ''}`}
-                                onClick={() => onStatusChange(ErrorStatus.New)}>
-                                New
-                                <span className="status-count">
-                                    {statusCounts[ErrorStatus.New]}
-                                </span>
-                            </button>
-                            <button
-                                className={`status-tab status-reviewed ${selectedStatus === ErrorStatus.Reviewed ? 'active' : ''}`}
-                                onClick={() => onStatusChange(ErrorStatus.Reviewed)}>
-                                Reviewed
-                                <span className="status-count">
-                                    {statusCounts[ErrorStatus.Reviewed]}
-                                </span>
-                            </button>
-                            <button
-                                className={`status-tab status-resolved last:rounded-r-md ${selectedStatus === ErrorStatus.Resolved ? 'active' : ''}`}
-                                onClick={() => onStatusChange(ErrorStatus.Resolved)}>
-                                Resolved
-                                <span className="status-count">
-                                    {statusCounts[ErrorStatus.Resolved]}
-                                </span>
-                            </button>
-                        </div>
-                    </header>
-
-                    <div className="flex-1 flex flex-col min-h-0">
-                        <ErrorLogManagementTable
-                            selectedStatus={selectedStatus}
-                            errorLogs={errorLogs}
-                            isError={isError}
-                            isLoading={isLoading}
-                            error={error}
-                            onRetry={onRetry}
-                            onUpdate={onUpdate}
-                        />
+        <Card className={'overflow-hidden h-full'}>
+            <Column gap={'0'} className={'h-full'}>
+                <header className="report-management-header">
+                    <div className="flex items-center gap-4 p-2">
+                        <FontAwesomeIcon icon={faUsers} />
+                        <h2>Error Logs</h2>
                     </div>
-                </Column>
-            </Card>
-        </>
+                    <div className="report-management-status">
+                        <button
+                            className={`status-tab status-new first:rounded-l-md ${selectedStatus === ErrorStatus.New ? 'active' : ''}`}
+                            onClick={() => onStatusChange(ErrorStatus.New)}>
+                            New
+                            <span className="status-count">{statusCounts[ErrorStatus.New]}</span>
+                        </button>
+                        <button
+                            className={`status-tab status-reviewed ${selectedStatus === ErrorStatus.Reviewed ? 'active' : ''}`}
+                            onClick={() => onStatusChange(ErrorStatus.Reviewed)}>
+                            Reviewed
+                            <span className="status-count">
+                                {statusCounts[ErrorStatus.Reviewed]}
+                            </span>
+                        </button>
+                        <button
+                            className={`status-tab status-resolved last:rounded-r-md ${selectedStatus === ErrorStatus.Resolved ? 'active' : ''}`}
+                            onClick={() => onStatusChange(ErrorStatus.Resolved)}>
+                            Resolved
+                            <span className="status-count">
+                                {statusCounts[ErrorStatus.Resolved]}
+                            </span>
+                        </button>
+                    </div>
+                </header>
+
+                <div className="flex-1 flex flex-col min-h-0">
+                    <ErrorLogManagementTable
+                        selectedStatus={selectedStatus}
+                        errorLogs={errorLogs}
+                        isError={isError}
+                        isLoading={isLoading}
+                        onRetry={onRetry}
+                        onUpdate={onUpdate}
+                    />
+                </div>
+            </Column>
+        </Card>
     );
 };
 

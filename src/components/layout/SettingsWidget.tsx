@@ -38,90 +38,88 @@ const SettingsWidget: React.FC = () => {
     const handleToggle = () => setIsOpen((prev) => !prev);
 
     return (
-        <>
-            <div className="settings-widget">
-                <button
-                    onClick={handleToggle}
-                    aria-label={isOpen ? 'Close Settings' : 'Open Settings'}
-                    className="settings-button">
-                    <FontAwesomeIcon icon={isOpen ? faTimes : faCog} className={'settings-icon'} />
-                </button>
+        <div className="settings-widget">
+            <button
+                onClick={handleToggle}
+                aria-label={isOpen ? 'Close Settings' : 'Open Settings'}
+                className="settings-button">
+                <FontAwesomeIcon icon={isOpen ? faTimes : faCog} className={'settings-icon'} />
+            </button>
 
-                {isOpen && (
-                    <div className="settings-panel">
-                        <div className="settings-card">
-                            <div className="settings-header">
-                                <h3 className="settings-title">Settings</h3>
+            {isOpen && (
+                <div className="settings-panel">
+                    <div className="settings-card">
+                        <div className="settings-header">
+                            <h3 className="settings-title">Settings</h3>
+                        </div>
+
+                        <div className="settings-content">
+                            <div className="settings-option">
+                                <div className="settings-option-info">
+                                    <div className="settings-option-icon">
+                                        <FontAwesomeIcon
+                                            icon={darkMode ? faSun : faMoon}
+                                            className="settings-option-icon-size"
+                                        />
+                                    </div>
+                                    <span className="settings-option-label">
+                                        {darkMode ? 'Light Mode' : 'Dark Mode'}
+                                    </span>
+                                </div>
+
+                                <button
+                                    onClick={toggleDarkMode}
+                                    className={`toggle-switch toggle-switch-dark ${
+                                        darkMode
+                                            ? 'toggle-switch-dark-active'
+                                            : 'toggle-switch-dark-inactive'
+                                    }`}>
+                                    <span
+                                        className={`toggle-circle ${
+                                            darkMode
+                                                ? 'toggle-circle-active'
+                                                : 'toggle-circle-inactive'
+                                        }`}
+                                    />
+                                </button>
                             </div>
 
-                            <div className="settings-content">
+                            {isAdmin(currentUser.getValue()) && (
                                 <div className="settings-option">
                                     <div className="settings-option-info">
                                         <div className="settings-option-icon">
                                             <FontAwesomeIcon
-                                                icon={darkMode ? faSun : faMoon}
-                                                className="settings-option-icon-size"
+                                                icon={faUser}
+                                                className={'settings-option-icon-size'}
                                             />
                                         </div>
-                                        <span className="settings-option-label">
-                                            {darkMode ? 'Light Mode' : 'Dark Mode'}
-                                        </span>
+                                        <span className="settings-option-label">User Mode</span>
                                     </div>
 
                                     <button
-                                        onClick={toggleDarkMode}
-                                        className={`toggle-switch toggle-switch-dark ${
-                                            darkMode
-                                                ? 'toggle-switch-dark-active'
-                                                : 'toggle-switch-dark-inactive'
+                                        onClick={toggleUserMode}
+                                        className={`toggle-switch toggle-switch-user ${
+                                            userMode
+                                                ? 'toggle-switch-user-active'
+                                                : 'toggle-switch-user-inactive'
                                         }`}>
                                         <span
                                             className={`toggle-circle ${
-                                                darkMode
+                                                userMode
                                                     ? 'toggle-circle-active'
                                                     : 'toggle-circle-inactive'
                                             }`}
                                         />
                                     </button>
                                 </div>
-
-                                {isAdmin(currentUser.getValue()) && (
-                                    <div className="settings-option">
-                                        <div className="settings-option-info">
-                                            <div className="settings-option-icon">
-                                                <FontAwesomeIcon
-                                                    icon={faUser}
-                                                    className={'settings-option-icon-size'}
-                                                />
-                                            </div>
-                                            <span className="settings-option-label">User Mode</span>
-                                        </div>
-
-                                        <button
-                                            onClick={toggleUserMode}
-                                            className={`toggle-switch toggle-switch-user ${
-                                                userMode
-                                                    ? 'toggle-switch-user-active'
-                                                    : 'toggle-switch-user-inactive'
-                                            }`}>
-                                            <span
-                                                className={`toggle-circle ${
-                                                    userMode
-                                                        ? 'toggle-circle-active'
-                                                        : 'toggle-circle-inactive'
-                                                }`}
-                                            />
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+                            )}
                         </div>
                     </div>
-                )}
+                </div>
+            )}
 
-                {isOpen && <div className="settings-backdrop" onClick={handleToggle} />}
-            </div>
-        </>
+            {isOpen && <div className="settings-backdrop" onClick={handleToggle} />}
+        </div>
     );
 };
 

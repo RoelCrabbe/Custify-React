@@ -17,11 +17,9 @@ const Centered: React.FC<Props> = ({ children, className, onClick }) => {
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

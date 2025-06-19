@@ -1,22 +1,22 @@
 import UserManagement from '@components/admin/userManagement/UserManagement';
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
+import { useEntityList } from '@hooks/useEntity';
 import { userService } from '@services/index';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { User } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const UserManagementPage: React.FC = () => {
-    const queryClient = useQueryClient();
     const { shouldRender } = useRequireAdmin();
-    const [users, setUsers] = useState<User[]>([]);
+    const { entities, handleUpdate, safeSetEntities } = useEntityList<User>([]);
 
     const {
         data: usersData,
-        error: usersError,
-        isError: usersIsError,
-        isLoading: usersIsLoading,
+        isError,
+        isLoading,
+        refetch: onRetry,
     } = useQuery({
         queryKey: ['user-management'],
         staleTime: 10 * 60 * 1000,
@@ -27,38 +27,23 @@ const UserManagementPage: React.FC = () => {
         },
     });
 
-    const handleRetry = () => {
-        queryClient.invalidateQueries({ queryKey: ['user-management'] });
-    };
-
-    const handleUserUpdate = (updatedUser: User) => {
-        setUsers((prevUsers) =>
-            prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
-        );
-    };
-
     useEffect(() => {
-        if (usersData && Array.isArray(usersData)) {
-            setUsers(usersData);
-        }
+        safeSetEntities(usersData);
     }, [usersData]);
 
     return (
-        <>
-            <AdminPageLayout
-                pageName={'User Management'}
-                description={'Manage and monitor user accounts'}
-                isLoading={usersIsLoading || !shouldRender}>
-                <UserManagement
-                    users={users}
-                    error={usersError}
-                    isError={usersIsError}
-                    isLoading={usersIsLoading}
-                    onUpdate={handleUserUpdate}
-                    onRetry={handleRetry}
-                />
-            </AdminPageLayout>
-        </>
+        <AdminPageLayout
+            pageName={'User Management'}
+            description={'Manage and monitor user accounts'}
+            isLoading={isLoading || !shouldRender}>
+            <UserManagement
+                users={entities}
+                isError={isError}
+                isLoading={isLoading}
+                onUpdate={handleUpdate}
+                onRetry={onRetry}
+            />
+        </AdminPageLayout>
     );
 };
 

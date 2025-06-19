@@ -121,54 +121,52 @@ const ProfileImageUploader: React.FC<Props> = ({
     };
 
     return (
-        <>
-            <div className={`relative group ${className}`}>
-                {imagePreview ? (
-                    <div className="relative">
-                        <img
-                            src={imagePreview}
-                            alt={`${user.firstName} ${user.lastName} Profile Image`}
-                            className={`${getSizeClasses()} rounded-full object-cover border-4 border-white shadow-lg`}
-                        />
+        <div className={`relative group ${className}`}>
+            {imagePreview ? (
+                <div className="relative">
+                    <img
+                        src={imagePreview}
+                        alt={`${user.firstName} ${user.lastName} Profile Image`}
+                        className={`${getSizeClasses()} rounded-full object-cover border-4 border-white shadow-lg`}
+                    />
+                    <button
+                        type="button"
+                        onClick={handleImageClick}
+                        className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        title="Change profile image">
+                        <FontAwesomeIcon icon={faCamera} className="text-white text-3xl" />
+                    </button>
+                    {profileImage && (
                         <button
                             type="button"
-                            onClick={handleImageClick}
-                            className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                            title="Change profile image">
-                            <FontAwesomeIcon icon={faCamera} className="text-white text-3xl" />
+                            onClick={handleImageRemove}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-colors shadow-md"
+                            title="Remove uploaded image">
+                            <FontAwesomeIcon icon={faTimes} />
                         </button>
-                        {profileImage && (
-                            <button
-                                type="button"
-                                onClick={handleImageRemove}
-                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm hover:bg-red-600 transition-colors shadow-md"
-                                title="Remove uploaded image">
-                                <FontAwesomeIcon icon={faTimes} />
-                            </button>
-                        )}
-                    </div>
-                ) : (
-                    <div className="relative">
-                        <UserAvatar user={user} size={size} />
-                        <button
-                            type="button"
-                            onClick={handleImageClick}
-                            className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                            title="Upload profile image">
-                            <FontAwesomeIcon icon={faCamera} className="text-white text-xl" />
-                        </button>
-                    </div>
-                )}
-                <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/jpeg,image/jpg,image/png,image/webp"
-                    onChange={handleImageSelect}
-                    className="hidden"
-                    aria-label="Upload profile image"
-                />
-            </div>
-        </>
+                    )}
+                </div>
+            ) : (
+                <div className="relative">
+                    <UserAvatar user={user} size={size} />
+                    <button
+                        type="button"
+                        onClick={handleImageClick}
+                        className="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        title="Upload profile image">
+                        <FontAwesomeIcon icon={faCamera} className="text-white text-xl" />
+                    </button>
+                </div>
+            )}
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/webp"
+                onChange={handleImageSelect}
+                className="hidden"
+                aria-label="Upload profile image"
+            />
+        </div>
     );
 };
 

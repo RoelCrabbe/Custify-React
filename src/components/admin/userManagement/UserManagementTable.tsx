@@ -22,19 +22,11 @@ interface Props {
     users: User[];
     isError: boolean;
     isLoading: boolean;
-    error: unknown;
     onRetry: () => void;
     onUpdate: (updatedUser: User) => void;
 }
 
-const UserManagementTable: React.FC<Props> = ({
-    users,
-    isError,
-    isLoading,
-    error,
-    onRetry,
-    onUpdate,
-}) => {
+const UserManagementTable: React.FC<Props> = ({ users, isError, isLoading, onRetry, onUpdate }) => {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -46,7 +38,7 @@ const UserManagementTable: React.FC<Props> = ({
     if (isError) {
         return (
             <TableError
-                message={error instanceof Error ? error.message : 'Unknown error'}
+                message={'There was an issue getting user management info.'}
                 onRetry={onRetry}
             />
         );

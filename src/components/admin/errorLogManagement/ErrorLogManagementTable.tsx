@@ -26,7 +26,6 @@ interface Props {
     errorLogs: ErrorLog[];
     isError: boolean;
     isLoading: boolean;
-    error: unknown;
     onRetry: () => void;
     onUpdate: (updatedErrorLog: ErrorLog) => void;
 }
@@ -36,7 +35,6 @@ const ErrorLogManagementTable: React.FC<Props> = ({
     errorLogs,
     isError,
     isLoading,
-    error,
     onRetry,
     onUpdate,
 }) => {
@@ -52,7 +50,7 @@ const ErrorLogManagementTable: React.FC<Props> = ({
     if (isError) {
         return (
             <TableError
-                message={error instanceof Error ? error.message : 'Unknown error'}
+                message={'There was an issue getting reports management info.'}
                 onRetry={onRetry}
             />
         );
@@ -118,17 +116,15 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                             <th>Request Path</th>
                             <th>Method</th>
                             {isNotResolved ? (
-                                <>
-                                    <th className="flex items-center justify-between">
-                                        Actions
-                                        <span>
-                                            <FontAwesomeIcon
-                                                icon={faArrowsUpDown}
-                                                className={'text-gray-400'}
-                                            />
-                                        </span>
-                                    </th>
-                                </>
+                                <th className="flex items-center justify-between">
+                                    Actions
+                                    <span>
+                                        <FontAwesomeIcon
+                                            icon={faArrowsUpDown}
+                                            className={'text-gray-400'}
+                                        />
+                                    </span>
+                                </th>
                             ) : (
                                 <th className="flex items-center justify-between">
                                     Archived Details
@@ -191,39 +187,37 @@ const ErrorLogManagementTable: React.FC<Props> = ({
                                         </Button.Primary>
                                     </td>
                                 ) : (
-                                    <>
-                                        <td className="p-[1.625rem] whitespace-nowrap">
-                                            <div className="report-archived-info">
-                                                {errorLog.resolvedDate && errorLog.resolvedById ? (
-                                                    <span>
-                                                        Archived on{' '}
-                                                        {formatDateOnly(errorLog.resolvedDate)} by
-                                                        user #{errorLog.resolvedById}
-                                                    </span>
-                                                ) : (
-                                                    <span>Not Resolved</span>
-                                                )}
+                                    <td className="p-[1.625rem] whitespace-nowrap">
+                                        <div className="report-archived-info">
+                                            {errorLog.resolvedDate && errorLog.resolvedById ? (
+                                                <span>
+                                                    Archived on{' '}
+                                                    {formatDateOnly(errorLog.resolvedDate)} by user
+                                                    #{errorLog.resolvedById}
+                                                </span>
+                                            ) : (
+                                                <span>Not Resolved</span>
+                                            )}
 
-                                                {errorLog.resolvedById && (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() =>
-                                                            handleShowUserDetails(
-                                                                errorLog.resolvedById as number,
-                                                            )
-                                                        }
-                                                        className="text-blue-500 hover:text-blue-600 flex"
-                                                        title="View user details"
-                                                        aria-label="View user details">
-                                                        <FontAwesomeIcon
-                                                            icon={faInfoCircle}
-                                                            className={'h-4 w-4'}
-                                                        />
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </td>
-                                    </>
+                                            {errorLog.resolvedById && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleShowUserDetails(
+                                                            errorLog.resolvedById as number,
+                                                        )
+                                                    }
+                                                    className="text-blue-500 hover:text-blue-600 flex"
+                                                    title="View user details"
+                                                    aria-label="View user details">
+                                                    <FontAwesomeIcon
+                                                        icon={faInfoCircle}
+                                                        className={'h-4 w-4'}
+                                                    />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </td>
                                 )}
                             </tr>
                         ))}

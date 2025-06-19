@@ -45,15 +45,11 @@ const Login: React.FC = () => {
     };
 
     return (
-        <>
-            <AuthPageLayout pageName={'Login'} description={'Login'} isLoading={!shouldRender}>
-                <UserLoginForm
-                    onSubmit={handleLogin}
-                    onClearError={() => setLabelMessage(undefined)}>
-                    {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-                </UserLoginForm>
-            </AuthPageLayout>
-        </>
+        <AuthPageLayout pageName={'Login'} description={'Login'} isLoading={!shouldRender}>
+            <UserLoginForm onSubmit={handleLogin} onClearError={() => setLabelMessage(undefined)}>
+                {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+            </UserLoginForm>
+        </AuthPageLayout>
     );
 };
 

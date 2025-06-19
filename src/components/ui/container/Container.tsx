@@ -39,11 +39,9 @@ const Container: React.FC<Props> = ({
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

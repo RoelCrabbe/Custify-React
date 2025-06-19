@@ -21,11 +21,9 @@ const Modal: React.FC<Props> = ({ children, index = '50', className, onClick }: 
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

@@ -9,13 +9,11 @@ function App({ Component, pageProps }: AppProps) {
     const queryClient = new QueryClient();
 
     return (
-        <>
-            <QueryClientProvider client={queryClient}>
-                <AuthProvider>
-                    <Component {...pageProps} />
-                </AuthProvider>
-            </QueryClientProvider>
-        </>
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <Component {...pageProps} />
+            </AuthProvider>
+        </QueryClientProvider>
     );
 }
 

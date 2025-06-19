@@ -1,40 +1,17 @@
 import MainPageLayout from '@components/layout/MainPageLayout';
-import ProfileEditOverview from '@components/user/ProfileEditOverview';
-import ProfileOverview from '@components/user/ProfileOverview';
+import ProfileContent from '@components/user/ProfileContent';
 import { useRequireAuth } from '@hooks/useAuthGuard';
+import { useEntity } from '@hooks/useEntity';
 import { User } from '@types';
-import { useState } from 'react';
 
 const UserProfilePage: React.FC = () => {
     const { shouldRender, currentUser } = useRequireAuth();
-    const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState<User | null>(currentUser.getValue());
-
-    const handleUseUpdate = (updatedUser: User) => {
-        setUser((prevUser) => (prevUser?.id === updatedUser.id ? updatedUser : prevUser));
-    };
-
-    const handleEdit = () => {
-        setIsEditing(!isEditing);
-    };
-
-    const isLoading = !shouldRender && !user;
+    const { entity, handleUpdate } = useEntity<User>(currentUser.getValue());
 
     return (
-        <>
-            <MainPageLayout pageName="Profile" isLoading={isLoading}>
-                {user &&
-                    (isEditing ? (
-                        <ProfileEditOverview
-                            user={user}
-                            onClose={handleEdit}
-                            onUpdate={handleUseUpdate}
-                        />
-                    ) : (
-                        <ProfileOverview user={user} onEdit={handleEdit} />
-                    ))}
-            </MainPageLayout>
-        </>
+        <MainPageLayout pageName={'Profile'} isLoading={!shouldRender}>
+            {entity && <ProfileContent user={entity} onUpdate={handleUpdate} />}
+        </MainPageLayout>
     );
 };
 

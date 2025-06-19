@@ -2,18 +2,24 @@ import MainPageLayout from '@components/layout/MainPageLayout';
 import NotificationOverview from '@components/notification/NotificationOverview';
 import Column from '@components/ui/container/Column';
 import { useRequireAuth } from '@hooks/useAuthGuard';
+import { useEntityList } from '@hooks/useEntity';
+import { updateNotifications } from '@lib';
 import { notificationService } from '@services/index';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Notification, NotificationStatus } from '@types';
+import { Notification } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const NotificationsPage: React.FC = () => {
     const queryClient = useQueryClient();
     const { shouldRender } = useRequireAuth();
-    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const { entities, handleUpdate, safeSetEntities } = useEntityList<Notification>([]);
 
-    const { data: notificationsData, isLoading: notificationsIsLoading } = useQuery({
+    const {
+        data: notificationsData,
+        isLoading,
+        refetch: onRetry,
+    } = useQuery({
         queryKey: ['user-notifications'],
         staleTime: 10 * 60 * 1000,
         enabled: shouldRender,
@@ -23,57 +29,30 @@ const NotificationsPage: React.FC = () => {
         },
     });
 
-    const handleRetry = () => {
-        queryClient.invalidateQueries({ queryKey: ['user-notifications'] });
-    };
+    useEffect(() => {
+        safeSetEntities(notificationsData);
+    }, [notificationsData]);
 
-    const updateNotifications = (
-        prevNotifications: Notification[],
-        updatedNotification: Notification,
-    ) => {
-        if (
-            updatedNotification.readDate &&
-            updatedNotification.status === NotificationStatus.Read
-        ) {
-            return prevNotifications.filter(
-                (notification) => notification.id !== updatedNotification.id,
-            );
-        }
-
-        return prevNotifications.map((notification) =>
-            notification.id === updatedNotification.id ? updatedNotification : notification,
-        );
-    };
-
-    const handleNotificationUpdate = (updatedNotification: Notification) => {
-        setNotifications((prev) => updateNotifications(prev, updatedNotification));
-
+    const onUpdate = (updatedNotification: Notification) => {
+        handleUpdate(updatedNotification, updateNotifications);
         queryClient.setQueryData(['user-notifications'], (prev: Notification[] = []) =>
             updateNotifications(prev, updatedNotification),
         );
     };
 
-    useEffect(() => {
-        if (notificationsData && Array.isArray(notificationsData)) {
-            setNotifications(notificationsData);
-        }
-    }, [notificationsData]);
-
     return (
-        <>
-            <MainPageLayout
-                pageName={'Notification Page'}
-                description={'Notification Page'}
-                isLoading={notificationsIsLoading || !shouldRender}>
-                <Column gap={'8'} className="max-w-6xl mx-auto w-full">
-                    <NotificationOverview
-                        notifications={notifications}
-                        onRetry={handleRetry}
-                        onUpdate={handleNotificationUpdate}
-                    />
-                </Column>
-            </MainPageLayout>
-        </>
+        <MainPageLayout
+            pageName={'Notification Page'}
+            description={'Notification Page'}
+            isLoading={isLoading || !shouldRender}>
+            <Column gap={'8'} className={'max-w-6xl mx-auto w-full'}>
+                <NotificationOverview
+                    notifications={entities}
+                    onRetry={onRetry}
+                    onUpdate={onUpdate}
+                />
+            </Column>
+        </MainPageLayout>
     );
 };
 

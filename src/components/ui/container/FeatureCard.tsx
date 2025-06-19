@@ -39,11 +39,9 @@ const FeatureCard: React.FC<Props> = ({ children, className, onClick, easeIn, is
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

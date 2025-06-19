@@ -20,11 +20,9 @@ const Row: React.FC<Props> = ({ children, className, onClick, gap }) => {
     };
 
     return (
-        <>
-            <div onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </div>
-        </>
+        <div onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </div>
     );
 };
 

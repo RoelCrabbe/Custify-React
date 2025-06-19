@@ -9,14 +9,12 @@ interface Props {
 
 const TableLoading: React.FC<Props> = ({ text = 'Loading info...', size = 64 }: Props) => {
     return (
-        <>
-            <div className="flex items-center justify-center h-96">
-                <Column className={'items-center text-gray-600'}>
-                    <ClipLoader size={size} color={'#2563eb'} />
-                    <p className="text-sm">{text}</p>
-                </Column>
-            </div>
-        </>
+        <div className="flex items-center justify-center h-96">
+            <Column className={'items-center text-gray-600'}>
+                <ClipLoader size={size} color={'#2563eb'} />
+                <p className="text-sm">{text}</p>
+            </Column>
+        </div>
     );
 };
 

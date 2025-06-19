@@ -42,37 +42,30 @@ const ModalContainer: React.FC<Props> = ({
     };
 
     return (
-        <>
-            <Modal index={index}>
-                <Card className={getCardClasses()}>
-                    <Column gap={gap}>
-                        <header className="flex items-center justify-between">
-                            <Row>
-                                <Centered className={'w-10 h-10 bg-blue-200 rounded-lg'}>
-                                    <FontAwesomeIcon
-                                        icon={icon}
-                                        className={'w-5 h-5 text-blue-600'}
-                                    />
-                                </Centered>
-                                <h3 className="text-lg font-semibold text-gray-900">{label}</h3>
-                            </Row>
-                            <button
-                                type="button"
-                                onClick={onClose}
-                                className="text-gray-400 hover:text-gray-600">
-                                <Centered>
-                                    <FontAwesomeIcon icon={faXmarkCircle} className={'h-6 w-6'} />
-                                </Centered>
-                            </button>
-                        </header>
-                        <Container className={'px-2'}>{children}</Container>
-                        {footer && (
-                            <footer className="pt-4 border-t border-gray-200">{footer}</footer>
-                        )}
-                    </Column>
-                </Card>
-            </Modal>
-        </>
+        <Modal index={index}>
+            <Card className={getCardClasses()}>
+                <Column gap={gap}>
+                    <header className="flex items-center justify-between">
+                        <Row>
+                            <Centered className={'w-10 h-10 bg-blue-200 rounded-lg'}>
+                                <FontAwesomeIcon icon={icon} className={'w-5 h-5 text-blue-600'} />
+                            </Centered>
+                            <h3 className="text-lg font-semibold text-gray-900">{label}</h3>
+                        </Row>
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="text-gray-400 hover:text-gray-600">
+                            <Centered>
+                                <FontAwesomeIcon icon={faXmarkCircle} className={'h-6 w-6'} />
+                            </Centered>
+                        </button>
+                    </header>
+                    <Container className={'px-2'}>{children}</Container>
+                    {footer && <footer className="pt-4 border-t border-gray-200">{footer}</footer>}
+                </Column>
+            </Card>
+        </Modal>
     );
 };
 

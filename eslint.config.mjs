@@ -49,6 +49,7 @@ export default [
             'react/jsx-key': 'error',
             'react-hooks/rules-of-hooks': 'error',
             'react-hooks/exhaustive-deps': 'off',
+            'react/jsx-no-useless-fragment': ['warn', { allowExpressions: false }],
             '@typescript-eslint/no-unused-vars': 'error',
             '@typescript-eslint/no-explicit-any': 'off',
             '@typescript-eslint/no-require-imports': 'error',

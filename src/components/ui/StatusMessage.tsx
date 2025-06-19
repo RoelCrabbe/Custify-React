@@ -48,14 +48,10 @@ const StatusMessage: React.FC<Props> = ({ labelMessage }: Props) => {
     };
 
     return (
-        <>
-            <div className={`${getBaseClasses()} ${getTypeClasses()}`}>
-                <div className={`${getLabelColorClass()} font-bold`}>{labelMessage.label}</div>
-                <div className={`${getMessageColorClass()} text-sm mt-1`}>
-                    {labelMessage.message}
-                </div>
-            </div>
-        </>
+        <div className={`${getBaseClasses()} ${getTypeClasses()}`}>
+            <div className={`${getLabelColorClass()} font-bold`}>{labelMessage.label}</div>
+            <div className={`${getMessageColorClass()} text-sm mt-1`}>{labelMessage.message}</div>
+        </div>
     );
 };
 

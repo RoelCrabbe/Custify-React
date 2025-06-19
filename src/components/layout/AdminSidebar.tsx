@@ -43,39 +43,35 @@ const AdminSidebar: React.FC = () => {
     };
 
     return (
-        <>
-            <SideBar className={getBarClassName()}>
-                <header className={getHeaderClassName()}>
-                    <div className="admin-sidebar__header-icon">
-                        <FontAwesomeIcon icon={faTools} />
-                    </div>
-                    <h2 className={getH2ClassName()}>Admin Panel</h2>
-                </header>
-
-                <nav>
-                    <ul className={getNavClassName()}>
-                        {adminNavItems.map((item) => (
-                            <li key={item.href}>
-                                <Link href={item.href} className={getLinkClassName(item)}>
-                                    <div className="admin-nav__icon">
-                                        <FontAwesomeIcon icon={item.icon} />
-                                    </div>
-                                    <span className={getSpanClassName()}>{item.label}</span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-
-                <div className={getFooterClassName()}>
-                    <Button.Primary
-                        onClick={() => setIsCollapsed(!isCollapsed)}
-                        className={'w-full'}>
-                        {isCollapsed ? <FontAwesomeIcon icon={faChevronRight} /> : 'Hide'}
-                    </Button.Primary>
+        <SideBar className={getBarClassName()}>
+            <header className={getHeaderClassName()}>
+                <div className="admin-sidebar__header-icon">
+                    <FontAwesomeIcon icon={faTools} />
                 </div>
-            </SideBar>
-        </>
+                <h2 className={getH2ClassName()}>Admin Panel</h2>
+            </header>
+
+            <nav>
+                <ul className={getNavClassName()}>
+                    {adminNavItems.map((item) => (
+                        <li key={item.href}>
+                            <Link href={item.href} className={getLinkClassName(item)}>
+                                <div className="admin-nav__icon">
+                                    <FontAwesomeIcon icon={item.icon} />
+                                </div>
+                                <span className={getSpanClassName()}>{item.label}</span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+
+            <div className={getFooterClassName()}>
+                <Button.Primary onClick={() => setIsCollapsed(!isCollapsed)} className={'w-full'}>
+                    {isCollapsed ? <FontAwesomeIcon icon={faChevronRight} /> : 'Hide'}
+                </Button.Primary>
+            </div>
+        </SideBar>
     );
 };
 

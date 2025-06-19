@@ -21,11 +21,9 @@ const SideBar: React.FC<Props> = ({ children, className, onClick }) => {
     };
 
     return (
-        <>
-            <aside onClick={onClick} className={getContainerClasses()}>
-                {children}
-            </aside>
-        </>
+        <aside onClick={onClick} className={getContainerClasses()}>
+            {children}
+        </aside>
     );
 };
 

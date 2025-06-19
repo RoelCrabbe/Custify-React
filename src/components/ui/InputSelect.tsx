@@ -121,58 +121,51 @@ function InputSelect<T extends string>({
     };
 
     return (
-        <>
-            <Column gap={'2'}>
-                <label
-                    className="input-field-label"
-                    htmlFor={`${label}-trigger`}
-                    id={`${label}-label`}>
-                    {label} {required && <span className="input-field-required">*</span>}
-                </label>
+        <Column gap={'2'}>
+            <label className="input-field-label" htmlFor={`${label}-trigger`} id={`${label}-label`}>
+                {label} {required && <span className="input-field-required">*</span>}
+            </label>
 
-                <div
-                    className={`relative ${isOpen ? 'select-container-open' : ''}`}
-                    ref={dropdownRef}>
-                    <button
-                        ref={buttonRef}
-                        type="button"
-                        id={`${label}-trigger`}
-                        onClick={() => !disabled && setIsOpen(!isOpen)}
-                        onKeyDown={handleKeyDown}
-                        disabled={disabled}
-                        aria-haspopup="listbox"
-                        aria-expanded={isOpen}
-                        aria-labelledby={`${label}-label`}
-                        className={`input-field-base select-trigger ${
-                            error ? 'input-field-error' : 'input-field-normal'
-                        } ${disabled ? 'input-field-disabled' : ''}`}>
-                        <span className={selectedOption ? 'select-value' : 'select-placeholder'}>
-                            {selectedOption ? selectedOption.label : placeholder}
-                        </span>
+            <div className={`relative ${isOpen ? 'select-container-open' : ''}`} ref={dropdownRef}>
+                <button
+                    ref={buttonRef}
+                    type="button"
+                    id={`${label}-trigger`}
+                    onClick={() => !disabled && setIsOpen(!isOpen)}
+                    onKeyDown={handleKeyDown}
+                    disabled={disabled}
+                    aria-haspopup="listbox"
+                    aria-expanded={isOpen}
+                    aria-labelledby={`${label}-label`}
+                    className={`input-field-base select-trigger ${
+                        error ? 'input-field-error' : 'input-field-normal'
+                    } ${disabled ? 'input-field-disabled' : ''}`}>
+                    <span className={selectedOption ? 'select-value' : 'select-placeholder'}>
+                        {selectedOption ? selectedOption.label : placeholder}
+                    </span>
 
-                        <FontAwesomeIcon icon={faChevronDown} className={getArrowClasses()} />
-                    </button>
+                    <FontAwesomeIcon icon={faChevronDown} className={getArrowClasses()} />
+                </button>
 
-                    {isOpen && !disabled && (
-                        <Card className={'select-dropdown'}>
-                            {generatedOptions.map((option, index) => (
-                                <button
-                                    key={option.value}
-                                    type="button"
-                                    onClick={() => handleSelect(option.value)}
-                                    role="option"
-                                    aria-selected={option.value === value}
-                                    className={getOptionClasses(option, index)}>
-                                    {option.label}
-                                </button>
-                            ))}
-                        </Card>
-                    )}
+                {isOpen && !disabled && (
+                    <Card className={'select-dropdown'}>
+                        {generatedOptions.map((option, index) => (
+                            <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => handleSelect(option.value)}
+                                role="option"
+                                aria-selected={option.value === value}
+                                className={getOptionClasses(option, index)}>
+                                {option.label}
+                            </button>
+                        ))}
+                    </Card>
+                )}
 
-                    {error && <span className="input-field-error-text">{error}</span>}
-                </div>
-            </Column>
-        </>
+                {error && <span className="input-field-error-text">{error}</span>}
+            </div>
+        </Column>
     );
 }
 

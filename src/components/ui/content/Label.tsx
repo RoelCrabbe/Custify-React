@@ -16,11 +16,9 @@ const Label: React.FC<Props> = ({ children, className, onClick }) => {
     };
 
     return (
-        <>
-            <label onClick={onClick} className={getContentClasses()}>
-                {children}
-            </label>
-        </>
+        <label onClick={onClick} className={getContentClasses()}>
+            {children}
+        </label>
     );
 };
 

@@ -45,18 +45,13 @@ const Register: React.FC = () => {
     };
 
     return (
-        <>
-            <AuthPageLayout
-                pageName={'Register'}
-                description={'Register'}
-                isLoading={!shouldRender}>
-                <UserRegisterForm
-                    onSubmit={handleRegister}
-                    onClearError={() => setLabelMessage(undefined)}>
-                    {labelMessage && <StatusMessage labelMessage={labelMessage} />}
-                </UserRegisterForm>
-            </AuthPageLayout>
-        </>
+        <AuthPageLayout pageName={'Register'} description={'Register'} isLoading={!shouldRender}>
+            <UserRegisterForm
+                onSubmit={handleRegister}
+                onClearError={() => setLabelMessage(undefined)}>
+                {labelMessage && <StatusMessage labelMessage={labelMessage} />}
+            </UserRegisterForm>
+        </AuthPageLayout>
     );
 };
 

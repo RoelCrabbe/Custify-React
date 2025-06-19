@@ -1,33 +1,18 @@
 import ErrorLogManagement from '@components/admin/errorLogManagement/ErrorLogManagement';
 import AdminPageLayout from '@components/layout/AdminPageLayout';
 import { useRequireAdmin } from '@hooks/useAuthGuard';
+import { useEntityList } from '@hooks/useEntity';
+import { updateErrorLogs } from '@lib';
 import { errorLogService } from '@services/index';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { ErrorLog, ErrorStatus } from '@types';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
 const ReportsPage: React.FC = () => {
-    const queryClient = useQueryClient();
     const { shouldRender } = useRequireAdmin();
     const [selectedStatus, setSelectedStatus] = useState<ErrorStatus>(ErrorStatus.New);
-    const [errorLogs, setErrorLogs] = useState<ErrorLog[]>([]);
-
-    const {
-        data: errorLogsData,
-        error: errorLogsError,
-        isError: errorLogsIsError,
-        isLoading: errorLogsIsLoading,
-    } = useQuery({
-        queryKey: ['error-logs', selectedStatus],
-        staleTime: 3 * 60 * 1000,
-        enabled: shouldRender,
-        queryFn: () => getErrorLogsByStatus(selectedStatus),
-    });
-
-    const handleRetry = () => {
-        queryClient.invalidateQueries({ queryKey: ['user-management'] });
-    };
+    const { entities, handleUpdate, safeSetEntities } = useEntityList<ErrorLog>([]);
 
     const getErrorLogsByStatus = async (status: ErrorStatus) => {
         let response;
@@ -47,50 +32,44 @@ const ReportsPage: React.FC = () => {
         return response.ok ? await response.json() : [];
     };
 
-    const handleErrorLogUpdate = (updatedErrorLog: ErrorLog) => {
-        const { id, status } = updatedErrorLog;
-        const statusChanged = status !== selectedStatus;
-
-        setErrorLogs((prev) => {
-            const existing = prev.find((log) => log.id === id);
-            if (!existing) return prev;
-
-            return statusChanged
-                ? prev.filter((log) => log.id !== id)
-                : prev.map((log) => (log.id === id ? updatedErrorLog : log));
-        });
-
-        queryClient.invalidateQueries({ queryKey: ['error-logs'] });
-    };
-
-    const handleStatusChange = (status: ErrorStatus) => {
-        setSelectedStatus(status);
-    };
+    const {
+        data: errorLogsData,
+        isError,
+        isLoading,
+        refetch: onRetry,
+    } = useQuery({
+        queryKey: ['error-logs', selectedStatus],
+        staleTime: 3 * 60 * 1000,
+        enabled: shouldRender,
+        queryFn: () => getErrorLogsByStatus(selectedStatus),
+    });
 
     useEffect(() => {
-        if (errorLogsData && Array.isArray(errorLogsData)) {
-            setErrorLogs(errorLogsData);
-        }
+        safeSetEntities(errorLogsData);
     }, [errorLogsData]);
 
+    const onUpdate = (updatedErrorLog: ErrorLog) => {
+        handleUpdate(updatedErrorLog, (prev) =>
+            updateErrorLogs(prev, updatedErrorLog, selectedStatus),
+        );
+        onRetry();
+    };
+
     return (
-        <>
-            <AdminPageLayout
-                pageName={'User Management'}
-                description={'Manage and monitor user accounts'}
-                isLoading={errorLogsIsLoading || !shouldRender}>
-                <ErrorLogManagement
-                    selectedStatus={selectedStatus}
-                    errorLogs={errorLogs}
-                    error={errorLogsError}
-                    isError={errorLogsIsError}
-                    isLoading={errorLogsIsLoading}
-                    onUpdate={handleErrorLogUpdate}
-                    onRetry={handleRetry}
-                    onStatusChange={handleStatusChange}
-                />
-            </AdminPageLayout>
-        </>
+        <AdminPageLayout
+            pageName={'User Management'}
+            description={'Manage and monitor user accounts'}
+            isLoading={isLoading || !shouldRender}>
+            <ErrorLogManagement
+                selectedStatus={selectedStatus}
+                errorLogs={entities}
+                isError={isError}
+                isLoading={isLoading}
+                onUpdate={onUpdate}
+                onRetry={onRetry}
+                onStatusChange={() => setSelectedStatus}
+            />
+        </AdminPageLayout>
     );
 };
 

@@ -104,78 +104,71 @@ const ProfileChangePasswordModal: React.FC<Props> = ({ user, onClose, onUpdate }
     };
 
     return (
-        <>
-            <ModalContainer
-                onClose={onClose}
-                label={'Change Password'}
-                icon={faLock}
-                gap={'4'}
-                footer={
-                    <>
-                        <div className="flex justify-end gap-4">
-                            <Button.Primary onClick={handleSubmit} disabled={isButtonDisabled}>
-                                <FontAwesomeIcon icon={faSave} className={'h-4 w-4'} />
-                                Update Password
-                            </Button.Primary>
-                        </div>
-                    </>
-                }>
-                <form>
-                    <Column>
-                        <Card
-                            className={
-                                'bg-gradient-to-br from-yellow-100 to-yellow-200 border-yellow-200 px-6 py-3'
-                            }>
-                            <p className="text-sm text-yellow-800">
-                                <strong>Security Notice:</strong> You must enter your current
-                                password to verify your identity before setting a new password.
-                            </p>
-                        </Card>
+        <ModalContainer
+            onClose={onClose}
+            label={'Change Password'}
+            icon={faLock}
+            gap={'4'}
+            footer={
+                <div className="flex justify-end gap-4">
+                    <Button.Primary onClick={handleSubmit} disabled={isButtonDisabled}>
+                        <FontAwesomeIcon icon={faSave} className={'h-4 w-4'} />
+                        Update Password
+                    </Button.Primary>
+                </div>
+            }>
+            <form>
+                <Column>
+                    <Card
+                        className={
+                            'bg-gradient-to-br from-yellow-100 to-yellow-200 border-yellow-200 px-6 py-3'
+                        }>
+                        <p className="text-sm text-yellow-800">
+                            <strong>Security Notice:</strong> You must enter your current password
+                            to verify your identity before setting a new password.
+                        </p>
+                    </Card>
 
-                        <Card
-                            className={
-                                'bg-gradient-to-br from-gray-100 to-gray-200 px-6 pb-6 py-3'
-                            }>
-                            <Column>
-                                <InputField
-                                    type="password"
-                                    label="Current Password"
-                                    value={currentPassWord}
-                                    onChange={setCurrentPassWord}
-                                    placeholder="Enter your current password for verification"
-                                    required
-                                />
+                    <Card className={'bg-gradient-to-br from-gray-100 to-gray-200 px-6 pb-6 py-3'}>
+                        <Column>
+                            <InputField
+                                type="password"
+                                label="Current Password"
+                                value={currentPassWord}
+                                onChange={setCurrentPassWord}
+                                placeholder="Enter your current password for verification"
+                                required
+                            />
 
-                                <InputField
-                                    type="password"
-                                    label="New Password"
-                                    value={newPassWord}
-                                    onChange={setNewPassWord}
-                                    validate={validatePassWord}
-                                    placeholder="Enter your new password"
-                                    required
-                                />
+                            <InputField
+                                type="password"
+                                label="New Password"
+                                value={newPassWord}
+                                onChange={setNewPassWord}
+                                validate={validatePassWord}
+                                placeholder="Enter your new password"
+                                required
+                            />
 
-                                <InputField
-                                    type="password"
-                                    label="Confirm New Password"
-                                    value={confirmPassWord}
-                                    onChange={setConfirmPassWord}
-                                    placeholder="Re-enter your new password"
-                                    required
-                                />
+                            <InputField
+                                type="password"
+                                label="Confirm New Password"
+                                value={confirmPassWord}
+                                onChange={setConfirmPassWord}
+                                placeholder="Re-enter your new password"
+                                required
+                            />
 
-                                {labelMessage && (
-                                    <section className="mx-auto w-[500px]">
-                                        <StatusMessage labelMessage={labelMessage} />
-                                    </section>
-                                )}
-                            </Column>
-                        </Card>
-                    </Column>
-                </form>
-            </ModalContainer>
-        </>
+                            {labelMessage && (
+                                <section className="mx-auto w-[500px]">
+                                    <StatusMessage labelMessage={labelMessage} />
+                                </section>
+                            )}
+                        </Column>
+                    </Card>
+                </Column>
+            </form>
+        </ModalContainer>
     );
 };
 
