@@ -7,6 +7,7 @@ import Row from '@components/ui/container/Row';
 import UserAvatar from '@components/ui/UserAvatar';
 import { faEdit, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNotificationWS } from '@hooks/useNotificationWS';
 import { capitalizeFirstLetter } from '@lib';
 import { notificationService } from '@services/index';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -27,6 +28,7 @@ interface Props {
 
 const UserEditModalHeader: React.FC<Props> = ({ user }) => {
     const queryClient = useQueryClient();
+    const { sendMessage } = useNotificationWS();
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
     const { data: notificationsData, isLoading } = useQuery({
@@ -58,6 +60,11 @@ const UserEditModalHeader: React.FC<Props> = ({ user }) => {
 
         await notificationService.createNotification(formData);
         queryClient.invalidateQueries({ queryKey: ['reported-profile-picture', user.id] });
+
+        sendMessage({
+            type: 'notification-new',
+            content: 'A new notification was created',
+        });
     };
 
     return (
