@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 interface NotificationMessage {
     type: 'notification-new';
     content: string;
+    recipientById?: number;
     timestamp?: string;
 }
 

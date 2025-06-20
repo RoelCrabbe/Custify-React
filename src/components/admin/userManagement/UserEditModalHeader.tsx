@@ -64,6 +64,7 @@ const UserEditModalHeader: React.FC<Props> = ({ user }) => {
         sendMessage({
             type: 'notification-new',
             content: 'A new notification was created',
+            recipientId: user.id,
         });
     };
 
