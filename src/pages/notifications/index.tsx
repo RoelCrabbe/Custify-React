@@ -3,7 +3,6 @@ import NotificationOverview from '@components/notification/NotificationOverview'
 import Column from '@components/ui/container/Column';
 import { useRequireAuth } from '@hooks/useAuthGuard';
 import { useEntityList } from '@hooks/useEntity';
-import { useNotificationWS } from '@hooks/useNotificationWS';
 import { updateNotifications } from '@lib';
 import { notificationService } from '@services/index';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -40,8 +39,6 @@ const NotificationsPage: React.FC = () => {
             updateNotifications(prev, updatedNotification),
         );
     };
-
-    useNotificationWS(() => onRetry());
 
     return (
         <MainPageLayout

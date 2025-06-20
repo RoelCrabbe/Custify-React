@@ -1,19 +1,22 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRequireAuth } from '@hooks/useAuthGuard';
+import { useEntityList } from '@hooks/useEntity';
+import { useNotificationWS } from '@hooks/useNotificationWS';
 import { notificationService } from '@services/index';
 import { useQuery } from '@tanstack/react-query';
 import { Notification } from '@types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const NotificationWidget: React.FC = () => {
     const { shouldRender } = useRequireAuth();
-    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const { entities, safeSetEntities } = useEntityList<Notification>([]);
+    const count = entities.length ?? 0;
 
-    const { data: notificationsData } = useQuery({
+    const { data: notificationsData, refetch: onRetry } = useQuery({
         queryKey: ['user-notifications'],
-        staleTime: 3 * 60 * 1000,
+        staleTime: 10 * 60 * 1000,
         enabled: shouldRender,
         queryFn: async () => {
             const response = await notificationService.getCurrentUserNotifications();
@@ -22,12 +25,10 @@ const NotificationWidget: React.FC = () => {
     });
 
     useEffect(() => {
-        if (notificationsData && Array.isArray(notificationsData)) {
-            setNotifications(notificationsData);
-        }
+        safeSetEntities(notificationsData);
     }, [notificationsData]);
 
-    const count = notifications.length ?? 0;
+    useNotificationWS(() => onRetry());
 
     return (
         <div className="settings-widget">

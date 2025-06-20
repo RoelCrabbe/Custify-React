@@ -1,4 +1,4 @@
-import { processEnv } from '@lib';
+import { getToken, processEnv } from '@lib';
 import { useEffect, useRef, useState } from 'react';
 
 interface NotificationMessage {
@@ -12,7 +12,8 @@ export const useNotificationWS = (onNotificationReceived?: (content: string) => 
     const wsRef = useRef<WebSocket | null>(null);
 
     useEffect(() => {
-        const ws = new WebSocket(processEnv.getWebSocketUrl());
+        const token = getToken();
+        const ws = new WebSocket(`${processEnv.getWebSocketUrl()}?token=${token}`);
         wsRef.current = ws;
 
         ws.onmessage = (event) => {
