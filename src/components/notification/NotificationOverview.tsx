@@ -26,8 +26,8 @@ const NotificationOverview: React.FC<Props> = ({ notifications, onRetry, onUpdat
             <Card className={'px-6 py-4'}>
                 <Row className={'justify-between'}>
                     <Row>
-                        <Centered className={'w-10 h-10 bg-blue-200 rounded-lg'}>
-                            <FontAwesomeIcon icon={faBell} className={'w-5 h-5 text-blue-600'} />
+                        <Centered className={'w-12 h-12 bg-blue-200 rounded-lg'}>
+                            <FontAwesomeIcon icon={faBell} className={'w-6 h-6 text-blue-600'} />
                         </Centered>
                         <div>
                             <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
@@ -39,17 +39,21 @@ const NotificationOverview: React.FC<Props> = ({ notifications, onRetry, onUpdat
                         </div>
                     </Row>
 
-                    {notifications.length < 3 ? (
-                        <Button.Secondary onClick={onRetry}>
-                            <FontAwesomeIcon icon={faSyncAlt} className={'w-4 h-4'} />
-                            Refresh
-                        </Button.Secondary>
-                    ) : (
-                        <Button.Primary onClick={markAllAsRead}>
-                            <FontAwesomeIcon icon={faEnvelopeOpenText} className={'w-4 h-4'} />
-                            Mark all as read
-                        </Button.Primary>
-                    )}
+                    <Row>
+                        {notifications.length <= 3 && (
+                            <Button.Secondary onClick={onRetry}>
+                                <FontAwesomeIcon icon={faSyncAlt} className={'w-4 h-4'} />
+                                Refresh
+                            </Button.Secondary>
+                        )}
+
+                        {notifications.length !== 0 && (
+                            <Button.Primary onClick={markAllAsRead}>
+                                <FontAwesomeIcon icon={faEnvelopeOpenText} className={'w-4 h-4'} />
+                                Mark all as read
+                            </Button.Primary>
+                        )}
+                    </Row>
                 </Row>
             </Card>
 
