@@ -115,36 +115,6 @@ const apiConfig = {
 };
 ```
 
-## 📱 Usage
-
-### Authentication
-
-```typescript
-// Login example
-const handleLogin = async (email: string, password: string) => {
-    const response = await fetch(`${process.env.NEXT_BASE_API_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-    });
-
-    const { token } = await response.json();
-    // Store token for subsequent requests
-};
-```
-
-### Real-time Updates
-
-```typescript
-// WebSocket connection example
-const socket = new WebSocket(process.env.NEXT_WEBSOCKET_API_URL);
-
-socket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    // Handle real-time updates
-};
-```
-
 ## 🤝 Contributing
 
 We welcome contributions to the Custify Frontend! Here's how you can help:
