@@ -23,7 +23,7 @@
 
 Custify is a modern customer relationship management (CRM) platform designed with simplicity and efficiency in mind. Unlike traditional, bloated CRM systems, Custify focuses on providing essential customer management features with real-time interactions and a clean, intuitive interface.
 
-This frontend works seamlessly with the [Custify TypeScript Backend](https://github.com/RoelCrabbe/Custify-TypeScript) to deliver a complete CRM solution.
+This frontend works seamlessly with the [Custify TypeScript Backend](https://github.com/RoelCrabbe/Custify-TypeScript) and [Custify WebSocket Server](https://github.com/RoelCrabbe/Custify-WebSocket) to deliver a complete CRM solution.
 
 ### ✨ Key Features
 
@@ -32,17 +32,19 @@ This frontend works seamlessly with the [Custify TypeScript Backend](https://git
 - **🔄 Customer Management** - Comprehensive contact and lead tracking
 - **📊 Dashboard Analytics** - Visual insights into your customer data
 - **🚀 Fast Performance** - Built with Next.js for optimal loading speeds
-- **🔒 Secure** - Industry-standard security practices
+- **🔒 Secure Authentication** - JWT-based user authentication and authorization
 - **📱 Mobile Responsive** - Works seamlessly across all devices
+- **🎨 Component-Based** - Modular React components for maintainable code
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18, Next.js 14
-- **Styling**: Tailwind CSS
+- **Frontend Framework**: React 18, Next.js 14
 - **Language**: TypeScript
-- **Real-time**: WebSocket connections
+- **Styling**: Tailwind CSS
 - **State Management**: React Context/Hooks
 - **HTTP Client**: Fetch API
+- **Real-time**: WebSocket connections
+- **Authentication**: JWT tokens
 
 ## 📦 Installation
 
@@ -50,7 +52,8 @@ This frontend works seamlessly with the [Custify TypeScript Backend](https://git
 
 - Node.js (v18 or higher)
 - npm or yarn
-- Backend API server running
+- [Custify Backend](https://github.com/RoelCrabbe/Custify-TypeScript) running
+- [Custify WebSocket Server](https://github.com/RoelCrabbe/Custify-WebSocket) running
 
 ### Quick Start
 
@@ -101,7 +104,7 @@ This frontend works seamlessly with the [Custify TypeScript Backend](https://git
 | `NEXT_BASE_API_URL`      | Backend API base URL     | ✅       | `http://localhost:8080` |
 | `NEXT_WEBSOCKET_API_URL` | WebSocket connection URL | ✅       | `ws://localhost:8765`   |
 
-### Frontend Configuration
+### API Configuration
 
 ```typescript
 // Example API configuration
@@ -109,6 +112,36 @@ const apiConfig = {
     baseURL: process.env.NEXT_BASE_API_URL,
     websocketURL: process.env.NEXT_WEBSOCKET_API_URL,
     timeout: 10000,
+};
+```
+
+## 📱 Usage
+
+### Authentication
+
+```typescript
+// Login example
+const handleLogin = async (email: string, password: string) => {
+    const response = await fetch(`${process.env.NEXT_BASE_API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+    });
+
+    const { token } = await response.json();
+    // Store token for subsequent requests
+};
+```
+
+### Real-time Updates
+
+```typescript
+// WebSocket connection example
+const socket = new WebSocket(process.env.NEXT_WEBSOCKET_API_URL);
+
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    // Handle real-time updates
 };
 ```
 
@@ -129,6 +162,11 @@ We welcome contributions to the Custify Frontend! Here's how you can help:
 - Write comprehensive tests
 - Use conventional commit messages
 - Ensure responsive design principles
+- Keep components modular and reusable
+
+## 📚 Documentation
+
+For detailed documentation, visit our [Documentation Wiki](https://github.com/RoelCrabbe/Custify-React/wiki).
 
 ## 📝 License
 
@@ -142,7 +180,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Related Projects
 
-- **Backend**: [Custify-TypeScript](https://github.com/RoelCrabbe/Custify-TypeScript) - TypeScript backend for Custify CRM
+- **Backend**: [Custify-TypeScript](https://github.com/RoelCrabbe/Custify-TypeScript) - TypeScript backend API
+- **WebSocket**: [Custify-WebSocket](https://github.com/RoelCrabbe/Custify-WebSocket) - Real-time WebSocket server
 - **Mobile**: Coming soon - React Native mobile app
 
 ## 🙏 Acknowledgments
@@ -150,6 +189,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with [Next.js](https://nextjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - TypeScript for type safety
+- React for component architecture
 
 ## 📊 Project Status
 
