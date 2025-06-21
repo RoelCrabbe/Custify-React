@@ -24,8 +24,8 @@ const ProfileImageUploader: React.FC<Props> = ({
     className = '',
     size = 'xxl',
 }) => {
-    const [profileImage, setProfileImage] = useState<File | null>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(user.profileImage?.url || null);
+    const [userImage, setUserImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(user.userImage?.url || null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const getSizeClasses = () => {
@@ -82,7 +82,7 @@ const ProfileImageUploader: React.FC<Props> = ({
                 return;
             }
 
-            setProfileImage(compressed);
+            setUserImage(compressed);
 
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -106,8 +106,8 @@ const ProfileImageUploader: React.FC<Props> = ({
     };
 
     const handleImageRemove = () => {
-        setProfileImage(null);
-        const originalPreview = user.profileImage?.url || null;
+        setUserImage(null);
+        const originalPreview = user.userImage?.url || null;
         setImagePreview(originalPreview);
         onImageChange(null, originalPreview);
 
@@ -136,7 +136,7 @@ const ProfileImageUploader: React.FC<Props> = ({
                         title="Change profile image">
                         <FontAwesomeIcon icon={faCamera} className="text-white text-3xl" />
                     </button>
-                    {profileImage && (
+                    {userImage && (
                         <button
                             type="button"
                             onClick={handleImageRemove}

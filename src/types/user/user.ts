@@ -10,7 +10,7 @@ export type User = {
     email: string;
     passWord: string;
     phoneNumber?: string;
-    profileImage?: UserImage;
+    userImage?: UserImage;
 };
 
 export type UserImage = {
