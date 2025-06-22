@@ -67,7 +67,7 @@ const ReportsPage: React.FC = () => {
                 isLoading={isLoading}
                 onUpdate={onUpdate}
                 onRetry={onRetry}
-                onStatusChange={() => setSelectedStatus}
+                onStatusChange={setSelectedStatus}
             />
         </AdminPageLayout>
     );
