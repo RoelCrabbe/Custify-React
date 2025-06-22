@@ -54,11 +54,11 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [labelMessage, setLabelMessage] = useState<LabelMessage>();
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [userImage, setUserImage] = useState<File | null>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(user.userImage?.url || null);
+    const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(user.profileImage?.url || null);
 
     const handleImageChange = (file: File | null, preview: string | null) => {
-        setUserImage(file);
+        setProfileImage(file);
         setImagePreview(preview);
     };
 
@@ -77,7 +77,7 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
             email !== user.email ||
             phoneNumber !== (user.phoneNumber || '') ||
             userName !== user.userName ||
-            userImage !== null
+            profileImage !== null
         );
     };
 
@@ -125,13 +125,13 @@ const ProfileEditForm: React.FC<Props> = ({ user, onClose, onUpdate }) => {
             email,
             phoneNumber,
             userName,
-            userImage: userImage
+            profileImage: profileImage
                 ? {
                       url: imagePreview,
                       altText: `${firstName} ${lastName} Profile Image`,
-                      fileName: userImage.name,
-                      fileSize: userImage.size,
-                      mimeType: userImage.type,
+                      fileName: profileImage.name,
+                      fileSize: profileImage.size,
+                      mimeType: profileImage.type,
                   }
                 : undefined,
         };

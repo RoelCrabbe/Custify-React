@@ -10,10 +10,10 @@ export type User = {
     email: string;
     passWord: string;
     phoneNumber?: string;
-    userImage?: UserImage;
+    profileImage?: ProfileImage;
 };
 
-export type UserImage = {
+export type ProfileImage = {
     id?: number;
     url: string;
     altText: string;
